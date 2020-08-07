@@ -31,7 +31,7 @@ class AuthController extends Controller
                 'confirm_password' => 'min:6',
                 'house_no' => 'required',
                 'address' => 'required',
-                'landmark' => 'required',
+                // 'landmark' => 'required',
                 'address_type' => 'required'
             ]);
 
@@ -125,6 +125,50 @@ class AuthController extends Controller
 
     public function delivery_boy_signup(Request $request)
     {
+        try {
+            $validator = Validator::make($request->all(), [
+                'name' => 'required',
+                'email' => ['required', 'email', Rule::unique('users', 'email')],
+                'contact_no' => ['required', Rule::unique('users', 'contact_no')],
+                'password' => 'required|min:6|required_with:confirm_password|same:confirm_password',
+                'confirm_password' => 'min:6',
+                'house_no' => 'required',
+                'address' => 'required',
+                'address_type' => 'required'
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
+
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'contact_no' => $request->contact_no,
+                'password' => Hash::make($request->password),
+            ]);
+
+            RoleUser::create([
+                'user_id' => $user->id,
+                'role_id' => 4
+            ]);
+
+            $coordinate = Geocoder::getCoordinatesForAddress($request->address);
+
+            Address::create([
+                'user_id' => $user->id,
+                'house_no' => $request->house_no,
+                'address' => $request->address,
+                'landmark' => $request->landmark,
+                'type' => $request->address_type,
+                'latitude' => $coordinate['lat'],
+                'longitude' => $coordinate['lng'],
+            ]);
+
+            return response()->json(['success' => 'register successfull']);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e], 500);
+        }
     }
 
     public function login(Request $request)

@@ -13,8 +13,12 @@
             <h3>Welcome Dailybasket</h3>
           </div>
           <form id="loginForm" @submit.prevent="login">
-            <div class="alert alert-danger animate_animated animate__bounceIn" role="alert">
-              <strong>danger</strong>
+            <div
+              class="alert alert-danger animate__animated animate__bounceIn"
+              v-show="credentialError"
+              role="alert"
+            >
+              <strong>{{credentialErrorMessage}}</strong>
             </div>
             <div class="form-group">
               <input
@@ -23,16 +27,16 @@
                 class="form-control"
                 :class="{
                                     'is-invalid':
-                                        submitted && $v.user.email.$error
+                                        formError && $v.user.email.$error
                                 }"
                 placeholder="Email"
               />
               <span
-                v-if="submitted && !$v.user.email.required"
+                v-if="formError && !$v.user.email.required"
                 class="invalid-feedback"
               >Email is required</span>
               <span
-                v-if="submitted && !$v.user.email.email"
+                v-if="formError && !$v.user.email.email"
                 class="invalid-feedback"
               >Enter a valid email</span>
             </div>
@@ -43,12 +47,12 @@
                 v-model="user.password"
                 :class="{
                                     'is-invalid':
-                                        submitted && $v.user.password.$error
+                                        formError && $v.user.password.$error
                                 }"
                 placeholder="Password"
               />
               <span
-                v-if="submitted && !$v.user.email.required"
+                v-if="formError && !$v.user.email.required"
                 class="invalid-feedback"
               >Password is required</span>
             </div>
@@ -64,7 +68,15 @@
               </div>
             </div>
             <div class="frm_btm">
-              <button type="submit" class="btn btn-primary btn-block">Login</button>
+              <button type="submit" class="btn btn-primary btn-block" :disabled="submitted">
+                Login
+                <span
+                  class="fa fa-circle-o-notch fa-spin"
+                  role="status"
+                  aria-hidden="true"
+                  v-show="submitted"
+                ></span>
+              </button>
             </div>
             <div class="frm_alter_btn text-center">
               <h4>
@@ -85,10 +97,12 @@
 </template>
 
 <script>
-import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
+import {
+  required, email,
+} from 'vuelidate/lib/validators';
 
 export default {
-  data() {
+  data () {
     return {
       user: {
         email: null,
@@ -96,6 +110,9 @@ export default {
       },
       remember: false,
       submitted: false,
+      formError: false,
+      credentialError: false,
+      credentialErrorMessage: null,
     };
   },
   validations: {
@@ -110,45 +127,41 @@ export default {
     },
   },
   methods: {
-    login(e) {
-      // e.preventDefault();
+    login () {
       this.submitted = true;
+      this.formError = false;
 
       this.$v.$touch();
       if (this.$v.$invalid) {
+        this.formError = true;
+        this.submitted = false;
         return;
       }
 
-      $(".frm_btm .btn").append(
-        ' <span class="fa fa-circle-o-notch fa-spin" role="status" aria-hidden="true"></span>'
-      );
-      $(".frm_btm .btn").attr("disabled", "disabled");
-
       this.$store
-        .dispatch("auth/login", this.user)
+        .dispatch('auth/login', this.user)
         .then(() => {
-          $("#log_in_modal").modal("hide");
-          const form = $("#loginForm");
-          form.find(".frm_btm .btn").removeAttr("disabled");
-          form.find(".frm_btm .btn .fa-circle-o-notch").remove();
+          $('#log_in_modal').modal('hide');
+          this.submitted = false;
+          this.formError = false;
+          this.resetForm();
         })
         .catch((error) => {
-          const form = $("#loginForm");
-          form.find(".alert-danger strong").html(error.response.data.error);
-          form.find(".alert").show();
-          form.find(".frm_btm .btn").removeAttr("disabled");
-          form.find(".frm_btm .btn .fa-circle-o-notch").remove();
-          this.resetForm();
-          this.submitted = false;
+          if (error.response.status === 400) {
+            this.credentialErrorMessage = error.response.data.error;
+            this.credentialError = true;
+            this.submitted = false;
+            this.resetForm();
+          }
           setTimeout(() => {
-            $(".alert-danger").hide();
+            this.credentialError = false;
           }, 3000);
         });
     },
-    resetForm() {
-      var self = this;
-      Object.keys(this.user).forEach(function (key, index) {
-        self.user[key] = "";
+    resetForm () {
+      const self = this;
+      Object.keys(this.user).forEach((key) => {
+        self.user[key] = '';
       });
     },
   },
@@ -156,7 +169,4 @@ export default {
 </script>
 
 <style scoped>
-.alert-danger {
-  display: none;
-}
 </style>

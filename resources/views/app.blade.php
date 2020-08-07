@@ -26,8 +26,6 @@
     <script src="{{mix('js/app.js')}}"></script>
 
     <!-- Required vendors -->
-    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('vendor/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('vendor/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
     <!-- Here is navigation script -->
     <script src="{{ asset('vendor/quixnav/quixnav.min.js') }}"></script>
@@ -40,14 +38,12 @@
     <!-- Daterange picker library -->
     <script src="{{ asset('vendor/moment/moment.min.js') }}"></script>
     <script src="{{ asset('vendor/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
-    <!-- Vectormap -->
-    {{-- <script src="{{ asset('vendor/jqvmap/js/jquery.vmap.min.js') }}"></script>
-    <script src="{{ asset('vendor/jqvmap/js/jquery.vmap.world.js') }}"></script> --}}
     <!-- daterangepicker init -->
     <!-- <script src="{{ asset('./js/plugins-init/card-headerdatepicker-init.js') }}"></script> -->
     <script src="{{ asset('vendor/chart.js/Chart.bundle.min.js') }}"></script>
     <script src="{{ asset('js/dashboard/dashboard-1.js') }}"></script>
     <script src="{{ asset('js/my_js.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </body>
 <!-- Mirrored from demo.themefisher.com/corbin/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 03 Jul 2020 07:39:56 GMT -->
 

@@ -1,28 +1,28 @@
-import axios from "axios";
+// import axios from "axios";
 
 const state = {
-    users: []
+    // users: []
 };
 
 const getters = {
-    users: state => state.users
+    // users: state => state.users
 };
 
 const mutations = {
-    users(state, users) {
-        state.users = users;
-    }
+    // users(state, users) {
+    //     state.users = users;
+    // }
 };
 
 const actions = {
-    async users({ commit }) {
-        return axios
-            .get("/api/user")
-            .then(res => res.data)
-            .then(res => {
-                commit("users", res.data);
-            });
-    }
+    // async users({ commit }) {
+    //     return axios
+    //         .get("/api/user")
+    //         .then(res => res.data)
+    //         .then(res => {
+    //             commit("users", res.data);
+    //         });
+    // }
 };
 
 export default {

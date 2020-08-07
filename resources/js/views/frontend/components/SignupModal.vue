@@ -1,5 +1,5 @@
 <template>
-  <div class="modal fade" id="sign_up_modal">
+  <div class="modal fade" ref="my-modal" id="sign_up_modal">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content modal_form">
         <div class="modal-header">
@@ -17,43 +17,46 @@
             <div class="chk_inn">
               <div class="form-check">
                 <input
-                  id="customer"
+                  id="customerFormRadio"
                   class="form-check-input"
                   type="radio"
-                  name="sign_as"
                   value="customer"
+                  name="sign_up_form_radio"
+                  @change="changeForm"
                   checked
                 />
-                <label class="form-check-label" for="customer">Customer</label>
+                <label class="form-check-label" for="customerFormRadio">Customer</label>
               </div>
               <div class="form-check">
                 <input
-                  id="seller"
+                  id="sellerFormRadio"
                   class="form-check-input"
                   type="radio"
-                  name="sign_as"
                   value="seller"
+                  name="sign_up_form_radio"
+                  @change="changeForm"
                 />
-                <label class="form-check-label" for="seller">Seller</label>
+                <label class="form-check-label" for="sellerFormRadio">Seller</label>
               </div>
               <div class="form-check">
                 <input
-                  id="delivery"
+                  id="deliveryFormRadio"
                   class="form-check-input"
                   type="radio"
-                  name="sign_as"
                   value="delivery"
+                  name="sign_up_form_radio"
+                  @change="changeForm"
                 />
-                <label class="form-check-label" for="delivery">Delivery</label>
+                <label class="form-check-label" for="deliveryFormRadio">Delivery</label>
               </div>
             </div>
           </div>
 
-          <CustomerRegisterForm />
+          <CustomerRegisterForm v-show="registerFormShow=='customer'" />
 
-          <SellerRegisterForm />
+          <SellerRegisterForm v-show="registerFormShow=='seller'" />
 
-          <DeliveryRegisterForm />
+          <DeliveryRegisterForm v-show="registerFormShow=='delivery'" />
         </div>
       </div>
     </div>
@@ -61,31 +64,25 @@
 </template>
 
 <script>
-import CustomerRegisterForm from "./CustomerRegisterForm";
-import SellerRegisterForm from "./SellerRegisterForm";
-import DeliveryRegisterForm from "./DeliveryRegisterForm";
+import CustomerRegisterForm from './CustomerRegisterForm';
+import SellerRegisterForm from './SellerRegisterForm';
+import DeliveryRegisterForm from './DeliveryRegisterForm';
 
 export default {
+  data () {
+    return {
+      registerFormShow: 'customer',
+    };
+  },
   components: {
     CustomerRegisterForm,
     SellerRegisterForm,
     DeliveryRegisterForm,
   },
-
-  mounted() {
-    $(document).on(
-      "change",
-      'input[type="radio"][name="sign_as"]',
-      function () {
-        var sign_as = $(this).val();
-        $(".signup-form").hide();
-        $(".signup-form").each(function (index) {
-          if ($(this).data("signup-form") === sign_as) {
-            $(this).show();
-          }
-        });
-      }
-    );
+  methods: {
+    changeForm ($e) {
+      this.registerFormShow = $e.target.value;
+    },
   },
 };
 </script>

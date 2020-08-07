@@ -16,7 +16,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('customer/sign-up', 'AuthController@customer_signup');
 Route::post('seller/sign-up', 'AuthController@seller_signup');
+Route::post('delivery/sign-up', 'AuthController@delivery_boy_signup');
 Route::post('login', 'AuthCOntroller@login');
+
+//restaurant
+Route::get('restaurants/trending', 'RestaurantController@trending');
+Route::get('restaurants/new', 'RestaurantController@new');
+Route::get('restaurants/premium', 'RestaurantController@premium');
 
 
 Route::middleware(['auth:sanctum'])->group(function () {

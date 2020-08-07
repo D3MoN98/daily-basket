@@ -1,8 +1,14 @@
-import App from "@/App.vue";
-import router from "@/router";
-import store from "@/store";
-import VueProgressBar from "vue-progressbar";
-import Vuelidate from "vuelidate";
+import App from '@/App.vue';
+import router from '@/router';
+import store from '@/store';
+import {
+    BModal,
+    BootstrapVue,
+    IconsPlugin,
+    VBModal
+} from 'bootstrap-vue';
+import VueProgressBar from 'vue-progressbar';
+import Vuelidate from 'vuelidate';
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -10,13 +16,20 @@ import Vuelidate from "vuelidate";
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require("./bootstrap");
+require('./bootstrap');
 
-window.Vue = require("vue");
-Vue.set(Vue.prototype, "_", _);
+window.Vue = require('vue');
 
-// require("vue-axios-interceptors");
+Vue.set(Vue.prototype, '_', _);
 
+// Install BootstrapVue
+Vue.use(BootstrapVue);
+// Optionally install the BootstrapVue icon components plugin
+Vue.use(IconsPlugin);
+
+Vue.component('b-modal', BModal);
+// Note that Vue automatically prefixes directive names with `v-`
+Vue.directive('b-modal', VBModal);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -34,14 +47,19 @@ Vue.config.productionTip = false;
 
 // Set Vue progressbar
 const options = {
-    color: "#7367F0",
-    failedColor: "#7367f0",
-    thickness: "4px",
-    transition: { speed: "0.75s", opacity: "0.9s", termination: 500 },
+    color: '#7367F0',
+    failedColor: '#7367f0',
+    thickness: '4px',
+    transition: {
+        speed: '0.75s',
+        opacity: '0.9s',
+        termination: 500,
+    },
     autoRevert: true,
-    location: "top",
-    inverse: false
+    location: 'top',
+    inverse: false,
 };
+
 Vue.use(VueProgressBar, options);
 
 // Set Vue router
@@ -56,8 +74,9 @@ Vue.use(Vuelidate);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+// eslint-disable-next-line no-unused-vars
 const app = new Vue({
     router,
     store,
-    render: h => h(App)
-}).$mount("#app");
+    render: (h) => h(App),
+}).$mount('#app');

@@ -31,10 +31,10 @@
               </div>
               <ul class="navbar-nav header-right">
                 <li class="nav-item menu_long_gap">
-                  <a class="nav-link" href="#" role="button">
+                  <router-link to="/restaurants" class="nav-link">
                     <i class="fas fa-search"></i>
                     <span class="nav_txt">Search</span>
-                  </a>
+                  </router-link>
                 </li>
                 <li class="nav-item menu_long_gap">
                   <a class="nav-link" href="#" role="button">
@@ -76,7 +76,7 @@
                       this.$store.getters["auth/user"]
                       .name,
                       " "
-                      )[1]
+                      )[0]
                       }}
                     </span>
                   </a>
@@ -118,8 +118,8 @@
 <script>
 export default {
   methods: {
-    logout() {
-      this.$store.dispatch("auth/logout");
+    logout () {
+      this.$store.dispatch('auth/logout');
     },
   },
 };

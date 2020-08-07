@@ -1,57 +1,93 @@
-import DefaultLayout from "@/views/frontend/layouts/DefaultLayout";
-import Restaurants from "@/views/frontend/Restaurants";
-import Vue from "vue";
-import VueRouter from "vue-router";
-// import store from "./../store";
-
+import store from '@/store';
+import NotFound from '@/views/404';
+import NewRestaurants from '@/views/frontend/components/NewRestaurants';
+import PremiumRestaurants from '@/views/frontend/components/PremiumRestaurants';
+import TrendingRestaurants from '@/views/frontend/components/TrendingRestaurants';
+import DefaultLayout from '@/views/frontend/layouts/DefaultLayout';
+import Restaurants from '@/views/frontend/Restaurants';
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import middlewarePipeline from './middlewarePipeline';
 // import admin from "./middleware/admin";
 // import guest from "./middleware/guest";
-// import middlewarePipeline from "./middlewarePipeline";
 
 Vue.use(VueRouter);
 
-const routes = [
-    {
-        name: "home",
-        path: "/",
+const routes = [{
+        name: 'home',
+        path: '/',
         component: Restaurants,
-        meta: { layout: DefaultLayout }
+        meta: {
+            layout: DefaultLayout,
+        },
     },
     {
-        name: "restaurants",
-        path: "/restaurants",
+        name: 'restaurants',
+        path: '/restaurants',
+        redirect: '/restaurants/trending',
         component: Restaurants,
-        meta: { layout: DefaultLayout }
-    }
+        children: [{
+                name: 'restaurants.trending',
+                path: 'trending',
+                component: TrendingRestaurants,
+                meta: {
+                    layout: DefaultLayout,
+                },
+            },
+            {
+                name: 'restaurants.new',
+                path: 'new',
+                component: NewRestaurants,
+                meta: {
+                    layout: DefaultLayout,
+                },
+            },
+            {
+                name: 'restaurants.premium',
+                path: 'premium',
+                component: PremiumRestaurants,
+                meta: {
+                    layout: DefaultLayout,
+                },
+            },
+        ],
+        meta: {
+            layout: DefaultLayout,
+        },
+    },
+    {
+        path: '*',
+        component: NotFound,
+    },
 ];
 
 const router = new VueRouter({
-    mode: "history",
+    mode: 'history',
     base: process.env.BASE_URL,
-    routes
+    routes,
 });
 
-// router.beforeEach((to, from, next) => {
-//     if (!to.meta.middleware) {
-//         return next();
-//     }
-//     const middleware = to.meta.middleware;
+router.beforeEach((to, from, next) => {
+    if (!to.meta.middleware) {
+        return next();
+    }
+    const {
+        middleware,
+    } = to.meta;
 
-//     // const store = await store  //await the store
+    // const store = await store; //await the store
 
-//     const context = {
-//         to,
-//         from,
-//         next,
-//         store
-//     };
+    const context = {
+        to,
+        from,
+        next,
+        store,
+    };
 
-//     // alert(Vue.auth.check());
-
-//     return middleware[0]({
-//         ...context,
-//         next: middlewarePipeline(context, middleware, 1)
-//     });
-// });
+    return middleware[0]({
+        ...context,
+        next: middlewarePipeline(context, middleware, 1),
+    });
+});
 
 export default router;

@@ -11,21 +11,20 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\User::class, 3)->create()->each(function ($user)  {
-            $role = rand(2,3);
+        factory(App\User::class, 3)->create()->each(function ($user) {
+            $role = rand(2, 2);
             $user->roles()->save(App\Role::find($role));
             $user->addresses()->save(factory(App\Address::class)->make());
 
-            if($role == 2){
+            if ($role == 2) {
                 $restaurant = $user->restaurant()->save(factory(App\Restaurant::class)->make());
 
                 App\Menu::create([
                     'user_id' => $user->id,
                     'restaurant_id' => $restaurant->id
-                ])->each(function($menu){
+                ])->each(function ($menu) {
                     $menu->menu_items()->save(factory(App\MenuItem::class)->make());
                 });
-
             }
         });
     }

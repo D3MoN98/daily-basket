@@ -21,7 +21,11 @@ class RoleSeeder extends Seeder
             ],
             [
                 'name' => 'customer'
-            ]
+            ],
+            [
+                'name' => 'delevery boy'
+            ],
+
         ];
 
         foreach ($roles as $key) {
