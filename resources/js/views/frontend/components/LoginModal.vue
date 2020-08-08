@@ -141,7 +141,6 @@ export default {
       this.$store
         .dispatch('auth/login', this.user)
         .then(() => {
-          $('#log_in_modal').modal('hide');
           this.submitted = false;
           this.formError = false;
           this.resetForm();

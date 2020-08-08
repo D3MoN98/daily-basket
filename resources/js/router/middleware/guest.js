@@ -1,9 +1,9 @@
-// export default function guest({ next, store }) {
-//     if (store.getters["auth/isLoggedIn"]) {
-//         return next({
-//             name: "admin.dashboard"
-//         });
-//     }
+export default function guest({ next, store }) {
+    if (store.getters['auth/isLoggedIn']) {
+        return next({
+            name: 'admin.dashboard',
+        });
+    }
 
-//     return next();
-// }
+    return next();
+}

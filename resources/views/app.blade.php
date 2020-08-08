@@ -37,10 +37,6 @@
     <!--endRemoveIf(production)-->
     <!-- Daterange picker library -->
     <script src="{{ asset('vendor/moment/moment.min.js') }}"></script>
-    <script src="{{ asset('vendor/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
-    <!-- daterangepicker init -->
-    <!-- <script src="{{ asset('./js/plugins-init/card-headerdatepicker-init.js') }}"></script> -->
-    <script src="{{ asset('vendor/chart.js/Chart.bundle.min.js') }}"></script>
     <script src="{{ asset('js/dashboard/dashboard-1.js') }}"></script>
     <script src="{{ asset('js/my_js.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>

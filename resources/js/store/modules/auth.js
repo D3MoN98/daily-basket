@@ -9,6 +9,7 @@ const getters = {
     isLoggedIn: (state) => !!state.token,
     check: (state) => !!state.token,
     user: (state) => JSON.parse(state.user),
+    userRole: (state, getters) => getters.user.role,
 };
 
 const mutations = {
@@ -18,15 +19,21 @@ const mutations = {
         state.user = JSON.stringify(response.user);
         localStorage.setItem('auth_token', response.auth_token);
         localStorage.setItem('user', JSON.stringify(response.user));
-        Vue.router.push('/restaurants').catch(() => {});
+        $('#log_in_modal').modal('hide');
+
+        if (response.user.role === 'seller') {
+            window.location.href = '/seller';
+        } else if (response.user.role === 'customer') {
+            window.location.href = '/';
+        } else {
+            window.location.href = '/';
+        }
     },
     logout: (state, payload) => {
         state.token = null;
         localStorage.removeItem('auth_token');
         localStorage.removeItem('user');
-        Vue.router.push({
-            name: 'home',
-        });
+        window.location.href = '/';
     },
 };
 

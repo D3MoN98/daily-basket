@@ -5,11 +5,12 @@ import PremiumRestaurants from '@/views/frontend/components/PremiumRestaurants';
 import TrendingRestaurants from '@/views/frontend/components/TrendingRestaurants';
 import DefaultLayout from '@/views/frontend/layouts/DefaultLayout';
 import Restaurants from '@/views/frontend/Restaurants';
+import SellerDashboard from '@/views/seller/Dashboard';
+import SellerDefaultLayout from '@/views/seller/layouts/DefaultLayout';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import sellerMiddleware from './middleware/sellerMiddleware';
 import middlewarePipeline from './middlewarePipeline';
-// import admin from "./middleware/admin";
-// import guest from "./middleware/guest";
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,7 @@ const routes = [{
             layout: DefaultLayout,
         },
     },
+
     {
         name: 'restaurants',
         path: '/restaurants',
@@ -55,6 +57,17 @@ const routes = [{
             layout: DefaultLayout,
         },
     },
+
+    {
+        name: 'seller.dashboard',
+        path: '/seller',
+        component: SellerDashboard,
+        meta: {
+            layout: SellerDefaultLayout,
+            middleware: [sellerMiddleware],
+        },
+    },
+
     {
         path: '*',
         component: NotFound,
@@ -74,8 +87,6 @@ router.beforeEach((to, from, next) => {
     const {
         middleware,
     } = to.meta;
-
-    // const store = await store; //await the store
 
     const context = {
         to,
