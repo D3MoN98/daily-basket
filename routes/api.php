@@ -28,6 +28,7 @@ Route::get('restaurants/premium', 'RestaurantController@premium');
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('logout', 'AuthController@logout');
     Route::get('user', 'AuthController@user');
+    Route::get('user/addresses', 'AuthController@userAddresses');
     Route::resource('cart', 'CartController');
     Route::post('checkout', 'CheckoutController@store');
 });

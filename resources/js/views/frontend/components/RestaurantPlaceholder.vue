@@ -1,6 +1,6 @@
 <template>
   <div class="ech_res">
-    <div class="ech_res_innr">
+    <div class="ech_res_innr ech_res_innr_placeholder">
       <content-loader
         :width="233"
         :height="213"
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { ContentLoader } from "vue-content-loader";
+import { ContentLoader } from 'vue-content-loader';
 
 export default {
   components: {

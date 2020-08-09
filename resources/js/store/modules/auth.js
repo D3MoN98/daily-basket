@@ -3,6 +3,7 @@ import axios from 'axios';
 const state = {
     token: localStorage.getItem('auth_token') || null,
     user: localStorage.getItem('user') || null,
+    userAddresses: null,
 };
 
 const getters = {
@@ -10,6 +11,7 @@ const getters = {
     check: (state) => !!state.token,
     user: (state) => JSON.parse(state.user),
     userRole: (state, getters) => getters.user.role,
+    userAddresses: (state) => state.userAddresses,
 };
 
 const mutations = {
@@ -34,6 +36,9 @@ const mutations = {
         localStorage.removeItem('auth_token');
         localStorage.removeItem('user');
         window.location.href = '/';
+    },
+    setUserAddresses: (state, payload) => {
+        state.userAddresses = payload;
     },
 };
 
@@ -98,6 +103,12 @@ const actions = {
                     reject(err);
                 });
         });
+    },
+    async userAddresses(context) {
+        return axios.get('api/user/addresses')
+            .then((res) => res.data)
+            .then((res) => context.commit('setUserAddresses', res.data))
+            .catch((error) => console.log(error));
     },
 };
 

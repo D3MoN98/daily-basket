@@ -1,12 +1,4 @@
-import store from '@/store';
-import NotFound from '@/views/404';
-import NewRestaurants from '@/views/frontend/components/NewRestaurants';
-import PremiumRestaurants from '@/views/frontend/components/PremiumRestaurants';
-import TrendingRestaurants from '@/views/frontend/components/TrendingRestaurants';
-import DefaultLayout from '@/views/frontend/layouts/DefaultLayout';
-import Restaurants from '@/views/frontend/Restaurants';
-import SellerDashboard from '@/views/seller/Dashboard';
-import SellerDefaultLayout from '@/views/seller/layouts/DefaultLayout';
+/* eslint-disable space-in-parens */
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import sellerMiddleware from './middleware/sellerMiddleware';
@@ -17,9 +9,11 @@ Vue.use(VueRouter);
 const routes = [{
         name: 'home',
         path: '/',
-        component: Restaurants,
+        // @ts-ignore
+        component: () => import( /* webpackChunkName: "restaurants" */ '@/views/frontend/Restaurants'),
         meta: {
-            layout: DefaultLayout,
+            // @ts-ignore
+            layout: () => import( /* webpackChunkName: "frontend-default-layout" */ '@/views/frontend/layouts/DefaultLayout'),
         },
     },
 
@@ -27,51 +21,64 @@ const routes = [{
         name: 'restaurants',
         path: '/restaurants',
         redirect: '/restaurants/trending',
-        component: Restaurants,
+        meta: {
+            // @ts-ignore
+            layout: () => import( /* webpackChunkName: "frontend-default-layout" */ '@/views/frontend/layouts/DefaultLayout'),
+        },
+        // @ts-ignore
+        component: () => import( /* webpackChunkName: "restaurants" */ '@/views/frontend/Restaurants'),
         children: [{
                 name: 'restaurants.trending',
                 path: 'trending',
-                component: TrendingRestaurants,
+                // @ts-ignore
+                component: () => import( /* webpackChunkName: "trending-restaurants" */ '@/views/frontend/components/TrendingRestaurants'),
                 meta: {
-                    layout: DefaultLayout,
+                    // @ts-ignore
+                    layout: () => import( /* webpackChunkName: "frontend-default-layout" */ '@/views/frontend/layouts/DefaultLayout'),
                 },
             },
             {
                 name: 'restaurants.new',
                 path: 'new',
-                component: NewRestaurants,
+                // @ts-ignore
+                component: () => import( /* webpackChunkName: "new-restaurants" */ '@/views/frontend/components/NewRestaurants'),
                 meta: {
-                    layout: DefaultLayout,
+                    // @ts-ignore
+                    layout: () => import( /* webpackChunkName: "frontend-default-layout" */ '@/views/frontend/layouts/DefaultLayout'),
                 },
             },
             {
                 name: 'restaurants.premium',
                 path: 'premium',
-                component: PremiumRestaurants,
+                // @ts-ignore
+                component: () => import( /* webpackChunkName: "premium-restaurants" */ '@/views/frontend/components/PremiumRestaurants'),
                 meta: {
-                    layout: DefaultLayout,
+                    // @ts-ignore
+                    layout: () => import( /* webpackChunkName: "frontend-default-layout" */ '@/views/frontend/layouts/DefaultLayout'),
                 },
             },
         ],
-        meta: {
-            layout: DefaultLayout,
-        },
+
     },
 
     {
         name: 'seller.dashboard',
         path: '/seller',
-        component: SellerDashboard,
+        // @ts-ignore
+        component: () => import( /* webpackChunkName: "seller-dashboard" */ '@/views/seller/Dashboard'),
         meta: {
-            layout: SellerDefaultLayout,
+            // @ts-ignore
+            layout: () => import( /* webpackChunkName: "seller-default-layout" */ '@/views/seller/layouts/DefaultLayout'),
             middleware: [sellerMiddleware],
         },
     },
 
     {
         path: '*',
-        component: NotFound,
+        // @ts-ignore
+        component: () => import( /* webpackChunkName: "404" */ '@/views/404'),
     },
+    // @ts-ignore
 ];
 
 const router = new VueRouter({
@@ -87,6 +94,9 @@ router.beforeEach((to, from, next) => {
     const {
         middleware,
     } = to.meta;
+
+    // @ts-ignore
+    const store = () => import('@/store');
 
     const context = {
         to,

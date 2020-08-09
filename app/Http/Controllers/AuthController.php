@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Address;
 use App\Http\Resources\Restaurant as ResourcesRestaurant;
 use App\Http\Resources\User as ResourcesUser;
+use App\Http\Resources\Address as ResourcesAddress;
 use App\Restaurant;
 use App\Role;
 use App\RoleUser;
@@ -191,7 +192,7 @@ class AuthController extends Controller
             $user = User::whereEmail($request->email)->with('roles')->first();
 
 
-            if ($user && Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            if ($user && Auth::attempt(['email' => $request->email, 'password' => $request->password], true)) {
 
                 $user->role = $user->roles()->first()->name;
                 $tokenResult = $user->createToken('auth_token')->plainTextToken;
@@ -228,6 +229,11 @@ class AuthController extends Controller
         } catch (Exception $e) {
             return response()->json(['error' => $e], 500);
         }
+    }
+
+    public function userAddresses(Request $request)
+    {
+        return ResourcesAddress::collection(Auth::user()->addresses);
     }
 
     public function restaurant(Request $request)
