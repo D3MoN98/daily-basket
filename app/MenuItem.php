@@ -42,16 +42,28 @@ class MenuItem extends Model implements Buyable
      */
     protected $dates = ['deleted_at'];
 
-    public function getBuyableIdentifier($options = null) {
+    public function getBuyableIdentifier($options = null)
+    {
         return $this->id;
     }
 
-    public function getBuyableDescription($options = null) {
+    public function getBuyableDescription($options = null)
+    {
         return $this->name;
     }
 
-    public function getBuyablePrice($options = null) {
+    public function getBuyablePrice($options = null)
+    {
         return $this->price;
     }
 
+    public function isVeg(Type $var = null)
+    {
+        # code...
+    }
+
+    public function menu()
+    {
+        return $this->belongsTo('App\Menu');
+    }
 }

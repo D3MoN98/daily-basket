@@ -4,6 +4,7 @@
     @submit.prevent="customerRegister"
     data-signup-form="customer"
     class="signup-form animate__animated animate__fadeIn"
+    autocomplete="off"
   >
     <div
       class="form-group"
@@ -16,6 +17,7 @@
         :class="{'is-invalid': formError && $v.customer.name.$error}"
         placeholder="Enter Name"
       />
+      <label class="form-control-placeholder" for="name">Enter Name</label>
       <span v-if="formError && !$v.customer.name.required" class="invalid-feedback">Name is required</span>
       <span
         v-if="formError && !$v.customer.name.minLength"
@@ -33,6 +35,7 @@
         :class="{'is-invalid': formError && $v.customer.email.$error}"
         placeholder="Enter email address"
       />
+      <label class="form-control-placeholder" for="name">Enter Email</label>
       <span
         v-if="formError && !$v.customer.email.required"
         class="invalid-feedback"
@@ -58,6 +61,7 @@
         :class="{'is-invalid': formError && $v.customer.password.$error}"
         placeholder="Enter password"
       />
+      <label class="form-control-placeholder" for="name">Enter Password</label>
       <span
         v-if="formError && !$v.customer.password.required"
         class="invalid-feedback"
@@ -79,6 +83,7 @@
         class="form-control"
         placeholder="Re-enter password"
       />
+      <label class="form-control-placeholder" for="name">Enter Confirm Password</label>
       <span
         v-if="formError && !$v.customer.confirm_password.sameAsPassword"
         class="invalid-feedback"
@@ -100,6 +105,7 @@
             maxlength="12"
             @keypress="isNumber"
           />
+          <label class="form-control-placeholder" for="name">Enter Contact No</label>
           <span
             v-if="formError && !$v.customer.contact_no.required"
             class="invalid-feedback"
@@ -113,6 +119,7 @@
       <div class="col-sm-6">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Agent Code (optional)" />
+          <label class="form-control-placeholder" for="name">Enter Agent Code</label>
         </div>
       </div>
     </div>
@@ -128,6 +135,7 @@
         :class="{'is-invalid': formError && $v.customer.house_no.$error}"
         placeholder="Flat No./ House No"
       />
+      <label class="form-control-placeholder" for="name">Enter Flat No</label>
       <span
         v-if="formError && !$v.customer.house_no.required"
         class="invalid-feedback"
@@ -144,12 +152,69 @@
         :class="{'is-invalid': formError && $v.customer.address.$error}"
         placeholder="Enter address"
       ></textarea>
+      <label class="form-control-placeholder" for="name">Enter Address</label>
       <span
         v-if="formError && !$v.customer.address.required"
         class="invalid-feedback"
       >Address is required</span>
     </div>
 
+    <div
+      class="form-group"
+      :class="{'animate__animated animate__shakeX': formError && $v.customer.address_type.$error}"
+    >
+      <div class="chk_btnn">
+        <input
+          type="radio"
+          id="home_id"
+          value="home"
+          name="address_type"
+          @change="addressTypeChange"
+        />
+        <label for="home_id">
+          <span class="rdo_span rdo_home_i">Home</span>
+        </label>
+
+        <input
+          type="radio"
+          id="work_id"
+          value="work"
+          name="address_type"
+          @change="addressTypeChange"
+        />
+        <label for="work_id">
+          <span class="rdo_span rdo_home_w">Work</span>
+        </label>
+
+        <input
+          type="radio"
+          id="other_id"
+          value="other"
+          name="address_type"
+          @change="addressTypeChange"
+        />
+        <label for="other_id">
+          <span class="rdo_span rdo_home_o">Others</span>
+        </label>
+
+        <div class="others_box form-group">
+          <input
+            class="form-control"
+            type="text"
+            id="address-type-inp"
+            v-model="customer.address_type"
+            :class="{'is-invalid': formError && $v.customer.address_type.$error}"
+            placeholder="Other"
+          />
+          <label class="form-control-placeholder" for="name">Other</label>
+        </div>
+      </div>
+      <span
+        v-if="formError && !$v.customer.address_type.required"
+        class="invalid-feedback"
+      >Address Type is required</span>
+    </div>
+    <!--
     <div
       class="form-group mar_btn_0"
       :class="{'animate__animated animate__shakeX': formError && $v.customer.address_type.$error}"
@@ -165,7 +230,7 @@
         v-if="formError && !$v.customer.address_type.required"
         class="invalid-feedback"
       >Address Type is required</span>
-    </div>
+    </div>-->
     <div class="frm_btm">
       <button type="submit" class="btn btn-primary btn-block" :disabled="submitted">
         Sign Up
@@ -306,6 +371,13 @@ export default {
         return $e.preventDefault();
       }
       return true;
+    },
+    addressTypeChange ($e) {
+      const inp = document.getElementById('address-type-inp');
+      inp.value = '';
+      if ($e.target.value !== 'other') {
+        inp.value = $e.target.value;
+      }
     },
   },
 };

@@ -15,7 +15,7 @@
           <div class="modal_chkbox">
             <p>You Are</p>
             <div class="chk_inn">
-              <div class="form-check">
+              <div class="form-check custom_chkbx">
                 <input
                   id="customerFormRadio"
                   class="form-check-input"
@@ -25,9 +25,10 @@
                   @change="changeForm"
                   checked
                 />
+                <span class="checkmark"></span>
                 <label class="form-check-label" for="customerFormRadio">Customer</label>
               </div>
-              <div class="form-check">
+              <div class="form-check custom_chkbx">
                 <input
                   id="sellerFormRadio"
                   class="form-check-input"
@@ -36,9 +37,10 @@
                   name="sign_up_form_radio"
                   @change="changeForm"
                 />
+                <span class="checkmark"></span>
                 <label class="form-check-label" for="sellerFormRadio">Seller</label>
               </div>
-              <div class="form-check">
+              <div class="form-check custom_chkbx">
                 <input
                   id="deliveryFormRadio"
                   class="form-check-input"
@@ -47,6 +49,7 @@
                   name="sign_up_form_radio"
                   @change="changeForm"
                 />
+                <span class="checkmark"></span>
                 <label class="form-check-label" for="deliveryFormRadio">Delivery</label>
               </div>
             </div>

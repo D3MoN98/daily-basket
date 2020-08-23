@@ -23,6 +23,10 @@ Route::post('login', 'AuthCOntroller@login');
 Route::get('restaurants/trending', 'RestaurantController@trending');
 Route::get('restaurants/new', 'RestaurantController@new');
 Route::get('restaurants/premium', 'RestaurantController@premium');
+Route::get('restaurant/{slug}', 'RestaurantController@show');
+
+//menu
+Route::get('menu/{id}/{veg?}', 'MenuController@show');
 
 
 Route::middleware(['auth:sanctum'])->group(function () {

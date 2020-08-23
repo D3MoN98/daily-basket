@@ -13,7 +13,10 @@
     <link href="{{asset('vendor/jqvmap/css/jqvmap.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('vendor/bootstrap-daterangepicker/daterangepicker.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+    <link rel="stylesheet" href="{{asset('css/card-js.min.css')}}">
+    <link rel="stylesheet" href="{{asset('vendor/toastr/css/toastr.min.css') }}">
     <link href="{{asset('css/style.css')}}" rel="stylesheet">
+    <link href="{{asset('css/easy-responsive-tabs.css')}}" rel="stylesheet">
     <!--Sutanu-->
     <link href="{{asset('css/custom.css')}}" rel="stylesheet">
     <link href="{{asset('css/responsive.css')}}" rel="stylesheet">
@@ -27,6 +30,7 @@
 
     <!-- Required vendors -->
     <script src="{{ asset('vendor/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
+    <script src="{{ asset('vendor/toastr/js/toastr.min.js') }}"></script>
     <!-- Here is navigation script -->
     <script src="{{ asset('vendor/quixnav/quixnav.min.js') }}"></script>
     <script src="{{ asset('js/quixnav-init.js') }}"></script>
@@ -38,6 +42,7 @@
     <!-- Daterange picker library -->
     <script src="{{ asset('vendor/moment/moment.min.js') }}"></script>
     <script src="{{ asset('js/dashboard/dashboard-1.js') }}"></script>
+    <script src="{{ asset('js/easy-responsive-tabs.js') }}"></script>
     <script src="{{ asset('js/my_js.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </body>

@@ -25,8 +25,8 @@ class CreateSubscriptionsTable extends Migration
             $table->float('discount');
             $table->float('total');
             $table->enum('type', ['lunch', 'dinner', 'both'])->nullable();
-            $table->timestamp('started_at');
-            $table->timestamp('expired_at');
+            $table->timestamp('started_at')->nullable();
+            $table->timestamp('expired_at')->nullable();
             $table->timestamps();
         });
     }

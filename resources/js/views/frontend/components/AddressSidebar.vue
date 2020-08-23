@@ -76,13 +76,13 @@ export default {
     }
   },
   mounted () {
-    // Create the script tag, set the appropriate attributes
     const script = document.createElement('script');
     script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCQ50fCTWgDOCjgUmkxARbJCFpIrqq-Uok&callback=initMap&libraries=places&v=weekly';
     script.defer = true;
     script.async = true;
+
     const instance = this;
-    // Attach your callback function to the `window` object
+
     window.initMap = function () {
       // map init
       window.map = new window.google.maps.Map(document.getElementById('gmap'), {
@@ -120,79 +120,42 @@ export default {
         map: window.map,
       });
 
-      // map set marker drag event
+      // map set marker drag end event
       google.maps.event.addListener(window.marker, 'dragend', (event) => {
-        currentPos = {
+        this.currentPos = {
           lat: event.latLng.lat(),
           lng: event.latLng.lng(),
         };
-        window.map.setCenter(currentPos);
+        const dragPosition = new window.google.maps.LatLng(this.currentPos.lat, this.currentPos.lng);
+        window.map.setCenter(dragPosition);
+        instance.rePositioned = true;
+      });
+
+      // map set marker drag
+      window.map.addListener('dragend', () => {
+        window.marker.setPosition(window.map.getCenter());
         instance.rePositioned = true;
       });
 
       // map set to current location
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          this.currentPos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-          const reCenterPosition = new window.google.maps.LatLng(this.currentPos.lat, this.currentPos.lng);
-          window.map.setCenter(reCenterPosition);
-          window.marker.setPosition(reCenterPosition);
-        }, () => {
-          console.error('Please turn on your geolocation');
-        });
-      } else {
-        console.error('Please turn on your geolocation');
-      }
+      instance.reCenter();
 
-      // Create the search box and link it to the UI element.
-      //   const input = document.getElementById('area-input');
-      //   const searchBox = new window.google.maps.places.SearchBox(input);
-
-      //   searchBox.addListener('places_changed', () => {
-      //     const places = searchBox.getPlaces();
-
-      //     if (places.length === 0) {
-      //       return;
-      //     }
-
-      //     // console.log(places);
-
-      //     // For each place, get the icon, name and location.
-      //     // const bounds = new google.maps.LatLngBounds();
-      //     // places.forEach((place) => {
-      //     //   if (!place.geometry) {
-      //     //     console.log('Returned place contains no geometry');
-      //     //     return;
-      //     //   }
-      //     //   const icon = {
-      //     //     url: place.icon,
-      //     //     size: new google.maps.Size(71, 71),
-      //     //     origin: new google.maps.Point(0, 0),
-      //     //     anchor: new google.maps.Point(17, 34),
-      //     //     scaledSize: new google.maps.Size(25, 25),
-      //     //   };
-      //     //   // Create a marker for each place.
-      //     //   markers.push(
-      //     //     new google.maps.Marker({
-      //     //       map,
-      //     //       icon,
-      //     //       title: place.name,
-      //     //       position: place.geometry.location,
-      //     //     }),
-      //     //   );
-
-      //     //   if (place.geometry.viewport) {
-      //     //     // Only geocodes have viewport.
-      //     //     bounds.union(place.geometry.viewport);
-      //     //   } else {
-      //     //     bounds.extend(place.geometry.location);
-      //     //   }
-      //     // });
-      //     // map.fitBounds(bounds);
+      //   const latlng = new window.google.maps.LatLng(instance.currentPos.lat, instance.currentPos.lng);
+      //   const geocoder = new google.maps.Geocoder();
+      //   geocoder.geocode({ latLng: latlng }, (results, status) => {
+      //     console.log(result, status);
       //   });
+
+      const input = document.getElementById('area-input');
+      const searchBox = new google.maps.places.SearchBox(input);
+
+      // more details for that place.
+      searchBox.addListener('places_changed', () => {
+        const places = searchBox.getPlaces();
+        if (places.length !== 0) {
+          console.log(places);
+        }
+      });
     };
 
     // Append the 'script' element to 'head'
@@ -226,6 +189,9 @@ export default {
           window.map.setCenter(reCenterPosition);
           window.marker.setPosition(reCenterPosition);
           this.rePositioned = false;
+          this.$store.dispatch('auth/setCurrentLocation', this.currentPos).then(() => {
+
+          });
         }, () => {
           console.error('Please turn on your geolocation');
         });
@@ -236,6 +202,24 @@ export default {
     zoom (level) {
       const zoom = window.map.getZoom() + level;
       window.map.setZoom(zoom);
+      toastr.success('This Is Success Message', 'Bottom Center', {
+        positionClass: 'toast-bottom-center',
+        timeOut: 5e3,
+        closeButton: !0,
+        debug: !1,
+        newestOnTop: !0,
+        progressBar: !0,
+        preventDuplicates: !0,
+        onclick: null,
+        showDuration: '300',
+        hideDuration: '1000',
+        extendedTimeOut: '1000',
+        showEasing: 'swing',
+        hideEasing: 'linear',
+        showMethod: 'fadeIn',
+        hideMethod: 'fadeOut',
+        tapToDismiss: !1,
+      });
     },
     saveLocation () {
       this.rePositioned = false;

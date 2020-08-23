@@ -95,12 +95,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   mounted: function mounted() {
-    // Create the script tag, set the appropriate attributes
     var script = document.createElement('script');
     script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCQ50fCTWgDOCjgUmkxARbJCFpIrqq-Uok&callback=initMap&libraries=places&v=weekly';
     script.defer = true;
     script.async = true;
-    var instance = this; // Attach your callback function to the `window` object
+    var instance = this;
 
     window.initMap = function () {
       var _this2 = this;
@@ -142,73 +141,39 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         raiseOnDrag: true,
         title: 'Drop me to destination',
         map: window.map
-      }); // map set marker drag event
+      }); // map set marker drag end event
 
       google.maps.event.addListener(window.marker, 'dragend', function (event) {
-        currentPos = {
+        _this2.currentPos = {
           lat: event.latLng.lat(),
           lng: event.latLng.lng()
         };
-        window.map.setCenter(currentPos);
+        var dragPosition = new window.google.maps.LatLng(_this2.currentPos.lat, _this2.currentPos.lng);
+        window.map.setCenter(dragPosition);
+        instance.rePositioned = true;
+      }); // map set marker drag
+
+      window.map.addListener('dragend', function () {
+        window.marker.setPosition(window.map.getCenter());
         instance.rePositioned = true;
       }); // map set to current location
 
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-          _this2.currentPos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          };
-          var reCenterPosition = new window.google.maps.LatLng(_this2.currentPos.lat, _this2.currentPos.lng);
-          window.map.setCenter(reCenterPosition);
-          window.marker.setPosition(reCenterPosition);
-        }, function () {
-          console.error('Please turn on your geolocation');
-        });
-      } else {
-        console.error('Please turn on your geolocation');
-      } // Create the search box and link it to the UI element.
-      //   const input = document.getElementById('area-input');
-      //   const searchBox = new window.google.maps.places.SearchBox(input);
-      //   searchBox.addListener('places_changed', () => {
-      //     const places = searchBox.getPlaces();
-      //     if (places.length === 0) {
-      //       return;
-      //     }
-      //     // console.log(places);
-      //     // For each place, get the icon, name and location.
-      //     // const bounds = new google.maps.LatLngBounds();
-      //     // places.forEach((place) => {
-      //     //   if (!place.geometry) {
-      //     //     console.log('Returned place contains no geometry');
-      //     //     return;
-      //     //   }
-      //     //   const icon = {
-      //     //     url: place.icon,
-      //     //     size: new google.maps.Size(71, 71),
-      //     //     origin: new google.maps.Point(0, 0),
-      //     //     anchor: new google.maps.Point(17, 34),
-      //     //     scaledSize: new google.maps.Size(25, 25),
-      //     //   };
-      //     //   // Create a marker for each place.
-      //     //   markers.push(
-      //     //     new google.maps.Marker({
-      //     //       map,
-      //     //       icon,
-      //     //       title: place.name,
-      //     //       position: place.geometry.location,
-      //     //     }),
-      //     //   );
-      //     //   if (place.geometry.viewport) {
-      //     //     // Only geocodes have viewport.
-      //     //     bounds.union(place.geometry.viewport);
-      //     //   } else {
-      //     //     bounds.extend(place.geometry.location);
-      //     //   }
-      //     // });
-      //     // map.fitBounds(bounds);
+      instance.reCenter(); //   const latlng = new window.google.maps.LatLng(instance.currentPos.lat, instance.currentPos.lng);
+      //   const geocoder = new google.maps.Geocoder();
+      //   geocoder.geocode({ latLng: latlng }, (results, status) => {
+      //     console.log(result, status);
       //   });
 
+      var input = document.getElementById('area-input');
+      var searchBox = new google.maps.places.SearchBox(input); // more details for that place.
+
+      searchBox.addListener('places_changed', function () {
+        var places = searchBox.getPlaces();
+
+        if (places.length !== 0) {
+          console.log(places);
+        }
+      });
     }; // Append the 'script' element to 'head'
 
 
@@ -241,6 +206,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           window.map.setCenter(reCenterPosition);
           window.marker.setPosition(reCenterPosition);
           _this3.rePositioned = false;
+
+          _this3.$store.dispatch('auth/setCurrentLocation', _this3.currentPos).then(function () {});
         }, function () {
           console.error('Please turn on your geolocation');
         });
@@ -251,6 +218,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     zoom: function zoom(level) {
       var zoom = window.map.getZoom() + level;
       window.map.setZoom(zoom);
+      toastr.success('This Is Success Message', 'Bottom Center', {
+        positionClass: 'toast-bottom-center',
+        timeOut: 5e3,
+        closeButton: !0,
+        debug: !1,
+        newestOnTop: !0,
+        progressBar: !0,
+        preventDuplicates: !0,
+        onclick: null,
+        showDuration: '300',
+        hideDuration: '1000',
+        extendedTimeOut: '1000',
+        showEasing: 'swing',
+        hideEasing: 'linear',
+        showMethod: 'fadeIn',
+        hideMethod: 'fadeOut',
+        tapToDismiss: !1
+      });
     },
     saveLocation: function saveLocation() {
       this.rePositioned = false;
@@ -271,6 +256,71 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -575,6 +625,14 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       return true;
+    },
+    addressTypeChange: function addressTypeChange($e) {
+      var inp = document.getElementById('address-type-inp');
+      inp.value = '';
+
+      if ($e.target.value !== 'other') {
+        inp.value = $e.target.value;
+      }
     }
   }
 });
@@ -1216,82 +1274,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/frontend/components/RestaurantSidebar.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/frontend/components/RestaurantSidebar.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {
-    this.$store.dispatch('restaurant/restaurantCounts');
-  },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
-    restaurant_counts: 'restaurant/getRestaurantCounts'
-  }))
-});
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/frontend/components/SellerRegisterForm.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/frontend/components/SellerRegisterForm.vue?vue&type=script&lang=js& ***!
@@ -1706,6 +1688,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -1739,10 +1724,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_frontend_components_Header__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/views/frontend/components/Header */ "./resources/js/views/frontend/components/Header.vue");
-/* harmony import */ var _views_frontend_components_RestaurantSidebar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/views/frontend/components/RestaurantSidebar */ "./resources/js/views/frontend/components/RestaurantSidebar.vue");
-/* harmony import */ var _views_frontend_components_AddressSidebar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/views/frontend/components/AddressSidebar */ "./resources/js/views/frontend/components/AddressSidebar.vue");
-/* harmony import */ var _views_frontend_components_SignupModal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/views/frontend/components/SignupModal */ "./resources/js/views/frontend/components/SignupModal.vue");
-/* harmony import */ var _views_frontend_components_LoginModal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/views/frontend/components/LoginModal */ "./resources/js/views/frontend/components/LoginModal.vue");
+/* harmony import */ var _views_frontend_components_AddressSidebar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/views/frontend/components/AddressSidebar */ "./resources/js/views/frontend/components/AddressSidebar.vue");
+/* harmony import */ var _views_frontend_components_SignupModal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/views/frontend/components/SignupModal */ "./resources/js/views/frontend/components/SignupModal.vue");
+/* harmony import */ var _views_frontend_components_LoginModal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/views/frontend/components/LoginModal */ "./resources/js/views/frontend/components/LoginModal.vue");
 //
 //
 //
@@ -1761,9 +1745,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-
 
 
 
@@ -1771,10 +1752,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     Header: _views_frontend_components_Header__WEBPACK_IMPORTED_MODULE_0__["default"],
-    RestaurantSidebar: _views_frontend_components_RestaurantSidebar__WEBPACK_IMPORTED_MODULE_1__["default"],
-    AddressSidebar: _views_frontend_components_AddressSidebar__WEBPACK_IMPORTED_MODULE_2__["default"],
-    SignupModal: _views_frontend_components_SignupModal__WEBPACK_IMPORTED_MODULE_3__["default"],
-    LoginModal: _views_frontend_components_LoginModal__WEBPACK_IMPORTED_MODULE_4__["default"]
+    AddressSidebar: _views_frontend_components_AddressSidebar__WEBPACK_IMPORTED_MODULE_1__["default"],
+    SignupModal: _views_frontend_components_SignupModal__WEBPACK_IMPORTED_MODULE_2__["default"],
+    LoginModal: _views_frontend_components_LoginModal__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   data: function data() {
     return {};
@@ -1786,6 +1766,17 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       return false;
+    },
+    uniqueClass: function uniqueClass() {
+      if (_.indexOf(['restaurants', 'restaurants.new', 'restaurants.trending', 'restaurants.premium'], this.$route.name) !== -1) {
+        return 'landing_unique';
+      }
+
+      if (_.indexOf(['restaurant_details'], this.$route.name) !== -1) {
+        return 'left_blue_unique cart_right';
+      }
+
+      return null;
     }
   }
 });
@@ -2092,7 +2083,11 @@ var render = function() {
     "form",
     {
       staticClass: "signup-form animate__animated animate__fadeIn",
-      attrs: { id: "customerSignupForm", "data-signup-form": "customer" },
+      attrs: {
+        id: "customerSignupForm",
+        "data-signup-form": "customer",
+        autocomplete: "off"
+      },
       on: {
         submit: function($event) {
           $event.preventDefault()
@@ -2135,6 +2130,12 @@ var render = function() {
               }
             }
           }),
+          _vm._v(" "),
+          _c(
+            "label",
+            { staticClass: "form-control-placeholder", attrs: { for: "name" } },
+            [_vm._v("Enter Name")]
+          ),
           _vm._v(" "),
           _vm.formError && !_vm.$v.customer.name.required
             ? _c("span", { staticClass: "invalid-feedback" }, [
@@ -2184,6 +2185,12 @@ var render = function() {
               }
             }
           }),
+          _vm._v(" "),
+          _c(
+            "label",
+            { staticClass: "form-control-placeholder", attrs: { for: "name" } },
+            [_vm._v("Enter Email")]
+          ),
           _vm._v(" "),
           _vm.formError && !_vm.$v.customer.email.required
             ? _c("span", { staticClass: "invalid-feedback" }, [
@@ -2240,6 +2247,12 @@ var render = function() {
             }
           }),
           _vm._v(" "),
+          _c(
+            "label",
+            { staticClass: "form-control-placeholder", attrs: { for: "name" } },
+            [_vm._v("Enter Password")]
+          ),
+          _vm._v(" "),
           _vm.formError && !_vm.$v.customer.password.required
             ? _c("span", { staticClass: "invalid-feedback" }, [
                 _vm._v("Password is required")
@@ -2289,6 +2302,12 @@ var render = function() {
               }
             }
           }),
+          _vm._v(" "),
+          _c(
+            "label",
+            { staticClass: "form-control-placeholder", attrs: { for: "name" } },
+            [_vm._v("Enter Confirm Password")]
+          ),
           _vm._v(" "),
           _vm.formError && !_vm.$v.customer.confirm_password.sameAsPassword
             ? _c("span", { staticClass: "invalid-feedback" }, [
@@ -2340,6 +2359,15 @@ var render = function() {
                   }
                 }
               }),
+              _vm._v(" "),
+              _c(
+                "label",
+                {
+                  staticClass: "form-control-placeholder",
+                  attrs: { for: "name" }
+                },
+                [_vm._v("Enter Contact No")]
+              ),
               _vm._v(" "),
               _vm.formError && !_vm.$v.customer.contact_no.required
                 ? _c("span", { staticClass: "invalid-feedback" }, [
@@ -2394,6 +2422,12 @@ var render = function() {
             }
           }),
           _vm._v(" "),
+          _c(
+            "label",
+            { staticClass: "form-control-placeholder", attrs: { for: "name" } },
+            [_vm._v("Enter Flat No")]
+          ),
+          _vm._v(" "),
           _vm.formError && !_vm.$v.customer.house_no.required
             ? _c("span", { staticClass: "invalid-feedback" }, [
                 _vm._v("Flat No is required")
@@ -2437,6 +2471,12 @@ var render = function() {
             }
           }),
           _vm._v(" "),
+          _c(
+            "label",
+            { staticClass: "form-control-placeholder", attrs: { for: "name" } },
+            [_vm._v("Enter Address")]
+          ),
+          _vm._v(" "),
           _vm.formError && !_vm.$v.customer.address.required
             ? _c("span", { staticClass: "invalid-feedback" }, [
                 _vm._v("Address is required")
@@ -2448,40 +2488,91 @@ var render = function() {
       _c(
         "div",
         {
-          staticClass: "form-group mar_btn_0",
+          staticClass: "form-group",
           class: {
             "animate__animated animate__shakeX":
               _vm.formError && _vm.$v.customer.address_type.$error
           }
         },
         [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.customer.address_type,
-                expression: "customer.address_type"
-              }
-            ],
-            staticClass: "form-control",
-            class: {
-              "is-invalid": _vm.formError && _vm.$v.customer.address_type.$error
-            },
-            attrs: {
-              type: "text",
-              placeholder: "Save As Home/Office/Work/Other Etc."
-            },
-            domProps: { value: _vm.customer.address_type },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+          _c("div", { staticClass: "chk_btnn" }, [
+            _c("input", {
+              attrs: {
+                type: "radio",
+                id: "home_id",
+                value: "home",
+                name: "address_type"
+              },
+              on: { change: _vm.addressTypeChange }
+            }),
+            _vm._v(" "),
+            _vm._m(1),
+            _vm._v(" "),
+            _c("input", {
+              attrs: {
+                type: "radio",
+                id: "work_id",
+                value: "work",
+                name: "address_type"
+              },
+              on: { change: _vm.addressTypeChange }
+            }),
+            _vm._v(" "),
+            _vm._m(2),
+            _vm._v(" "),
+            _c("input", {
+              attrs: {
+                type: "radio",
+                id: "other_id",
+                value: "other",
+                name: "address_type"
+              },
+              on: { change: _vm.addressTypeChange }
+            }),
+            _vm._v(" "),
+            _vm._m(3),
+            _vm._v(" "),
+            _c("div", { staticClass: "others_box form-group" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.customer.address_type,
+                    expression: "customer.address_type"
+                  }
+                ],
+                staticClass: "form-control",
+                class: {
+                  "is-invalid":
+                    _vm.formError && _vm.$v.customer.address_type.$error
+                },
+                attrs: {
+                  type: "text",
+                  id: "address-type-inp",
+                  placeholder: "Other"
+                },
+                domProps: { value: _vm.customer.address_type },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.customer, "address_type", $event.target.value)
+                  }
                 }
-                _vm.$set(_vm.customer, "address_type", $event.target.value)
-              }
-            }
-          }),
+              }),
+              _vm._v(" "),
+              _c(
+                "label",
+                {
+                  staticClass: "form-control-placeholder",
+                  attrs: { for: "name" }
+                },
+                [_vm._v("Other")]
+              )
+            ])
+          ]),
           _vm._v(" "),
           _vm.formError && !_vm.$v.customer.address_type.required
             ? _c("span", { staticClass: "invalid-feedback" }, [
@@ -2516,7 +2607,7 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _vm._m(1)
+      _vm._m(4)
     ]
   )
 }
@@ -2530,8 +2621,38 @@ var staticRenderFns = [
         _c("input", {
           staticClass: "form-control",
           attrs: { type: "text", placeholder: "Agent Code (optional)" }
-        })
+        }),
+        _vm._v(" "),
+        _c(
+          "label",
+          { staticClass: "form-control-placeholder", attrs: { for: "name" } },
+          [_vm._v("Enter Agent Code")]
+        )
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "home_id" } }, [
+      _c("span", { staticClass: "rdo_span rdo_home_i" }, [_vm._v("Home")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "work_id" } }, [
+      _c("span", { staticClass: "rdo_span rdo_home_w" }, [_vm._v("Work")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "other_id" } }, [
+      _c("span", { staticClass: "rdo_span rdo_home_o" }, [_vm._v("Others")])
     ])
   },
   function() {
@@ -3577,142 +3698,6 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/frontend/components/RestaurantSidebar.vue?vue&type=template&id=aeed7318&":
-/*!***********************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/frontend/components/RestaurantSidebar.vue?vue&type=template&id=aeed7318& ***!
-  \***********************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "side_bar_wht" }, [
-    _c("div", { staticClass: "lft_side_innr1" }, [
-      _c("ul", [
-        _c(
-          "li",
-          [
-            _c(
-              "router-link",
-              {
-                attrs: {
-                  to: { name: "restaurants.trending" },
-                  "active-class": "active"
-                }
-              },
-              [
-                _c("div", { staticClass: "rnd_icon" }, [
-                  _c("div", { staticClass: "rnd_icon_img" }, [
-                    _c("img", {
-                      attrs: {
-                        src: "/images/custom_image/tranding.png",
-                        alt: ""
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "side_txt1" }, [
-                  _c("h3", [_vm._v("Trending")]),
-                  _vm._v(" "),
-                  _c("h5", [
-                    _vm._v(_vm._s(_vm.restaurant_counts.trending) + " Options")
-                  ])
-                ])
-              ]
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "li",
-          [
-            _c(
-              "router-link",
-              {
-                attrs: {
-                  to: { name: "restaurants.new" },
-                  "active-class": "active"
-                }
-              },
-              [
-                _c("div", { staticClass: "rnd_icon" }, [
-                  _c("div", { staticClass: "rnd_icon_img" }, [
-                    _c("img", {
-                      attrs: {
-                        src: "/images/custom_image/what-new.png",
-                        alt: ""
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "side_txt1" }, [
-                  _c("h3", [_vm._v("What's New")]),
-                  _vm._v(" "),
-                  _c("h5", [
-                    _vm._v(_vm._s(_vm.restaurant_counts.new) + " Options")
-                  ])
-                ])
-              ]
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "li",
-          [
-            _c(
-              "router-link",
-              {
-                attrs: {
-                  to: { name: "restaurants.premium" },
-                  "active-class": "active"
-                }
-              },
-              [
-                _c("div", { staticClass: "rnd_icon" }, [
-                  _c("div", { staticClass: "rnd_icon_img" }, [
-                    _c("img", {
-                      attrs: {
-                        src: "/images/custom_image/premium.png",
-                        alt: ""
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "side_txt1" }, [
-                  _c("h3", [_vm._v("Premium")]),
-                  _vm._v(" "),
-                  _c("h5", [
-                    _vm._v(_vm._s(_vm.restaurant_counts.premium) + " Options")
-                  ])
-                ])
-              ]
-            )
-          ],
-          1
-        )
-      ])
-    ])
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/frontend/components/SellerRegisterForm.vue?vue&type=template&id=78484061&":
 /*!************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/frontend/components/SellerRegisterForm.vue?vue&type=template&id=78484061& ***!
@@ -4279,7 +4264,7 @@ var render = function() {
                   _c("p", [_vm._v("You Are")]),
                   _vm._v(" "),
                   _c("div", { staticClass: "chk_inn" }, [
-                    _c("div", { staticClass: "form-check" }, [
+                    _c("div", { staticClass: "form-check custom_chkbx" }, [
                       _c("input", {
                         staticClass: "form-check-input",
                         attrs: {
@@ -4292,6 +4277,8 @@ var render = function() {
                         on: { change: _vm.changeForm }
                       }),
                       _vm._v(" "),
+                      _c("span", { staticClass: "checkmark" }),
+                      _vm._v(" "),
                       _c(
                         "label",
                         {
@@ -4302,7 +4289,7 @@ var render = function() {
                       )
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-check" }, [
+                    _c("div", { staticClass: "form-check custom_chkbx" }, [
                       _c("input", {
                         staticClass: "form-check-input",
                         attrs: {
@@ -4314,6 +4301,8 @@ var render = function() {
                         on: { change: _vm.changeForm }
                       }),
                       _vm._v(" "),
+                      _c("span", { staticClass: "checkmark" }),
+                      _vm._v(" "),
                       _c(
                         "label",
                         {
@@ -4324,7 +4313,7 @@ var render = function() {
                       )
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-check" }, [
+                    _c("div", { staticClass: "form-check custom_chkbx" }, [
                       _c("input", {
                         staticClass: "form-check-input",
                         attrs: {
@@ -4335,6 +4324,8 @@ var render = function() {
                         },
                         on: { change: _vm.changeForm }
                       }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "checkmark" }),
                       _vm._v(" "),
                       _c(
                         "label",
@@ -4439,20 +4430,13 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "main_wrapper_class show", attrs: { id: "main-wrapper" } },
+    {
+      staticClass: "main_wrapper_class show",
+      class: _vm.uniqueClass,
+      attrs: { id: "main-wrapper" }
+    },
     [
       _c("Header"),
-      _vm._v(" "),
-      _c("RestaurantSidebar", {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.isRestaurantSidebar,
-            expression: "isRestaurantSidebar"
-          }
-        ]
-      }),
       _vm._v(" "),
       _c(
         "transition",
@@ -4837,75 +4821,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginModal_vue_vue_type_template_id_aade3402_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginModal_vue_vue_type_template_id_aade3402_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./resources/js/views/frontend/components/RestaurantSidebar.vue":
-/*!**********************************************************************!*\
-  !*** ./resources/js/views/frontend/components/RestaurantSidebar.vue ***!
-  \**********************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _RestaurantSidebar_vue_vue_type_template_id_aeed7318___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RestaurantSidebar.vue?vue&type=template&id=aeed7318& */ "./resources/js/views/frontend/components/RestaurantSidebar.vue?vue&type=template&id=aeed7318&");
-/* harmony import */ var _RestaurantSidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RestaurantSidebar.vue?vue&type=script&lang=js& */ "./resources/js/views/frontend/components/RestaurantSidebar.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _RestaurantSidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _RestaurantSidebar_vue_vue_type_template_id_aeed7318___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _RestaurantSidebar_vue_vue_type_template_id_aeed7318___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/views/frontend/components/RestaurantSidebar.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/views/frontend/components/RestaurantSidebar.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************!*\
-  !*** ./resources/js/views/frontend/components/RestaurantSidebar.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RestaurantSidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./RestaurantSidebar.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/frontend/components/RestaurantSidebar.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RestaurantSidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/views/frontend/components/RestaurantSidebar.vue?vue&type=template&id=aeed7318&":
-/*!*****************************************************************************************************!*\
-  !*** ./resources/js/views/frontend/components/RestaurantSidebar.vue?vue&type=template&id=aeed7318& ***!
-  \*****************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RestaurantSidebar_vue_vue_type_template_id_aeed7318___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./RestaurantSidebar.vue?vue&type=template&id=aeed7318& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/frontend/components/RestaurantSidebar.vue?vue&type=template&id=aeed7318&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RestaurantSidebar_vue_vue_type_template_id_aeed7318___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RestaurantSidebar_vue_vue_type_template_id_aeed7318___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

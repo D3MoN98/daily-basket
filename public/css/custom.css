@@ -16,6 +16,59 @@ strong {
     padding: 0;
 }
 
+a,
+input,
+button {
+    transition: all 0.4s;
+}
+
+
+
+/*****Sutanu Pattern******/
+.mt0 {
+    margin-top: 0 !important;
+}
+
+.mr0 {
+    margin-right: 0 !important;
+}
+
+.mb0 {
+    margin-bottom: 0 !important;
+}
+
+.ml0 {
+    margin-left: 0 !important;
+}
+
+.pt0 {
+    padding-top: 0 !important;
+}
+
+.pr0 {
+    padding-right: 0 !important;
+}
+
+.pb0 {
+    padding-bottom: 0 !important;
+}
+
+.pl0 {
+    padding-left: 0 !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*Averta-Semibold*/
 @font-face {
     font-family: "Averta-Semibold";
@@ -133,7 +186,7 @@ a.active {
 }
 
 .header-right .nav-link>i {
-    font-size: 19px;
+    font-size: 17px;
     /* color: #6883b9; */
     color: #5c5c5c;
     transition: all 0.4s;
@@ -144,8 +197,8 @@ a.active {
 }
 
 .nav_txt {
-    font-size: 18px;
-    margin-left: 12px;
+    font-size: 16px;
+    margin-left: 10px;
     /*color: #6883b9;*/
     color: #000;
     font-family: "Averta";
@@ -208,7 +261,6 @@ a.active {
     font-size: 14px;
     font-family: "Averta";
     transition: all 0.4s;
-    cursor: pointer;
 }
 
 .header-right .dropdown-menu {
@@ -538,7 +590,7 @@ i.kithen_image {
     transition: all 0.4s;
     text-transform: capitalize;
     margin: 0;
-    padding: 8px 0px 30px 0;
+    padding: 8px 20px 30px 0;
     text-align: right;
 
 }
@@ -758,7 +810,7 @@ i.kithen_image {
 .hdr_del a,
 .hdr_del .hdr_plc,
 .hdr_del .hdr_add {
-    font-size: 18px;
+    font-size: 16px;
     font-family: "Averta";
     transition: all 0.4s;
     text-transform: capitalize;
@@ -780,11 +832,11 @@ hdr_del a:focus .hdr_add {
     color: #203b72;
 }
 
-.cus_content.content-body {
+.landing_unique .content-body {
     margin-left: calc(23% + 65px);
 }
 
-.cus_content.content-body .container {
+.landing_unique .content-body .container {
     padding: 100px 65px 0px 0px;
 }
 
@@ -820,6 +872,7 @@ hdr_del a:focus .hdr_add {
     background: transparent;
     transition: all 0.4s;
     cursor: pointer;
+    position: relative;
 }
 
 .rnd_icon {
@@ -830,6 +883,8 @@ hdr_del a:focus .hdr_add {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.4s;
+    border: 1px solid transparent;
 }
 
 .rnd_icon .rnd_icon_img {
@@ -847,7 +902,7 @@ hdr_del a:focus .hdr_add {
 .side_txt1 h3 {
     font-family: "Averta_Semibold";
     font-weight: normal;
-    font-size: 22px;
+    font-size: 20px;
     color: #000;
     line-height: 1;
     margin-bottom: 6px;
@@ -861,17 +916,53 @@ hdr_del a:focus .hdr_add {
     line-height: 1;
 }
 
-.lft_side_innr1 ul li a:hover,
-.lft_side_innr1 ul li a:focus {
-    background: #e8f3fc;
-    border-color: #6883b9;
+.lft_side_innr1 ul li a::before {
+    background: #6883b9;
+    content: "";
+    left: 0;
+    height: 100%;
+    width: 0;
+    position: absolute;
+    transition: all 0.4s;
+    z-index: 0;
 }
 
-.lft_side_innr1 ul li a.active,
-.lft_side_innr1 ul li a.active {
-    background: #e8f3fc;
-    border-color: #6883b9;
+.lft_side_innr1 ul li a:hover::before {
+    width: 5px;
+    right: 0;
 }
+
+.lft_side_innr1 ul li a::after {
+    background: #e8f3fc;
+    content: "";
+    left: 0;
+    height: 100%;
+    width: 0;
+    position: absolute;
+    transition: all 0.4s;
+    z-index: -1;
+}
+
+.lft_side_innr1 ul li a:hover::after {
+    width: 100%;
+    right: 0;
+}
+
+.lft_side_innr1 ul li a.active::before {
+    width: 5px;
+    right: 0;
+}
+
+.lft_side_innr1 ul li a.active::after {
+    width: 100%;
+    right: 0;
+}
+
+.lft_side_innr1 ul li a:hover .rnd_icon {
+    transform: scale(1.1);
+    border-color: #000;
+}
+
 
 .bkfff {
     background: #fff !important;
@@ -956,10 +1047,6 @@ hdr_del a:focus .hdr_add {
 
 .ech_res_innr:hover {
     box-shadow: 0 2px 10px 0px rgba(0, 0, 0, 0.20);
-}
-
-.ech_res_innr.ech_res_innr_placeholder:hover {
-    box-shadow: none;
 }
 
 .res_pic {
@@ -1257,18 +1344,17 @@ body {
     font-size: 16px;
     font-family: "Averta";
     line-height: 1;
-    padding-right: 22px;
+    padding-right: 20px;
 }
-
-.modal_chkbox .form-check-label {}
 
 .modal_chkbox .form-check-label {
     color: #0a0a0a;
     font-size: 15px;
     font-family: "Averta";
-    padding-right: 22px;
+    padding-right: 5px;
     margin-left: 0;
-    margin-right: 10px;
+    margin-right: 5px;
+    padding-left: 20px;
 }
 
 .chk_inn .form-check:last-child .form-check-label {
@@ -1295,13 +1381,15 @@ body {
 
 .chk_inn .form-check-input {
     margin-top: 0;
-    margin-left: -20px;
-    top: 51%;
+    top: 50%;
     transform: translateY(-50%);
-}
+    height: 22px;
+    width: 100%;
+    opacity: 0;
+    margin-left: 0;
+    cursor: pointer;
+    z-index: 99;
 
-.chk_inn {
-    margin-left: 20px;
 }
 
 .modal_form .form-group {
@@ -1309,16 +1397,21 @@ body {
 }
 
 .modal_form .form-control {
-    background: #fff;
+    background-color: transparent;
     border: 1px solid #c8c8c8;
-    height: 42px;
+    height: 48px;
     border-radius: 2px;
+    padding: 16px 12px 2px 12px;
+    transition: all 0.4s;
+    position: relative;
+    z-index: 101;
+
 }
 
 .modal_form .form-control,
 .modal_form .form-control::placeholder {
     color: #989797;
-    font-size: 15px;
+    font-size: 14px;
     font-family: "Averta";
 
 }
@@ -1332,7 +1425,11 @@ body {
 }
 
 .modal_form .form-group.address_group textarea {
-    height: 70px;
+    height: 80px;
+}
+
+.modal_form .form-group.address_group textarea:focus {
+    padding-top: 20px;
 }
 
 .mar_btn_0 {
@@ -1460,3 +1557,881 @@ body {
     z-index: 1000;
     transition: all 0.4s;
 }
+
+/***********Update**********/
+
+* {
+    user-select: #6883b9;
+}
+
+.chk_btnn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.chk_btnn input {
+    display: none;
+}
+
+.chk_btnn>label {
+    width: 32%;
+    padding: 9px 5px;
+    border: 1px solid #c8c8c8;
+    display: block;
+    text-align: center;
+    margin-bottom: 0px;
+    color: #6883b9;
+    font-size: 15px;
+    font-family: "Averta";
+    background-color: transparent;
+    transition: all 0.4s;
+    text-transform: capitalize;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.chk_btnn input:checked+label .rdo_span::before {
+    color: #fff;
+}
+
+.chk_btnn input:checked+label {
+    background-color: #6883b9;
+    color: #fff;
+}
+
+.chk_btnn input#other_id:checked+label+.others_box,
+.chk_btnn input#other_id:checked+label+.others_box input {
+    display: block;
+}
+
+.others_box {
+    display: none;
+    width: 100%;
+    margin-top: 9px;
+}
+
+.others_box input {
+    width: 100%;
+
+}
+
+.rdo_span {
+    position: relative;
+    padding-left: 25px;
+}
+
+.rdo_span::before {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    content: "";
+    font-size: 15px;
+    color: #6883b9;
+
+    font-family: 'FontAwesome';
+    font-weight: 500;
+    transition: all 0.4s;
+}
+
+.rdo_home_i::before {
+    content: "\f015";
+}
+
+.rdo_home_w::before {
+    content: "\f0b1";
+}
+
+.rdo_home_o::before {
+    content: "\f124";
+}
+
+/**/
+.modal_form .form-group {
+    position: relative;
+}
+
+.form-control-placeholder {
+    position: absolute;
+    top: 0;
+    padding: 0px 0 0 16px;
+    -webkit-transition: all 200ms;
+    transition: all 200ms;
+    margin-bottom: 0;
+    font-size: 15px;
+    font-family: "Averta";
+    color: #989797;
+    top: 50%;
+    transform: translateY(-50%);
+    line-height: 1;
+    z-index: 100;
+}
+
+.modal_form .form-control:focus {
+    border-color: #6883b9;
+    font-family: "Averta_Semibold";
+}
+
+.modal_form .form-control:focus~.form-control-placeholder,
+.modal_form .form-control:not(:placeholder-shown)~.form-control-placeholder {
+    font-size: 11px;
+    padding: 0 0px 0 12px;
+    transform: none;
+    top: 15%;
+    color: #6883b9;
+    font-family: "Averta_Semibold";
+}
+
+/*
+.modal_form .form-control.is-invalid~.form-control-placeholder {
+    top: 35%;
+}
+
+.modal_form .form-control.is-invalid:focus~.form-control-placeholder,
+.modal_form .form-control.is-invalid:not(:placeholder-shown)~.form-control-placeholder {
+    top: 5%;
+} */
+
+
+/* sudipta 17/08/20202 */
+.modal_form .form-control::placeholder {
+    color: transparent;
+}
+
+.modal_form .form-control::-webkit-input-placeholder {
+    color: transparent;
+}
+
+.modal_form .form-control:-ms-input-placeholder {
+    color: transparent;
+}
+
+.modal_form .form-control::-ms-input-placeholder {
+    color: transparent;
+}
+
+.modal_form .form-control::-moz-placeholder {
+    color: transparent;
+}
+
+.was-validated .form-control:invalid,
+.form-control.is-invalid {
+    background-image: none;
+}
+
+/* sudipta 17/08/20202  */
+
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: red;
+    border-radius: 50%;
+}
+
+.checkmark {
+    position: absolute;
+    top: 50%;
+    left: 0px;
+    height: 15px;
+    width: 15px;
+    background-color: #6883b9;
+    border-radius: 100%;
+    transform: translateY(-50%);
+}
+
+.checkmark::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 7px;
+    height: 7px;
+    border-radius: 100%;
+    background-color: transparent;
+    transition: all 0.4s;
+}
+
+/*.custom_chkbx input:checked ~ .checkmark::after {
+	display: block;
+}*/
+.custom_chkbx input:checked~.checkmark::after {
+    background-color: #ffff;
+}
+
+
+/********************************************************/
+/********************************************************/
+/********************************************************/
+/**********Food page***********/
+.landing_unique .content-body .container {
+    padding: 131px 65px 0px 0px;
+}
+
+.left_blue_unique .content-body {
+    margin-left: calc(21% + 65px);
+}
+
+.left_blue_unique .content-body .container {
+    padding-top: 131px;
+    padding-left: 0;
+    padding-top: ;
+}
+
+.food_otr {
+    padding: 0px 30px 50px 30px;
+}
+
+.cart_right .content-body {
+    margin-right: 22%;
+}
+
+.cart_right .content-body .container {
+    padding-right: 0px;
+}
+
+
+/*Side Blie Bar*/
+.side_bar_blue {
+    width: 21%;
+    position: fixed;
+    left: 65px;
+    top: 81px;
+    padding-top: 50px;
+    padding-right: 25px;
+    padding-left: 25px;
+    height: calc(100% - 81px);
+    background: #203b72;
+    overflow-x: hidden;
+}
+
+.res_image {
+    width: 100%;
+    height: 157px;
+    overflow: hidden;
+}
+
+.res_image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.res_details {
+    margin: 15px 0px 25px 0;
+    text-align: center;
+}
+
+.res_details h3 {
+    color: #fff;
+    font-family: "Averta_Semibold";
+    font-size: 17px;
+    margin-bottom: 5px;
+
+}
+
+.res_details address {
+    color: #fff;
+    font-family: "Averta";
+    font-size: 15px;
+}
+
+.subc_btn_otr {
+    margin-bottom: 20px;
+}
+
+.subc_btn {
+    font-family: "Averta_Semibold";
+    font-size: 17px;
+    color: #48c479;
+    background: #48c479;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    line-height: 1;
+    display: block;
+    color: #fff;
+    text-align: center;
+    padding: 15px 0;
+}
+
+.subc_btn:hover,
+.subc_btn:focus {
+    background: transparent;
+    color: #48c479;
+    border-color: #48c479;
+}
+
+
+.we_offer ul {
+    margin-top: 18px;
+}
+
+.we_offer p,
+.we_offer li,
+.call_last a {
+    color: #fff;
+    font-family: "Averta";
+    font-size: 17px;
+    line-height: 1;
+}
+
+.we_offer ul li {
+    margin-bottom: 15px;
+}
+
+.we_offer ul li:last-child {
+    margin-bottom: 0px;
+}
+
+.we_offer ul li span {
+    margin-right: 15px;
+    border-radius: 100%;
+    transition: all 0.4s;
+    display: inline-block;
+    font-size: 19px;
+    text-align: center;
+    color: #48c479;
+    vertical-align: unset;
+}
+
+.call_last {
+    position: absolute;
+    bottom: 25px;
+}
+
+.call_last span {
+    margin-right: 15px;
+    border-radius: 100%;
+    transition: all 0.4s;
+    display: inline-block;
+    font-size: 19px;
+    text-align: center;
+    color: #fff;
+    vertical-align: unset;
+    height: 36px;
+    width: 36px;
+    line-height: 36px;
+    background: #48c479;
+    animation: msPulseEffect 1s infinite;
+}
+
+.call_last a {
+    display: flex;
+    align-items: center;
+}
+
+.call_last a:hover {
+    color: #48c479;
+}
+
+@keyframes msPulseEffect {
+    0% {
+        box-shadow: 0 0 0 0px rgba(72, 196, 121, 0.70);
+    }
+
+    100% {
+        box-shadow: 0 0 0 10px rgba(72, 196, 121, 0);
+    }
+}
+
+/**/
+
+
+
+
+
+/*Food Container*/
+.food_tab_otr .resp-tabs-list li {
+    color: #090909;
+    font-size: 17px;
+    font-family: "Averta_Semibold";
+    line-height: 1;
+    cursor: pointer;
+    margin-right: 80px;
+    position: relative;
+    padding: 0px 15px 20px 15px;
+}
+
+.food_tab_otr .resp-tabs-list li:last-child {
+    margin-right: 0;
+}
+
+.food_tab_otr .resp-tabs-list {
+    display: flex;
+    border-bottom: 2px solid #e5e0e0;
+    margin-bottom: 30px;
+}
+
+.food_tab_otr .resp-tab-active {
+    background-color: transparent;
+    color: #090909 !important;
+}
+
+.food_tab_otr .resp-tabs-list li::after {
+    bottom: -2px;
+    position: absolute;
+    height: 4px;
+    content: "";
+    background: #6883b9;
+    left: 0;
+    /*right: 0;*/
+    /*margin: auto;*/
+    width: 0%;
+    transition: all 0.4s;
+}
+
+/*.food_tab_otr .resp-tabs-list li:hover::after{
+    width: 100%;
+}*/
+.food_tab_otr .resp-tabs-list li.resp-tab-active::after {
+    width: 100%;
+}
+
+/*Chk Box*/
+.side_chkbox .resp-tabs-list {
+    align-items: flex-start;
+}
+
+.side_chkbox .select_area {
+    position: relative;
+}
+
+.side_chkbox .modal_chkbox.tab_chk_bx {
+    margin: 0;
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.tab_chk_bx .checkmark {
+    background-color: transparent;
+    border-radius: 0;
+    border: 1px solid #e5e0e0;
+}
+
+.tab_chk_bx .custom_chkbx input:checked~.checkmark::after {
+    background-color: #6883b9;
+}
+
+
+.food_tab_items h3 {
+    font-size: 21px;
+    line-height: 1;
+    color: #090909;
+    font-family: "Averta";
+    margin-bottom: 20px;
+}
+
+.food_tab_items h4 {
+    font-size: 18px;
+    line-height: 1;
+    color: #090909;
+    font-family: "Averta";
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.food_tab_items h4::after {
+    position: absolute;
+    content: "";
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #090909;
+    bottom: 0;
+}
+
+/*.food_ottr ul{
+    padding-bottom: 30px;
+    border-bottom: 2px solid #000000;
+}*/
+.food_ottr ul li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 13px;
+    padding-bottom: 13px;
+    border-bottom: 1px solid #e5e0e0;
+}
+
+.food_ottr ul li:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+.food_image {
+    width: 85px;
+    height: 72px;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: all 0.4s;
+    border: 1px solid transparent;
+}
+
+.food_image img {
+    width: 100%;
+    height: 100%;
+    transition: all 0.4s;
+}
+
+.food_details {
+    padding-left: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.food_details h5 {
+    font-size: 16px;
+    line-height: 1;
+    color: #030303;
+    font-family: "Averta_Semibold";
+    margin-bottom: 6px
+}
+
+.food_details p {
+    font-size: 14px;
+    line-height: 20px;
+    color: #a0a2a7;
+    font-family: "Averta";
+}
+
+.food_desp {
+    flex-grow: 1;
+    padding-right: 25%;
+}
+
+.food_tab_items {
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+    border-bottom: 2px solid #000000;
+}
+
+.food_tab_items:last-child {
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    border-bottom: 0;
+}
+
+.food_ottr ul li:hover .food_image img {
+    transform: scale(1.1);
+}
+
+.food_ottr ul li:hover .food_image {
+    border-color: #48c479;
+}
+
+/**/
+.food_qty p {
+    color: #090909;
+    font-size: 18px;
+    font-family: "Averta_Semibold";
+    line-height: 1;
+    margin-top: 8px;
+    text-align: center;
+    width: 100%;
+}
+
+span {
+    cursor: pointer;
+}
+
+.qty_number {
+    position: relative;
+    color: #6883b9;
+}
+
+.qty_number .minus {
+    left: 7px;
+}
+
+.qty_number:hover input {
+    border-color: #48c479;
+    color: #48c479;
+}
+
+.qty_number:hover {
+    color: #48c479;
+}
+
+.qty_number .plus {
+    right: 7px;
+}
+
+.qty_number .minus,
+.qty_number .plus {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 23px;
+    position: absolute;
+    line-height: 33px;
+    font-family: "Averta";
+    transition: all 0.4s;
+
+}
+
+.qty_number input {
+    height: 35px;
+    width: 78px;
+    text-align: center;
+    font-size: 15px;
+    border: 1px solid #cccccc;
+    display: inline-block;
+    vertical-align: middle;
+    font-family: "Averta";
+    color: #6883b9;
+    transition: all 0.4s;
+}
+
+/******/
+/*Default and Blank Cart*/
+.right_cart {
+    width: 22%;
+    position: fixed;
+    right: 0;
+    top: 110px;
+    padding-top: 8px;
+    padding-right: 20px;
+    padding-left: 20px;
+    height: calc(100% - 130px);
+    border-left: 1px solid #e4e7eb;
+    overflow-x: hidden;
+}
+
+.blank_cart_inn h3 {
+    font-size: 25px;
+    font-family: "Averta_Semibold";
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    color: #040404;
+}
+
+.blank_cart {
+    background: url(../images/custom_image/blank_cart.png);
+    background-position: center;
+    background-size: 208px 158px;
+    background-repeat: no-repeat;
+}
+
+.fill_cart .blank_cart_inn {
+    display: none;
+}
+
+.fill_cart.blank_cart {
+    background: none;
+}
+
+.blank_cart .fill_cart_inn {
+    display: none;
+}
+
+/******/
+/*Fill Cart Css*/
+.fill_cart_inn h2 {
+    font-size: 25px;
+    font-family: "Averta_Semibold";
+    padding-bottom: 15px;
+    color: #040404;
+}
+
+.fill_cart_inn .modal_chkbox {
+    margin-bottom: 20px;
+    margin-top: 0px;
+    display: block;
+}
+
+.fill_cart_inn .chk_inn .form-check {
+    padding-right: 5%;
+}
+
+.subc_box {
+    padding: 12px 6px;
+    background: #ffffff;
+    border: 1px solid #48c479;
+    margin-bottom: 25px;
+}
+
+.subc_box p span {
+    color: #48c479;
+    font-size: 19px;
+    margin-right: 8px;
+}
+
+.subc_box p {
+    font-size: 17px;
+    font-family: "Averta_Semibold";
+    font-family: "Averta";
+    padding-bottom: 8px;
+    color: #000000;
+    line-height: 20px
+}
+
+.subc_box h5 {
+    font-size: 15px;
+    font-family: "Averta_Semibold";
+    font-family: "Averta";
+    color: #000000;
+    line-height: 1;
+
+}
+
+.delivery_food ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: first baseline;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    border-bottom: 1px dashed #c8c2c2;
+}
+
+.delivery_food ul li:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+.delivery_food h3 {
+    font-size: 15px;
+    line-height: 1;
+    color: #030303;
+    font-family: "Averta_Semibold";
+    padding-right: 5px;
+    padding-top: 10px;
+}
+
+.delivery_food,
+.amt_cal {
+    padding-bottom: 15px;
+    border-bottom: 1px solid #c8c2c2;
+    margin-bottom: 15px;
+}
+
+.amt_cal_innr>div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.amt_cal_innr>div:last-child {
+    margin-bottom: 0px;
+}
+
+.amt_cal_innr h5,
+.amt_cal_innr p {
+    font-size: 15px;
+    line-height: 1;
+    color: #030303;
+    font-family: "Averta_Semibold";
+}
+
+.cupon input {
+    height: 33px;
+    border-color: #cfcfcf;
+    margin-top: 15px;
+    padding: 3px 10px 3px 37px;
+    background: #ffffff url(../images/custom_image/cupon_img.png);
+    background-size: 18px;
+    background-position: 8px center;
+    background-repeat: no-repeat;
+    border-radius: 2px;
+}
+
+.cupon input:hover,
+.cupon input:focus {
+    background: #ffffff url(../images/custom_image/cupon_img.png);
+    background-size: 18px;
+    background-position: 8px center;
+    background-repeat: no-repeat;
+    border-color: #48c479;
+}
+
+.cupon input,
+.cupon input::placeholder {
+    font-size: 14px;
+    color: #454648;
+}
+
+.pay_area h4 {
+    font-size: 17px;
+    line-height: 1;
+    color: #030303;
+    font-family: "Averta_Semibold";
+    margin-bottom: 15px;
+}
+
+.pay_area .modal_chkbox .form-check-label {
+    font-size: 11.5px;
+    padding-right: 8px;
+    margin-right: 8px;
+}
+
+.fill_cart_inn .pay_area .chk_inn .form-check {
+    padding-right: 0;
+}
+
+.full_field {
+    margin-bottom: 5px;
+}
+
+.full_field:last-child {
+    margin-bottom: 0;
+}
+
+.full_field:nth-child(2) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.full_field:nth-child(2) .echh_fld {
+    width: 45%;
+}
+
+.full_field input {
+    height: 32px;
+    border-color: #d7d8db;
+    padding: 2px 8px 2px 8px;
+    background: #ffffff;
+    border-radius: 0px;
+}
+
+.full_field input,
+.full_field input::placeholder {
+    font-size: 12px;
+    color: #a0a2a7;
+}
+
+.full_field input:hover,
+.full_field input:focus {
+    border-color: #48c479;
+}
+
+.pay_fld {
+    margin-top: 15px;
+}
+
+.pay_btnn.subc_btn {
+    width: 100%;
+    font-size: 14px;
+    padding: 8px 0px;
+    border-radius: 3px;
+}
+
+/********************************************************/
+/********************************************************/
+/********************************************************/

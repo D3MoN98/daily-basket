@@ -12,7 +12,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         factory(App\User::class, 3)->create()->each(function ($user) {
-            $role = rand(2, 2);
+            $role = rand(3, 3);
             $user->roles()->save(App\Role::find($role));
             $user->addresses()->save(factory(App\Address::class)->make());
 

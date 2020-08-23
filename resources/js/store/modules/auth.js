@@ -2,23 +2,25 @@ import axios from 'axios';
 
 const state = {
     token: localStorage.getItem('auth_token') || null,
-    user: localStorage.getItem('user') || null,
+    user: JSON.parse(localStorage.getItem('user')) || null,
     userAddresses: null,
+    currentLocation: localStorage.getItem('current_location') || null,
 };
 
 const getters = {
     isLoggedIn: (state) => !!state.token,
     check: (state) => !!state.token,
-    user: (state) => JSON.parse(state.user),
+    user: (state) => state.user,
     userRole: (state, getters) => getters.user.role,
     userAddresses: (state) => state.userAddresses,
+    currentLocation: (state) => JSON.parse(state.currentLocation),
 };
 
 const mutations = {
     login: (state, payload) => {
         const response = payload.data;
         state.token = response.auth_token;
-        state.user = JSON.stringify(response.user);
+        state.user = response.user;
         localStorage.setItem('auth_token', response.auth_token);
         localStorage.setItem('user', JSON.stringify(response.user));
         $('#log_in_modal').modal('hide');
@@ -26,9 +28,9 @@ const mutations = {
         if (response.user.role === 'seller') {
             window.location.href = '/seller';
         } else if (response.user.role === 'customer') {
-            window.location.href = '/';
+            window.location.reload();
         } else {
-            window.location.href = '/';
+            window.location.reload();
         }
     },
     logout: (state, payload) => {
@@ -39,6 +41,10 @@ const mutations = {
     },
     setUserAddresses: (state, payload) => {
         state.userAddresses = payload;
+    },
+    setCurrentLocation: (state, payload) => {
+        state.currentLocation = payload;
+        localStorage.setItem('current_location', JSON.stringify(payload));
     },
 };
 
@@ -109,6 +115,15 @@ const actions = {
             .then((res) => res.data)
             .then((res) => context.commit('setUserAddresses', res.data))
             .catch((error) => console.log(error));
+    },
+    setCurrentLocation(context, {
+        lat,
+        lng,
+    }) {
+        context.commit('setCurrentLocation', {
+            lat,
+            lng,
+        });
     },
 };
 

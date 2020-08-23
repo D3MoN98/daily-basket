@@ -1,8 +1,6 @@
 <template>
-  <div id="main-wrapper" class="main_wrapper_class show">
+  <div id="main-wrapper" class="main_wrapper_class show" :class="uniqueClass">
     <Header />
-
-    <RestaurantSidebar v-show="isRestaurantSidebar" />
 
     <transition name="fade" mode="out-in">
       <router-view />
@@ -20,7 +18,6 @@
 
 <script>
 import Header from '@/views/frontend/components/Header';
-import RestaurantSidebar from '@/views/frontend/components/RestaurantSidebar';
 import AddressSidebar from '@/views/frontend/components/AddressSidebar';
 import SignupModal from '@/views/frontend/components/SignupModal';
 import LoginModal from '@/views/frontend/components/LoginModal';
@@ -28,18 +25,17 @@ import LoginModal from '@/views/frontend/components/LoginModal';
 export default {
   components: {
     Header,
-    RestaurantSidebar,
     AddressSidebar,
     SignupModal,
     LoginModal,
   },
 
-  data() {
+  data () {
     return {};
   },
 
   computed: {
-    isRestaurantSidebar() {
+    isRestaurantSidebar () {
       if (
         _.indexOf(
           [
@@ -53,7 +49,33 @@ export default {
       ) {
         return true;
       }
-        return false;
+      return false;
+    },
+
+    uniqueClass () {
+      if (
+        _.indexOf(
+          [
+            'restaurants',
+            'restaurants.new',
+            'restaurants.trending',
+            'restaurants.premium',
+          ],
+          this.$route.name,
+        ) !== -1
+      ) {
+        return 'landing_unique';
+      } if (
+        _.indexOf(
+          [
+            'restaurant_details',
+          ],
+          this.$route.name,
+        ) !== -1
+      ) {
+        return 'left_blue_unique cart_right';
+      }
+      return null;
     },
   },
 };

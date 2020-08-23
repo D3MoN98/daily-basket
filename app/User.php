@@ -81,6 +81,11 @@ class User extends Authenticatable
         return $this->hasOne('App\Restaurant');
     }
 
+    public function address()
+    {
+        return $this->addresses()->first();
+    }
+
     public function addresses()
     {
         return $this->hasMany('App\Address');

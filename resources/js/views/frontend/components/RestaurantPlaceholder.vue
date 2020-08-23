@@ -27,5 +27,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.ech_res_innr:hover {
+  box-shadow: none;
+}
 </style>

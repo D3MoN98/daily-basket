@@ -1,14 +1,17 @@
 {
+    "/404.js": "/404.js",
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
-    "/restaurants.js": "/restaurants.js",
-    "/trending-restaurants.js": "/trending-restaurants.js",
-    "/new-restaurants.js": "/new-restaurants.js",
-    "/premium-restaurants.js": "/premium-restaurants.js",
-    "/vendors~new-restaurants~premium-restaurants~trending-restaurants.js": "/vendors~new-restaurants~premium-restaurants~trending-restaurants.js",
-    "/seller-dashboard.js": "/seller-dashboard.js",
-    "/404.js": "/404.js",
     "/frontend-default-layout.js": "/frontend-default-layout.js",
+    "/new-restaurants.js": "/new-restaurants.js",
+    "/new-restaurants~premium-restaurants~trending-restaurants.js": "/new-restaurants~premium-restaurants~trending-restaurants.js",
+    "/premium-restaurants.js": "/premium-restaurants.js",
+    "/restaurant-details.js": "/restaurant-details.js",
+    "/restaurants.js": "/restaurants.js",
+    "/seller-dashboard.js": "/seller-dashboard.js",
     "/seller-default-layout.js": "/seller-default-layout.js",
-    "/vendors~frontend-default-layout.js": "/vendors~frontend-default-layout.js"
+    "/trending-restaurants.js": "/trending-restaurants.js",
+    "/vendors~frontend-default-layout.js": "/vendors~frontend-default-layout.js",
+    "/vendors~new-restaurants~premium-restaurants~restaurant-details~trending-restaurants.js": "/vendors~new-restaurants~premium-restaurants~restaurant-details~trending-restaurants.js",
+    "/vendors~restaurant-details.js": "/vendors~restaurant-details.js"
 }

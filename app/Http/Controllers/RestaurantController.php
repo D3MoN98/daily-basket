@@ -10,7 +10,7 @@ class RestaurantController extends Controller
 {
     public function trending()
     {
-        return ResourcesRestaurant::collection(Restaurant::whereIn('id', [3, 4])->get());
+        return ResourcesRestaurant::collection(Restaurant::whereNotIn('id', [3, 4])->get());
     }
 
     public function new()
@@ -21,5 +21,10 @@ class RestaurantController extends Controller
     public function premium()
     {
         return ResourcesRestaurant::collection(Restaurant::all());
+    }
+
+    public function show($slug)
+    {
+        return new ResourcesRestaurant(Restaurant::findBySlug($slug));
     }
 }

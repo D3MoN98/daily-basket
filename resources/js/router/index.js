@@ -9,6 +9,7 @@ Vue.use(VueRouter);
 const routes = [{
         name: 'home',
         path: '/',
+        redirect: '/restaurants/trending',
         // @ts-ignore
         component: () => import( /* webpackChunkName: "restaurants" */ '@/views/frontend/Restaurants'),
         meta: {
@@ -59,6 +60,17 @@ const routes = [{
             },
         ],
 
+    },
+
+    {
+        name: 'restaurant_details',
+        path: '/restaurant/:slug',
+        // @ts-ignore
+        component: () => import( /* webpackChunkName: "restaurant-details" */ '@/views/frontend/RestaurantDetails'),
+        meta: {
+            // @ts-ignore
+            layout: () => import( /* webpackChunkName: "frontend-default-layout" */ '@/views/frontend/layouts/DefaultLayout'),
+        },
     },
 
     {

@@ -1,5 +1,5 @@
 <template>
-  <a href class="ech_res">
+  <router-link :to="{ path: '/restaurant/' + restaurant.slug }" class="ech_res">
     <div class="ech_res_innr">
       <div class="res_pic">
         <!--Basic Size 231px*146px-->
@@ -20,7 +20,7 @@
         </div>
       </div>
     </div>
-  </a>
+  </router-link>
 </template>
 
 <script>
