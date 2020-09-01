@@ -1,7 +1,7 @@
 <template>
   <div class="pay_area">
     <h4>Pay Now</h4>
-    <form id="paymentForm" @submit="order">
+    <form id="paymentForm" @submit.prevent="payAndOrder">
       <div class="modal_chkbox">
         <div class="chk_inn">
           <div class="form-check custom_chkbx">
@@ -36,6 +36,7 @@
               class="form-control name"
               id="name"
               :class="{'is-invalid' : nameValidation}"
+              v-model="order.card_holder_name"
               placeholder="Name on the card"
             />
           </div>
@@ -54,6 +55,7 @@
                 class="expiry-month form-control"
                 :class="{'is-invalid' : expiryMonthValidation}"
                 name="expiry-month"
+                v-model="order.card_exp_month"
                 id="expiry-month"
               />
             </div>
@@ -63,6 +65,7 @@
                 class="expiry-year form-control"
                 :class="{'is-invalid' : expiryYearValidation}"
                 name="expiry-year"
+                v-model="order.card_exp_years"
                 id="expiry-year"
               />
             </div>
@@ -73,15 +76,26 @@
                 class="form-control cvc"
                 id="cvc"
                 :class="{'is-invalid' : cvvValidation}"
+                v-model="order.card_cvv"
                 placeholder="CVV"
               />
             </div>
           </div>
         </div>
         <div class="pay_fld">
-          <input type="submit" class="pay_btnn subc_btn" value="PAY" />
+          <button type="submit" class="pay_btnn subc_btn" :disabled="submitted">
+            Pay & Order
+            <span
+              class="fa fa-circle-o-notch fa-spin"
+              role="status"
+              aria-hidden="true"
+              v-show="submitted"
+            ></span>
+          </button>
         </div>
       </div>
+      <input type="hidden" name="address_id" v-model="order.address_id" />
+      <input type="hidden" name="subtotal" v-model="order.subtotal" />
     </form>
   </div>
 </template>
@@ -93,20 +107,35 @@ import CardValidator from 'card-validator';
 export default {
   data () {
     return {
+      submitted: false,
       isInValid: false,
       numberValidation: false,
       nameValidation: false,
       cvvValidation: false,
       expiryMonthValidation: false,
       expiryYearValidation: false,
+      order: {
+        card_holder_name: null,
+        card_number: null,
+        card_exp_month: null,
+        card_exp_years: null,
+        card_cvv: null,
+        address_id: this.deleveyAddress.id,
+        subtotal: this.subTotalAmount
+      }
     };
+  },
+  props: {
+    deleveyAddress: null,
+    subTotalAmount: null
   },
   mounted () {
     $('.card-js').CardJs();
   },
   methods: {
-    order (e) {
-      e.preventDefault();
+    payAndOrder () {
+      this.submitted = true;
+
       const myCard = $('.card-js');
       const numberValidation = CardValidator.number(myCard.CardJs('cardNumber'));
       const cvvValidation = CardValidator.cvv(myCard.CardJs('cvc'));
@@ -122,11 +151,18 @@ export default {
 
       if (!numberValidation.isValid || !cvvValidation.isValid || !expiryMonthValidation.isValid || !expiryYearValidation.isValid || !nameValidation) {
         this.isInValid = true;
+        this.submitted = false;
         return false;
       }
       this.isInValid = false;
 
-      console.log('dasd');
+      this.order.card_exp_month = myCard.CardJs('expiryMonth');
+      this.order.card_exp_years = myCard.CardJs('expiryYear');
+      this.order.card_number = myCard.CardJs('cardNumber');
+
+      this.$store.dispatch('checkout/placeOrder', this.order).then(() => {
+        this.submitted = false;
+      });
     },
   },
 };

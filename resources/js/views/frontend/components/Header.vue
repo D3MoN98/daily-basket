@@ -24,8 +24,11 @@
                 <div class="hdr_del">
                   <a onclick="openNav()">
                     Delivery to
-                    <span class="hdr_plc">Home</span>
-                    <span class="hdr_add">Sbi staff quater,Chiku..</span>
+                    <!-- <span class="hdr_plc">Home</span> -->
+                    <span
+                      class="hdr_add"
+                      v-if="currentLocation !== null"
+                    >{{`${currentLocation.formatted_address.substring(0, 30)}...`}}</span>
                   </a>
                 </div>
               </div>
@@ -116,7 +119,14 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
+  computed: {
+    ...mapGetters({
+      currentLocation: 'auth/currentLocation',
+    }),
+  },
   methods: {
     logout () {
       this.$store.dispatch('auth/logout');
@@ -125,4 +135,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.hdr_add {
+  text-overflow: ellipsis;
+}
+</style>

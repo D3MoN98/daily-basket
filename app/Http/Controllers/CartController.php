@@ -133,6 +133,26 @@ class CartController extends Controller
         return response()->json(['data' => $this->toArray(Cart::content())]);
     }
 
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy_all($id)
+    {
+        $user = Auth::user();
+
+        Cart::restore($user->id);
+        foreach ($content as $key) {
+            Cart::remove($id);
+        }
+        Cart::destroy();
+
+        return response()->json(['success' => 'cart is empty']);
+    }
+
     public function toArray($content)
     {
         $array = [];

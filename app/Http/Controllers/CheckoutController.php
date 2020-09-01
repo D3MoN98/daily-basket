@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Cart;
+use App\Order;
+use App\OrderItem;
 use Illuminate\Support\Facades\Validator;
 use Cartalyst\Stripe\Stripe;
 use Exception;
-use Spatie\Geocoder\Facades\Geocoder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CheckoutController extends Controller
 {
@@ -39,52 +42,47 @@ class CheckoutController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            // 'card_number' => 'required',
-            // 'card_exp_month' => 'required',
-            // 'card_exp_years' => 'required',
-            // 'card_cvv' => 'required',
-            'location_lat' => 'required',
-            'location_lng' => 'required',
+            'card_number' => 'required',
+            'card_exp_month' => 'required',
+            'card_exp_years' => 'required',
+            'card_cvv' => 'required',
+            'address_id' => 'required',
+            'subtotal' => 'required',
         ]);
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-
-        // $geocoder->getCoordinatesForAddress('23/4B Banamali Naskar Road');
-
-        return response()->json([
-            // 'data' => Geocoder::getAllCoordinatesForAddress('23/4B Banamali Naskar Road'),
-            'new' => Geocoder::getAddressForCoordinates((float) 22.5090028, (float) 88.3080772)
-        ]);
-
         try {
 
-            // $stripe = new Stripe();
-            // $stripe = Stripe::make(env('STRIPE_SECRET'));
+            $stripe = new Stripe();
+            $stripe = Stripe::make(env('STRIPE_SECRET'));
 
-            // $token = $stripe->tokens()->create([
-            //     'card' => [
-            //         'number' => $request->get('card_number'),
-            //         'exp_month' => $request->get('card_exp_month'),
-            //         'exp_year' => $request->get('card_exp_years'),
-            //         'cvc' => $request->get('card_cvv'),
-            //     ],
-            // ]);
+            $token = $stripe->tokens()->create([
+                'card' => [
+                    'number' => $request->get('card_number'),
+                    'exp_month' => $request->get('card_exp_month'),
+                    'exp_year' => $request->get('card_exp_years'),
+                    'cvc' => $request->get('card_cvv'),
+                ],
+            ]);
 
-            // if (!isset($token['id'])) {
-            //     return response()->json(['error' => 'error occured']);
-            // }
+            if (!isset($token['id'])) {
+                return response()->json(['error' => 'error occured']);
+            }
 
-            // $charge = $stripe->charges()->create([
-            //     'card' => $token['id'],
-            //     'currency' => 'INR',
-            //     'amount' => 20,
-            //     'description' => 'wallet',
-            // ]);
+            $charge = $stripe->charges()->create([
+                'card' => $token['id'],
+                'currency' => 'INR',
+                'amount' => (float) ($request->subtotal + $request->tax ?? 0 + $request->delivery_charge ?? 0),
+                'description' => 'new order',
+            ]);
 
-            // return response()->json($charge);
+
+            if ($charge['status'] === 'succeeded') {
+                return $this->order($request->all(), $charge);
+            }
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()]);
         } catch (\Cartalyst\Stripe\Exception\CardErrorException $e) {
@@ -94,13 +92,43 @@ class CheckoutController extends Controller
         }
     }
 
-    public function order()
+    public function order($request, $charge)
     {
         $user = Auth::user();
 
+        $order = Order::create([
+            'user_id' => $user->id,
+            'address_id' => $request['address_id'],
+            'subtotal' => $request['subtotal'],
+            'total' => (float) ($request['subtotal'] + ($request['tax'] ?? 0) + ($request['delivery_charge'] ?? 0)),
+            'tax' => $request['tax'] ?? 0,
+            'delivery_charge' => $request['delivery_charge'] ?? 0,
+            'discount' => $request['discount'] ?? null,
+        ]);
+
+        $order->payment()->create([
+            'charge_id' => $charge['id'],
+            'amount' => (float) ($charge['amount']) / 100,
+            'status' => $charge['status']
+        ]);
+
         Cart::restore($user->id);
-        $cart_content = Cart::content();
-        return response()->json($cart_content);
+        $cart_items = Cart::content();
+
+        foreach ($cart_items as $key) {
+            OrderItem::create([
+                'order_id' => $order->id,
+                'menu_item_id' => $key->id,
+                'quantity' => $key->qty,
+                // 'subtotal' => $key->subtotal,
+            ]);
+        }
+
+        Cart::destroy();
+        Cart::store($user->id);
+
+
+        return response()->json(['success' => 'Your order has been placed']);
     }
 
 

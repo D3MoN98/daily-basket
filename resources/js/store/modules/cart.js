@@ -16,6 +16,11 @@ const mutations = {
 };
 
 const actions = {
+    setCartItem({
+        commit
+    }, item) {
+        commit('setCartItems', item);
+    },
     async getCartItems({
         commit,
     }) {

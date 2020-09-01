@@ -40,6 +40,7 @@
           <CartItem v-for="cart_item in cart_items" :cart_item="cart_item" :key="cart_item.rowId" />
         </ul>
       </div>
+
       <div class="amt_cal">
         <div class="amt_cal_innr">
           <div class="sub_total">
@@ -48,11 +49,11 @@
           </div>
           <div class="tax">
             <h5>Taxes</h5>
-            <p>50.00</p>
+            <p>00.00</p>
           </div>
           <div class="other_chrgs">
             <h5>Other Charges</h5>
-            <p>50.00</p>
+            <p>00.00</p>
           </div>
         </div>
         <div class="cupon">
@@ -63,12 +64,38 @@
         <div class="amt_cal_innr">
           <div class="total">
             <h5>Total</h5>
-            <p>300.00</p>
+            <p>{{parseFloat(subTotal).toFixed(2)}}</p>
           </div>
         </div>
       </div>
-
-      <Payment />
+      <div class="delivery_to">
+        <h4>Delevered To</h4>
+        <div class="delivery-address" v-if="userAddresses.length > 0">
+          <div class="address-icon">
+            <i class="fas fa-home" v-if="deleveyAddress.type == 'home'"></i>
+            <i class="fas fa-briefcase" v-else-if="deleveyAddress.type == 'work'"></i>
+            <i class="fas fa-map-marker-alt" v-else></i>
+          </div>
+          <div>
+            <b>{{_.startCase(_.toLower(deleveyAddress.type))}}</b>
+            <p>{{_.truncate(deleveyAddress.address)}}</p>
+          </div>
+        </div>
+        <div class="delivery-address" v-else-if="userAddresses.length === 0">
+          <div class="address-icon">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <p>{{_.truncate(currentLocation.formatted_address)}}</p>
+        </div>
+        <div class="delevery-action" v-if="userAddresses.length > 0">
+          <a href="javascript:void(0);" @click.prevent="openSaveAddress()">Add New</a>
+          <a href="javascript:void(0);" @click.prevent="openChangeAddress()">Change</a>
+        </div>
+        <div class="delevery-action" v-else-if="userAddresses.length === 0">
+          <a href="javascript:void(0);" @click.prevent="openSaveAddress()">Add New</a>
+        </div>
+      </div>
+      <Payment :deleveyAddress="deleveyAddress" :subTotalAmount="subTotal" />
     </div>
   </div>
 </template>
@@ -83,23 +110,49 @@ export default {
     CartItem,
     Payment,
   },
+  created () {
+    if (this.$store.getters['auth/check']) {
+      this.$store.dispatch('auth/userAddresses').then(() => { this.isLoaded = this.userAddresses.length > 0; });
+    }
+  },
   computed: {
     ...mapGetters({
       cart_items: 'cart/getCartItems',
       isCartEmpty: 'cart/isCartEmpty',
+      userAddresses: 'auth/userAddresses',
+      currentLocation: 'auth/currentLocation',
+      deleveyAddress: 'auth/deleveyAddress',
     }),
     subTotal () {
       return this.cart_items.reduce(((acc, value) => acc + Math.floor(value.subtotal)), 0);
     },
   },
   mounted () {
-    this.$store.dispatch('cart/getCartItems');
+    if (this.$store.getters['auth/check']) {
+      this.$store.dispatch('cart/getCartItems');
+    }
+  },
+  methods: {
+    openSaveAddress () {
+      document.getElementById('delivery_address_add').style.width = '37%';
+
+      const mn_wrapper = document.getElementById('main-wrapper');
+      mn_wrapper.classList.add('full_body_opacity');
+      mn_wrapper.parentElement.classList.add('no_scroll');
+    },
+    openChangeAddress () {
+      document.getElementById('change_address').style.width = '37%';
+
+      const mn_wrapper = document.getElementById('main-wrapper');
+      mn_wrapper.classList.add('full_body_opacity');
+      mn_wrapper.parentElement.classList.add('no_scroll');
+    },
   },
 
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 /* width */
 ::-webkit-scrollbar {
   width: 0;
@@ -115,5 +168,37 @@ export default {
 ::-webkit-scrollbar-thumb {
   background: #ecebeb;
   border-radius: none;
+}
+.delivery_to {
+  h4 {
+    font-size: 17px;
+    line-height: 1;
+    color: #030303;
+    font-family: "Averta_Semibold";
+  }
+  margin-bottom: 15px;
+  border-bottom: 1px solid #c8c2c2;
+}
+.delivery-address {
+  margin: 15px 0;
+  display: flex;
+  .address-icon {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #cfcfcf;
+    margin-right: 10px;
+    display: flex;
+    // align-self: center;
+    .fas {
+      margin: auto;
+    }
+  }
+}
+.delevery-action {
+  text-align: right;
+  margin-bottom: 10px;
+  a {
+    margin-left: 10px;
+  }
 }
 </style>

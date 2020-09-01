@@ -98,7 +98,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var script = document.createElement('script');
     script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCQ50fCTWgDOCjgUmkxARbJCFpIrqq-Uok&callback=initMap&libraries=places&v=weekly';
     script.defer = true;
-    script.async = true;
+    script.async = true; // Append the 'script' element to 'head'
+
+    document.head.appendChild(script);
     var instance = this;
 
     window.initMap = function () {
@@ -174,10 +176,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           console.log(places);
         }
       });
-    }; // Append the 'script' element to 'head'
-
-
-    document.head.appendChild(script);
+    };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
     userAddresses: 'auth/userAddresses'
@@ -201,13 +200,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             lat: position.coords.latitude,
             lng: position.coords.longitude
           };
+
+          _this3.$store.dispatch('auth/setCurrentLocation', _this3.currentPos);
+
+          var geocoder = new window.google.maps.Geocoder();
+          geocoder.geocode({
+            location: _this3.currentPos
+          }, function (results, status) {
+            if (status === 'OK') {
+              if (results[0]) {
+                console.log(results[0].formatted_address);
+              } else {
+                console.log('No results found');
+                return false;
+              }
+            } else {
+              console.log("Geocoder failed due to: ".concat(status));
+              return false;
+            }
+          });
           var reCenterPosition = new window.google.maps.LatLng(_this3.currentPos.lat, _this3.currentPos.lng);
           window.map.setZoom(18);
           window.map.setCenter(reCenterPosition);
           window.marker.setPosition(reCenterPosition);
           _this3.rePositioned = false;
-
-          _this3.$store.dispatch('auth/setCurrentLocation', _this3.currentPos).then(function () {});
         }, function () {
           console.error('Please turn on your geolocation');
         });
@@ -235,6 +251,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         showMethod: 'fadeIn',
         hideMethod: 'fadeOut',
         tapToDismiss: !1
+      });
+    },
+    reverseGeocode: function reverseGeocode(latlong) {
+      var geocoder = new window.google.maps.Geocoder();
+      geocoder.geocode({
+        location: latlong
+      }, function (results, status) {
+        if (status === 'OK') {
+          if (results[0]) {
+            return results[0];
+          }
+
+          console.log('No results found');
+          return false;
+        }
+
+        console.log("Geocoder failed due to: ".concat(status));
+        return false;
       });
     },
     saveLocation: function saveLocation() {

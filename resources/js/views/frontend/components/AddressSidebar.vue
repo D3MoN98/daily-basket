@@ -19,7 +19,25 @@
           </button>
         </div>
 
-        <div id="gmap" class="w-100"></div>
+        <div id="gmap" class="w-100">
+          <GmapMap
+            ref="mapRef"
+            :center="currentPos"
+            :zoom="18"
+            style="width: 100%; height: 100%"
+            :options="{disableDefaultUI: true, gestureHandling: 'cooperative'}"
+            @dragend="updateCoordinatesOnMapDrag"
+          >
+            <GmapMarker
+              ref="markerRef"
+              :position="currentPos"
+              :clickable="true"
+              :draggable="true"
+              @click="center=currentPos"
+              @dragend="updateCoordinates"
+            />
+          </GmapMap>
+        </div>
       </div>
       <div class="action">
         <button
@@ -31,12 +49,12 @@
       <div class="scrh">
         <input type="search" id="area-input" placeholder="Search your area, street name" />
       </div>
-      <div class="saved_address" v-if="isLoaded">
+      <div class="saved_address" v-if="this.$store.getters['auth/check']">
         <h3 type="button" v-b-toggle.collapse-1>Saved Addresses</h3>
         <b-collapse id="collapse-1" class="mt-2">
           <div class="address_otr">
             <div
-              @click="setAddress(address)"
+              @click="setLocation({lat: address.latitude, lng: address.longitude})"
               class="address_inn"
               v-for="address in userAddresses"
               :key="address.id"
@@ -72,27 +90,11 @@ export default {
   },
   created () {
     if (this.$store.getters['auth/check']) {
-      this.$store.dispatch('auth/userAddresses').then(() => { this.isLoaded = true; });
+      this.$store.dispatch('auth/userAddresses').then(() => { this.isLoaded = this.userAddresses.length > 0; });
     }
   },
   mounted () {
-    const script = document.createElement('script');
-    script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCQ50fCTWgDOCjgUmkxARbJCFpIrqq-Uok&callback=initMap&libraries=places&v=weekly';
-    script.defer = true;
-    script.async = true;
-
-    const instance = this;
-
-    window.initMap = function () {
-      // map init
-      window.map = new window.google.maps.Map(document.getElementById('gmap'), {
-        center: { lat: 22.5726, lng: 88.3639 },
-        zoom: 18,
-        gestureHandling: 'cooperative',
-        disableDefaultUI: true,
-      });
-
-      // map style
+    this.$refs.mapRef.$mapPromise.then((map) => {
       const styles = {
         default: [],
         hide: [
@@ -109,120 +111,105 @@ export default {
       };
 
       // map set style
-      window.map.setOptions({ styles: styles.hide });
+      map.setOptions({ styles: styles.hide });
 
-      // map set marker
-      window.marker = new window.google.maps.Marker({
-        position: this.currentPos,
-        draggable: true,
-        raiseOnDrag: true,
-        title: 'Drop me to destination',
-        map: window.map,
-      });
+      if (this.$store.getters['auth/currentLocation'] === null) {
+        this.reCenter(map);
+      } else {
+        this.setLocation(this.$store.getters['auth/currentLocation']);
+      }
+    });
 
-      // map set marker drag end event
-      google.maps.event.addListener(window.marker, 'dragend', (event) => {
-        this.currentPos = {
-          lat: event.latLng.lat(),
-          lng: event.latLng.lng(),
-        };
-        const dragPosition = new window.google.maps.LatLng(this.currentPos.lat, this.currentPos.lng);
-        window.map.setCenter(dragPosition);
-        instance.rePositioned = true;
-      });
+    //   const input = document.getElementById('area-input');
+    //   const searchBox = new google.maps.places.SearchBox(input);
 
-      // map set marker drag
-      window.map.addListener('dragend', () => {
-        window.marker.setPosition(window.map.getCenter());
-        instance.rePositioned = true;
-      });
-
-      // map set to current location
-      instance.reCenter();
-
-      //   const latlng = new window.google.maps.LatLng(instance.currentPos.lat, instance.currentPos.lng);
-      //   const geocoder = new google.maps.Geocoder();
-      //   geocoder.geocode({ latLng: latlng }, (results, status) => {
-      //     console.log(result, status);
-      //   });
-
-      const input = document.getElementById('area-input');
-      const searchBox = new google.maps.places.SearchBox(input);
-
-      // more details for that place.
-      searchBox.addListener('places_changed', () => {
-        const places = searchBox.getPlaces();
-        if (places.length !== 0) {
-          console.log(places);
-        }
-      });
-    };
-
-    // Append the 'script' element to 'head'
-    document.head.appendChild(script);
+    //   // more details for that place.
+    //   searchBox.addListener('places_changed', () => {
+    //     const places = searchBox.getPlaces();
+    //     if (places.length !== 0) {
+    //       console.log(places);
+    //     }
+    //   });
+    // };
   },
   computed: {
     ...mapGetters({
       userAddresses: 'auth/userAddresses',
+      currentLocation: 'auth/currentLocation',
     }),
   },
 
   methods: {
-    setAddress (address) {
+    setLocation ({ lat, lng }) {
       this.currentPos = {
-        lat: address.latitude,
-        lng: address.longitude,
+        lat,
+        lng,
       };
-      const newPosition = new window.google.maps.LatLng(this.currentPos.lat, this.currentPos.lng);
-      window.map.setCenter(newPosition);
-      window.marker.setPosition(newPosition);
     },
     reCenter () {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          this.currentPos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-          const reCenterPosition = new window.google.maps.LatLng(this.currentPos.lat, this.currentPos.lng);
-          window.map.setZoom(18);
-          window.map.setCenter(reCenterPosition);
-          window.marker.setPosition(reCenterPosition);
-          this.rePositioned = false;
-          this.$store.dispatch('auth/setCurrentLocation', this.currentPos).then(() => {
+      this.$refs.mapRef.$mapPromise.then((map) => {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition((position) => {
+            this.currentPos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            };
 
+            this.reverseGeocode(this.currentPos, (result) => {
+              this.currentPos.formatted_address = result;
+              this.$store.dispatch('auth/setCurrentLocation', this.currentPos);
+            });
+
+            const reCenterPosition = new window.google.maps.LatLng(this.currentPos.lat, this.currentPos.lng);
+            map.setZoom(18);
+            map.setCenter(reCenterPosition);
+            this.rePositioned = false;
+          }, () => {
+            console.error('Please turn on your geolocation');
           });
-        }, () => {
+        } else {
           console.error('Please turn on your geolocation');
-        });
-      } else {
-        console.error('Please turn on your geolocation');
-      }
+        }
+      });
+    },
+    reverseGeocode (latlong, callback) {
+      const geocoder = new window.google.maps.Geocoder();
+      geocoder.geocode({ location: latlong }, (results, status) => {
+        if (status === 'OK') {
+          if (results[0]) {
+            const address = results[0].formatted_address;
+            return callback(address); // call the callback function here
+          }
+          console.log('No results found');
+          return false;
+        }
+        console.log(`Geocoder failed due to: ${status}`);
+        return false;
+      });
     },
     zoom (level) {
-      const zoom = window.map.getZoom() + level;
-      window.map.setZoom(zoom);
-      toastr.success('This Is Success Message', 'Bottom Center', {
-        positionClass: 'toast-bottom-center',
-        timeOut: 5e3,
-        closeButton: !0,
-        debug: !1,
-        newestOnTop: !0,
-        progressBar: !0,
-        preventDuplicates: !0,
-        onclick: null,
-        showDuration: '300',
-        hideDuration: '1000',
-        extendedTimeOut: '1000',
-        showEasing: 'swing',
-        hideEasing: 'linear',
-        showMethod: 'fadeIn',
-        hideMethod: 'fadeOut',
-        tapToDismiss: !1,
+      this.$refs.mapRef.$mapPromise.then((map) => {
+        const zoom = map.getZoom() + level;
+        map.setZoom(zoom);
       });
     },
     saveLocation () {
       this.rePositioned = false;
+    },
+    updateCoordinates (location) {
+      this.currentPos = {
+        lat: location.latLng.lat(),
+        lng: location.latLng.lng(),
+      };
+      this.reverseGeocode(this.currentPos, (result) => {
+        this.currentPos.formatted_address = result;
+        this.$store.dispatch('auth/setCurrentLocation', this.currentPos);
+      });
+    },
+    updateCoordinatesOnMapDrag () {
+      this.$refs.mapRef.$mapPromise.then((map) => {
+        this.currentPos = map.getCenter();
+      });
     },
   },
 };

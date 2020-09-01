@@ -1,4 +1,7 @@
 /* eslint-disable space-in-parens */
+// @ts-ignore
+import store from '@/store';
+import DefaultLayout from '@/views/frontend/layouts/DefaultLayout';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import sellerMiddleware from './middleware/sellerMiddleware';
@@ -14,7 +17,7 @@ const routes = [{
         component: () => import( /* webpackChunkName: "restaurants" */ '@/views/frontend/Restaurants'),
         meta: {
             // @ts-ignore
-            layout: () => import( /* webpackChunkName: "frontend-default-layout" */ '@/views/frontend/layouts/DefaultLayout'),
+            layout: DefaultLayout,
         },
     },
 
@@ -24,7 +27,7 @@ const routes = [{
         redirect: '/restaurants/trending',
         meta: {
             // @ts-ignore
-            layout: () => import( /* webpackChunkName: "frontend-default-layout" */ '@/views/frontend/layouts/DefaultLayout'),
+            layout: DefaultLayout,
         },
         // @ts-ignore
         component: () => import( /* webpackChunkName: "restaurants" */ '@/views/frontend/Restaurants'),
@@ -35,7 +38,7 @@ const routes = [{
                 component: () => import( /* webpackChunkName: "trending-restaurants" */ '@/views/frontend/components/TrendingRestaurants'),
                 meta: {
                     // @ts-ignore
-                    layout: () => import( /* webpackChunkName: "frontend-default-layout" */ '@/views/frontend/layouts/DefaultLayout'),
+                    layout: DefaultLayout,
                 },
             },
             {
@@ -45,7 +48,7 @@ const routes = [{
                 component: () => import( /* webpackChunkName: "new-restaurants" */ '@/views/frontend/components/NewRestaurants'),
                 meta: {
                     // @ts-ignore
-                    layout: () => import( /* webpackChunkName: "frontend-default-layout" */ '@/views/frontend/layouts/DefaultLayout'),
+                    layout: DefaultLayout,
                 },
             },
             {
@@ -55,7 +58,7 @@ const routes = [{
                 component: () => import( /* webpackChunkName: "premium-restaurants" */ '@/views/frontend/components/PremiumRestaurants'),
                 meta: {
                     // @ts-ignore
-                    layout: () => import( /* webpackChunkName: "frontend-default-layout" */ '@/views/frontend/layouts/DefaultLayout'),
+                    layout: DefaultLayout,
                 },
             },
         ],
@@ -69,7 +72,7 @@ const routes = [{
         component: () => import( /* webpackChunkName: "restaurant-details" */ '@/views/frontend/RestaurantDetails'),
         meta: {
             // @ts-ignore
-            layout: () => import( /* webpackChunkName: "frontend-default-layout" */ '@/views/frontend/layouts/DefaultLayout'),
+            layout: DefaultLayout,
         },
     },
 
@@ -107,8 +110,6 @@ router.beforeEach((to, from, next) => {
         middleware,
     } = to.meta;
 
-    // @ts-ignore
-    const store = () => import('@/store');
 
     const context = {
         to,

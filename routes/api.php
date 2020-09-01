@@ -33,7 +33,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('logout', 'AuthController@logout');
     Route::get('user', 'AuthController@user');
     Route::get('user/addresses', 'AuthController@userAddresses');
+    Route::post('user/address', 'UserController@userStoreAddresses');
     Route::resource('cart', 'CartController');
+    Route::delete('cart/all', 'CartController@destroy_all');
     Route::post('checkout', 'CheckoutController@store');
 });
 

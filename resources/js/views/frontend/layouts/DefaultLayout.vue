@@ -7,6 +7,8 @@
     </transition>
 
     <AddressSidebar />
+    <SaveAddress v-if="this.$store.getters['auth/check']" />
+    <ChangeAddress v-if="this.$store.getters['auth/check']" />
 
     <LoginModal />
 
@@ -19,6 +21,8 @@
 <script>
 import Header from '@/views/frontend/components/Header';
 import AddressSidebar from '@/views/frontend/components/AddressSidebar';
+import SaveAddress from '@/views/frontend/components/SaveAddress';
+import ChangeAddress from '@/views/frontend/components/ChangeAddress';
 import SignupModal from '@/views/frontend/components/SignupModal';
 import LoginModal from '@/views/frontend/components/LoginModal';
 
@@ -26,6 +30,8 @@ export default {
   components: {
     Header,
     AddressSidebar,
+    SaveAddress,
+    ChangeAddress,
     SignupModal,
     LoginModal,
   },

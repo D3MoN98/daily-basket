@@ -40,7 +40,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .fade-enter {
   opacity: 0;
 }
@@ -56,5 +56,28 @@ export default {
   transition-property: opacity;
   transition-timing-function: ease;
   opacity: 0;
+}
+
+/* sudipta */
+.form-control {
+  background-color: transparent;
+  border: 1px solid #c8c8c8;
+  border-radius: 2px;
+}
+.form-control:focus {
+  border-color: #6883b9;
+}
+.btn-primary {
+  color: #ffffff;
+  background: #6883b9;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  transition: all 0.4s;
+  &:hover,
+  &:focus {
+    color: #ffffff !important;
+    background: #6883b9 !important;
+    border-color: transparent !important;
+  }
 }
 </style>

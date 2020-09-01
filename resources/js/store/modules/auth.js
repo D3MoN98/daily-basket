@@ -4,7 +4,8 @@ const state = {
     token: localStorage.getItem('auth_token') || null,
     user: JSON.parse(localStorage.getItem('user')) || null,
     userAddresses: null,
-    currentLocation: localStorage.getItem('current_location') || null,
+    currentLocation: JSON.parse(localStorage.getItem('current_location')) || null,
+    deleveryAddress: JSON.parse(localStorage.getItem('delevery_address')) || null,
 };
 
 const getters = {
@@ -13,7 +14,8 @@ const getters = {
     user: (state) => state.user,
     userRole: (state, getters) => getters.user.role,
     userAddresses: (state) => state.userAddresses,
-    currentLocation: (state) => JSON.parse(state.currentLocation),
+    currentLocation: (state) => state.currentLocation,
+    deleveyAddress: (state) => state.deleveryAddress,
 };
 
 const mutations = {
@@ -37,6 +39,7 @@ const mutations = {
         state.token = null;
         localStorage.removeItem('auth_token');
         localStorage.removeItem('user');
+        localStorage.removeItem('delevery_address');
         window.location.href = '/';
     },
     setUserAddresses: (state, payload) => {
@@ -45,6 +48,10 @@ const mutations = {
     setCurrentLocation: (state, payload) => {
         state.currentLocation = payload;
         localStorage.setItem('current_location', JSON.stringify(payload));
+    },
+    setDeleveryAddress: (state, payload) => {
+        state.deleveryAddress = payload;
+        localStorage.setItem('delevery_address', JSON.stringify(payload));
     },
 };
 
@@ -55,6 +62,7 @@ const actions = {
                 axios
                     .post('/api/login', data)
                     .then((response) => {
+                        context.dispatch('userAddresses');
                         context.commit('login', response);
                         resolve(response);
                     })
@@ -113,17 +121,40 @@ const actions = {
     async userAddresses(context) {
         return axios.get('api/user/addresses')
             .then((res) => res.data)
-            .then((res) => context.commit('setUserAddresses', res.data))
+            .then((res) => {
+                context.commit('setUserAddresses', res.data);
+                if (res.data.length > 0) {
+                    context.commit('setDeleveryAddress', res.data.find((address) => address.type === 'home'));
+                }
+            })
+            .catch((error) => console.log(error));
+    },
+    async saveUserAddresses({
+        commit,
+        dispatch,
+    }, data) {
+        return axios.post('api/user/address', data)
+            .then((res) => res.data)
+            .then((res) => {
+                console.log(res.address);
+                commit('setDeleveryAddress', res.address);
+                dispatch('userAddresses');
+            })
             .catch((error) => console.log(error));
     },
     setCurrentLocation(context, {
         lat,
         lng,
+        formatted_address,
     }) {
         context.commit('setCurrentLocation', {
             lat,
             lng,
+            formatted_address,
         });
+    },
+    async setDeleveryAddress(context, address) {
+        context.commit('setDeleveryAddress', address);
     },
 };
 
