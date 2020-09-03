@@ -4,6 +4,8 @@ import auth from './modules/auth';
 import cart from './modules/cart';
 import checkout from './modules/checkout';
 import restaurant from './modules/restaurant';
+import sellerMenu from './modules/seller/Menu';
+import sellerRestaurant from './modules/seller/restaurant';
 
 Vue.use(Vuex);
 
@@ -12,6 +14,8 @@ export default new Vuex.Store({
         auth,
         restaurant,
         cart,
-        checkout
+        checkout,
+        sellerRestaurant,
+        sellerMenu,
     },
 });

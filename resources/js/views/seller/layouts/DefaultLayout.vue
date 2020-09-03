@@ -1,5 +1,5 @@
 <template>
-  <div id="main-wrapper">
+  <div id="main-wrapper" class="show">
     <Header />
 
     <Sidebar />

@@ -26,8 +26,12 @@ class Restaurant extends JsonResource
                 'image' => $this->image,
                 'gstin_no' => $this->gstin_no,
                 'fssai_license_no' => $this->fssai_license_no,
+                'opening_time' => date('H:i', strtotime($this->opening_time)),
+                'closing_time' => date('H:i', strtotime($this->closing_time)),
+                'subscription' => $this->subscription,
                 'address' => $this->user->addresses()->first(),
                 'menu' => $this->menus()->first(),
+                'cuisines' => $this->cuisines(),
                 'created_at' => $this->created_at,
                 'updated_at' => $this->updated_at,
             ];

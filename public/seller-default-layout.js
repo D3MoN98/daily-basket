@@ -341,7 +341,32 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("header", [
     _c("div", { staticClass: "full_hdr_bk fff_bk" }, [
-      _vm._m(0),
+      _c("div", { staticClass: "nav-header" }, [
+        _c(
+          "div",
+          { staticClass: "nav_header_innr" },
+          [
+            _c(
+              "router-link",
+              { staticClass: "brand-logo", attrs: { to: "/seller" } },
+              [
+                _c("span", { staticClass: "logo-abbr" }, [_vm._v("DB")]),
+                _vm._v(" "),
+                _c("span", { staticClass: "logo-compact" }, [
+                  _vm._v("Daily Basket")
+                ]),
+                _vm._v(" "),
+                _c("span", { staticClass: "brand-title" }, [
+                  _vm._v("Daily Basket")
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _vm._m(0)
+          ],
+          1
+        )
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "header" }, [
         _c("div", { staticClass: "header-content" }, [
@@ -440,22 +465,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "nav-header" }, [
-      _c("div", { staticClass: "nav_header_innr" }, [
-        _c("a", { staticClass: "brand-logo", attrs: { href: "index.html" } }, [
-          _c("span", { staticClass: "logo-abbr" }, [_vm._v("DB")]),
-          _vm._v(" "),
-          _c("span", { staticClass: "logo-compact" }, [_vm._v("Daily Basket")]),
-          _vm._v(" "),
-          _c("span", { staticClass: "brand-title" }, [_vm._v("Daily Basket")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "nav-control" }, [
-          _c("div", { staticClass: "hamburger" }, [
-            _c("span", { staticClass: "toggle-icon" }, [
-              _c("i", { staticClass: "icon-menu" })
-            ])
-          ])
+    return _c("div", { staticClass: "nav-control" }, [
+      _c("div", { staticClass: "hamburger" }, [
+        _c("span", { staticClass: "toggle-icon" }, [
+          _c("i", { staticClass: "icon-menu" })
         ])
       ])
     ])
@@ -671,24 +684,19 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "quixnav fixed_sidebar" }, [
-      _c("div", { staticClass: "quixnav-scroll" }, [
-        _c("ul", { staticClass: "metismenu", attrs: { id: "menu" } }, [
-          _c("li", { staticClass: "nav-label" }, [_vm._v("DASHBOARD")]),
-          _vm._v(" "),
-          _c("li", [
+  return _c("div", { staticClass: "quixnav fixed_sidebar" }, [
+    _c("div", { staticClass: "quixnav-scroll" }, [
+      _c("ul", { staticClass: "metismenu", attrs: { id: "menu" } }, [
+        _c("li", { staticClass: "nav-label" }, [_vm._v("DASHBOARD")]),
+        _vm._v(" "),
+        _c(
+          "li",
+          [
             _c(
-              "a",
+              "router-link",
               {
                 staticClass: "has-arrow",
-                attrs: { href: "javascript:void()", "aria-expanded": "false" }
+                attrs: { to: "/seller", "aria-expanded": "false" }
               },
               [
                 _c("i", { staticClass: "fas fa-tachometer-alt" }),
@@ -699,128 +707,150 @@ var staticRenderFns = [
               ]
             ),
             _vm._v(" "),
-            _c("ul", { attrs: { "aria-expanded": "false" } }, [
-              _c("li", [
-                _c(
-                  "a",
-                  {
-                    staticClass: "select_link",
-                    attrs: { href: "javascript:void()" }
-                  },
-                  [_vm._v("Activity")]
-                )
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("a", { attrs: { href: "javascript:void()" } }, [
-                  _vm._v("Customers")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("a", { attrs: { href: "javascript:void()" } }, [
-                  _vm._v("Collections")
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("li", [
+            _vm._m(0)
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _vm._m(1),
+        _vm._v(" "),
+        _c(
+          "li",
+          [
             _c(
-              "a",
-              {
-                attrs: { href: "javascript:void()", "aria-expanded": "false" }
-              },
-              [
-                _c("i", { staticClass: "fas fa-clipboard-list" }),
-                _vm._v(" "),
-                _c("span", { staticClass: "nav-text" }, [
-                  _vm._v("Order Management")
-                ])
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c(
-              "a",
-              {
-                attrs: { href: "javascript:void()", "aria-expanded": "false" }
-              },
+              "router-link",
+              { attrs: { to: "/seller/menu", "aria-expanded": "false" } },
               [
                 _c("i", { staticClass: "fas fa-pizza-slice" }),
                 _vm._v(" "),
                 _c("span", { staticClass: "nav-text" }, [_vm._v("Menu")])
               ]
             )
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c(
-              "a",
-              {
-                attrs: { href: "javascript:void()", "aria-expanded": "false" }
-              },
-              [
-                _c("i", { staticClass: "kithen_image" }, [
-                  _c("img", {
-                    attrs: {
-                      src: "images/custom_image/kitchen_blue.png",
-                      alt: "Pic-not-found"
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("span", { staticClass: "nav-text" }, [_vm._v("Kitchen")])
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c(
-              "a",
-              {
-                attrs: { href: "javascript:void()", "aria-expanded": "false" }
-              },
-              [
-                _c("i", { staticClass: "fas fa-shipping-fast" }),
-                _vm._v(" "),
-                _c("span", { staticClass: "nav-text" }, [_vm._v("Delivery")])
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c(
-              "a",
-              {
-                attrs: { href: "javascript:void()", "aria-expanded": "false" }
-              },
-              [
-                _c("i", { staticClass: "far fa-chart-bar" }),
-                _vm._v(" "),
-                _c("span", { staticClass: "nav-text" }, [_vm._v("Finance")])
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c(
-              "a",
-              {
-                attrs: { href: "javascript:void()", "aria-expanded": "false" }
-              },
-              [
-                _c("i", { staticClass: "fas fa-comment-dots" }),
-                _vm._v(" "),
-                _c("span", { staticClass: "nav-text" }, [
-                  _vm._v("Customer Feedback")
-                ])
-              ]
-            )
-          ])
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _vm._m(2),
+        _vm._v(" "),
+        _vm._m(3),
+        _vm._v(" "),
+        _vm._m(4),
+        _vm._v(" "),
+        _vm._m(5)
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("ul", { attrs: { "aria-expanded": "false" } }, [
+      _c("li", [
+        _c(
+          "a",
+          { staticClass: "select_link", attrs: { href: "javascript:void()" } },
+          [_vm._v("Activity")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("li", [
+        _c("a", { attrs: { href: "javascript:void()" } }, [_vm._v("Customers")])
+      ]),
+      _vm._v(" "),
+      _c("li", [
+        _c("a", { attrs: { href: "javascript:void()" } }, [
+          _vm._v("Collections")
         ])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c(
+        "a",
+        { attrs: { href: "javascript:void()", "aria-expanded": "false" } },
+        [
+          _c("i", { staticClass: "fas fa-clipboard-list" }),
+          _vm._v(" "),
+          _c("span", { staticClass: "nav-text" }, [_vm._v("Order Management")])
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c(
+        "a",
+        { attrs: { href: "javascript:void()", "aria-expanded": "false" } },
+        [
+          _c("i", { staticClass: "kithen_image" }, [
+            _c("img", {
+              attrs: {
+                src: "images/custom_image/kitchen_blue.png",
+                alt: "Pic-not-found"
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("span", { staticClass: "nav-text" }, [_vm._v("Kitchen")])
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c(
+        "a",
+        { attrs: { href: "javascript:void()", "aria-expanded": "false" } },
+        [
+          _c("i", { staticClass: "fas fa-shipping-fast" }),
+          _vm._v(" "),
+          _c("span", { staticClass: "nav-text" }, [_vm._v("Delivery")])
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c(
+        "a",
+        { attrs: { href: "javascript:void()", "aria-expanded": "false" } },
+        [
+          _c("i", { staticClass: "far fa-chart-bar" }),
+          _vm._v(" "),
+          _c("span", { staticClass: "nav-text" }, [_vm._v("Finance")])
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c(
+        "a",
+        { attrs: { href: "javascript:void()", "aria-expanded": "false" } },
+        [
+          _c("i", { staticClass: "fas fa-comment-dots" }),
+          _vm._v(" "),
+          _c("span", { staticClass: "nav-text" }, [_vm._v("Customer Feedback")])
+        ]
+      )
     ])
   }
 ]
@@ -847,7 +877,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { attrs: { id: "main-wrapper" } },
+    { staticClass: "show", attrs: { id: "main-wrapper" } },
     [
       _c("Header"),
       _vm._v(" "),

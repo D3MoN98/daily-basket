@@ -6,11 +6,11 @@
       ***********************************-->
       <div class="nav-header">
         <div class="nav_header_innr">
-          <a href="index.html" class="brand-logo">
+          <router-link to="/seller" class="brand-logo">
             <span class="logo-abbr">DB</span>
             <span class="logo-compact">Daily Basket</span>
             <span class="brand-title">Daily Basket</span>
-          </a>
+          </router-link>
 
           <div class="nav-control">
             <div class="hamburger">

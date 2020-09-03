@@ -11,5 +11,6 @@
     "/seller-default-layout.js": "/seller-default-layout.js",
     "/trending-restaurants.js": "/trending-restaurants.js",
     "/vendors~new-restaurants~premium-restaurants~restaurant-details~trending-restaurants.js": "/vendors~new-restaurants~premium-restaurants~restaurant-details~trending-restaurants.js",
-    "/vendors~restaurant-details.js": "/vendors~restaurant-details.js"
+    "/vendors~restaurant-details.js": "/vendors~restaurant-details.js",
+    "/vendors~seller-dashboard.js": "/vendors~seller-dashboard.js"
 }

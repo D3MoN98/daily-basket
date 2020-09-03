@@ -40,8 +40,10 @@ class MenuController extends Controller
                 'price' => 'required',
                 'gst' => 'required',
                 'delivery_charge' => 'required',
+                'quantity_serves_per_day' => 'required',
                 'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             ]);
+
 
             if ($validator->fails()) {
                 return response()->json(['errors' => $validator->errors()], 422);
@@ -53,16 +55,17 @@ class MenuController extends Controller
                 'restaurant_id' => $user->restaurant->id,
             ]);
 
-            $path = $request->file('image')->store('menu_item','public');
+
+            $path = $request->file('image')->store('menu_item', 'public');
 
             $menu_item = MenuItem::create([
                 'menu_id' => $menu->id,
                 'name' => $request->name,
                 'description' => $request->description,
                 'type' => $request->type,
-                'menu_category_id' => $request->menu_category_id,
-                'menu_sub_category_id' => $request->menu_sub_category_id,
-                'cuisine_id' => $request->cuisine_id,
+                'menu_category_id' => $request->menu_category_id ?? null,
+                'menu_sub_category_id' => $request->menu_sub_category_id ?? null,
+                'cuisine_id' => $request->cuisine_id ?? null,
                 'quantity_serves_per_day' => $request->quantity_serves_per_day,
                 'image' => $path,
                 'price' => $request->price,
@@ -72,9 +75,8 @@ class MenuController extends Controller
 
             return new ResourcesMenuItem($menu_item->fresh());
         } catch (Exception $e) {
-            return response()->json(['error' => $e]);
+            return response()->json(['error' => $e->getMessage()], 422);
         }
-
     }
 
     /**
@@ -165,6 +167,5 @@ class MenuController extends Controller
         } catch (Exception $e) {
             return response()->json(['error' => $e]);
         }
-
     }
 }

@@ -87,7 +87,17 @@ const routes = [{
             middleware: [sellerMiddleware],
         },
     },
-
+    {
+        name: 'seller.menu',
+        path: '/seller/menu',
+        // @ts-ignore
+        component: () => import( /* webpackChunkName: "seller-dashboard" */ '@/views/seller/Menu'),
+        meta: {
+            // @ts-ignore
+            layout: () => import( /* webpackChunkName: "seller-default-layout" */ '@/views/seller/layouts/DefaultLayout'),
+            middleware: [sellerMiddleware],
+        },
+    },
     {
         path: '*',
         // @ts-ignore

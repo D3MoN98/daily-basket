@@ -1,5 +1,6 @@
 <?php
 
+use App\Cuisine;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -27,6 +28,26 @@ class UserSeeder extends Seeder
         //         });
         //     }
         // });
+
+        // $ar = [
+        //     'North Indian',
+        //     'Punjabi',
+        //     'Korean',
+        //     'Rajasthani',
+        //     'Bengali',
+        //     'Mughalai',
+        //     'Gujrati',
+        //     'Thai',
+        //     'Chinese',
+        //     'Italian'
+        // ];
+
+        // foreach ($ar as $key) {
+        //     Cuisine::create([
+        //         'added_by' => 4,
+        //         'name' => $key,
+        //     ]);
+        // }
 
         $users = App\User::all();
         foreach ($users as $user) {

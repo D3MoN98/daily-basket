@@ -12,7 +12,7 @@ class Restaurant extends Model
     use Sluggable, SluggableScopeHelpers;
 
     protected $fillable = [
-        'user_id', 'name', 'slug', 'description', 'contact_no', 'image', 'gstin_no', 'fssai_license_no'
+        'user_id', 'name', 'slug', 'description', 'contact_no', 'image', 'gstin_no', 'fssai_license_no', 'opening_time', 'closing_time', 'subscription', 'cuisines'
     ];
 
     /**
@@ -47,5 +47,14 @@ class Restaurant extends Model
     public function menus()
     {
         return $this->hasMany('App\Menu');
+    }
+
+    public function cuisines()
+    {
+        if (is_null($this->cuisines)) {
+            return null;
+        }
+
+        return Cuisine::whereIn('id', explode(',', $this->cuisines))->get();
     }
 }

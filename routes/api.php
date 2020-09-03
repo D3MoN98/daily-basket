@@ -43,4 +43,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
 Route::middleware(['auth:sanctum', 'checkrole:seller'])->namespace('Seller')->prefix('seller/')->group(function () {
     Route::resource('menu', 'MenuController');
     Route::get('menu/change-availablility/{id}', 'MenuController@change_item_available');
+    Route::get('restaurant', 'RestaurantController@show');
+    Route::post('restaurant', 'RestaurantController@update');
+    Route::get('cuisines', 'RestaurantController@cuisines');
+    Route::get('menu_categories', 'RestaurantController@menu_categories');
+    Route::get('menu_sub_categories', 'RestaurantController@menu_sub_categories');
 });

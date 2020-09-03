@@ -4,10 +4,10 @@
       <ul class="metismenu" id="menu">
         <li class="nav-label">DASHBOARD</li>
         <li>
-          <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+          <router-link to="/seller" class="has-arrow" aria-expanded="false">
             <i class="fas fa-tachometer-alt"></i>
             <span class="nav-text">Administration</span>
-          </a>
+          </router-link>
           <ul aria-expanded="false">
             <li>
               <a href="javascript:void()" class="select_link">Activity</a>
@@ -28,10 +28,10 @@
           </a>
         </li>
         <li>
-          <a href="javascript:void()" aria-expanded="false">
+          <router-link to="/seller/menu" aria-expanded="false">
             <i class="fas fa-pizza-slice"></i>
             <span class="nav-text">Menu</span>
-          </a>
+          </router-link>
         </li>
 
         <li>
