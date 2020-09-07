@@ -719,7 +719,13 @@ var render = function() {
           [
             _c(
               "router-link",
-              { attrs: { to: "/seller/menu", "aria-expanded": "false" } },
+              {
+                attrs: {
+                  to: "/seller/menu",
+                  "aria-expanded": "false",
+                  "active-class": "select_link"
+                }
+              },
               [
                 _c("i", { staticClass: "fas fa-pizza-slice" }),
                 _vm._v(" "),
@@ -730,13 +736,50 @@ var render = function() {
           1
         ),
         _vm._v(" "),
+        _c("li", [
+          _c(
+            "a",
+            { attrs: { href: "javascript:void()", "aria-expanded": "false" } },
+            [
+              _c("i", { staticClass: "kithen_image" }, [
+                _c("img", {
+                  attrs: {
+                    src: "/images/custom_image/kitchen_blue.png",
+                    alt: "Pic-not-found"
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "nav-text" }, [_vm._v("Kitchen")])
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c(
+          "li",
+          [
+            _c(
+              "router-link",
+              {
+                attrs: {
+                  to: "/seller/deleveries",
+                  "aria-expanded": "false",
+                  "active-class": "select_link"
+                }
+              },
+              [
+                _c("i", { staticClass: "fas fa-shipping-fast" }),
+                _vm._v(" "),
+                _c("span", { staticClass: "nav-text" }, [_vm._v("Delivery")])
+              ]
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
         _vm._m(2),
         _vm._v(" "),
-        _vm._m(3),
-        _vm._v(" "),
-        _vm._m(4),
-        _vm._v(" "),
-        _vm._m(5)
+        _vm._m(3)
       ])
     ])
   ])
@@ -748,11 +791,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("ul", { attrs: { "aria-expanded": "false" } }, [
       _c("li", [
-        _c(
-          "a",
-          { staticClass: "select_link", attrs: { href: "javascript:void()" } },
-          [_vm._v("Activity")]
-        )
+        _c("a", { attrs: { href: "javascript:void()" } }, [_vm._v("Activity")])
       ]),
       _vm._v(" "),
       _c("li", [
@@ -778,45 +817,6 @@ var staticRenderFns = [
           _c("i", { staticClass: "fas fa-clipboard-list" }),
           _vm._v(" "),
           _c("span", { staticClass: "nav-text" }, [_vm._v("Order Management")])
-        ]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c(
-        "a",
-        { attrs: { href: "javascript:void()", "aria-expanded": "false" } },
-        [
-          _c("i", { staticClass: "kithen_image" }, [
-            _c("img", {
-              attrs: {
-                src: "images/custom_image/kitchen_blue.png",
-                alt: "Pic-not-found"
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("span", { staticClass: "nav-text" }, [_vm._v("Kitchen")])
-        ]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c(
-        "a",
-        { attrs: { href: "javascript:void()", "aria-expanded": "false" } },
-        [
-          _c("i", { staticClass: "fas fa-shipping-fast" }),
-          _vm._v(" "),
-          _c("span", { staticClass: "nav-text" }, [_vm._v("Delivery")])
         ]
       )
     ])

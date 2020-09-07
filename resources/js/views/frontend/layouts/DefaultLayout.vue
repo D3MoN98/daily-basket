@@ -3,12 +3,18 @@
     <Header />
 
     <transition name="fade" mode="out-in">
-      <router-view />
+      <router-view @edit-show-ddress="showEditAddress" />
     </transition>
 
     <AddressSidebar />
     <SaveAddress v-if="this.$store.getters['auth/check']" />
     <ChangeAddress v-if="this.$store.getters['auth/check']" />
+
+    <EditAddress
+      v-if="this.$store.getters['auth/check'] && editAddress.show"
+      :id="editAddress.id"
+      @edit-hide-address="hideEditAddress"
+    />
 
     <LoginModal />
 
@@ -22,6 +28,7 @@
 import Header from '@/views/frontend/components/Header';
 import AddressSidebar from '@/views/frontend/components/AddressSidebar';
 import SaveAddress from '@/views/frontend/components/SaveAddress';
+import EditAddress from '@/views/frontend/components/EditAddress';
 import ChangeAddress from '@/views/frontend/components/ChangeAddress';
 import SignupModal from '@/views/frontend/components/SignupModal';
 import LoginModal from '@/views/frontend/components/LoginModal';
@@ -31,15 +38,19 @@ export default {
     Header,
     AddressSidebar,
     SaveAddress,
+    EditAddress,
     ChangeAddress,
     SignupModal,
     LoginModal,
   },
-
   data () {
-    return {};
+    return {
+      editAddress: {
+        show: false,
+        id: null,
+      }
+    }
   },
-
   computed: {
     isRestaurantSidebar () {
       if (
@@ -80,11 +91,41 @@ export default {
         ) !== -1
       ) {
         return 'left_blue_unique cart_right';
+      } if (
+        _.indexOf(
+          [
+            'profile',
+            'profile.orders',
+            'profile.edit',
+            'profile.addresses'
+          ],
+          this.$route.name,
+        ) !== -1
+      ) {
+        return 'profile_unique';
       }
       return null;
     },
   },
+  methods: {
+    showEditAddress (id) {
+      this.editAddress.show = true;
+      this.editAddress.id = id;
+
+      const mn_wrapper = document.getElementById('main-wrapper');
+      mn_wrapper.classList.add('full_body_opacity');
+      mn_wrapper.parentElement.classList.add('no_scroll');
+    },
+    hideEditAddress () {
+      this.editAddress.show = false;
+      this.editAddress.id = null;
+    },
+  }
 };
 </script>
 
-<style></style>
+<style>
+.sidebar-style-width {
+  width: 37%;
+}
+</style>

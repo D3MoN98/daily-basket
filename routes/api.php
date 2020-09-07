@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('customer/sign-up', 'AuthController@customer_signup');
 Route::post('seller/sign-up', 'AuthController@seller_signup');
 Route::post('delivery/sign-up', 'AuthController@delivery_boy_signup');
-Route::post('login', 'AuthCOntroller@login');
+Route::post('login', 'AuthController@login');
 
 //restaurant
 Route::get('restaurants/trending', 'RestaurantController@trending');
@@ -31,9 +31,13 @@ Route::get('menu/{id}/{veg?}', 'MenuController@show');
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('logout', 'AuthController@logout');
-    Route::get('user', 'AuthController@user');
+    Route::get('user', 'UserController@index');
+    Route::put('user/update', 'UserController@update');
     Route::get('user/addresses', 'AuthController@userAddresses');
     Route::post('user/address', 'UserController@userStoreAddresses');
+    Route::get('user/address/{id}', 'UserController@getAddressById');
+    Route::put('user/address/{id}', 'UserController@updateAddress');
+    Route::delete('user/address/{id}', 'UserController@deleteAddress');
     Route::resource('cart', 'CartController');
     Route::delete('cart/all', 'CartController@destroy_all');
     Route::post('checkout', 'CheckoutController@store');
@@ -41,6 +45,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 
 Route::middleware(['auth:sanctum', 'checkrole:seller'])->namespace('Seller')->prefix('seller/')->group(function () {
+    Route::get('order/today/{type?}', 'OrderController@todaysOrder');
+    Route::get('delivery_boy', 'OrderController@getDeleveryBoys');
+    Route::put('order/assign/{id}', 'OrderController@assignOrder');
+    Route::put('order/delivered/{id}', 'OrderController@orderDelivered');
+
     Route::resource('menu', 'MenuController');
     Route::get('menu/change-availablility/{id}', 'MenuController@change_item_available');
     Route::get('restaurant', 'RestaurantController@show');

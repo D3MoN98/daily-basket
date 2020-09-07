@@ -15,9 +15,9 @@ class CreateMenuSubCategoriesTable extends Migration
     {
         Schema::create('menu_sub_categories', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('added_by')->unsigned();
+            $table->bigInteger('added_by')->unsigned()->nullable();
             $table->foreign('added_by')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('menu_category_id')->unsigned();
+            $table->bigInteger('menu_category_id')->unsigned()->nullable();
             $table->foreign('menu_category_id')->references('id')->on('menu_categories')->onDelete('cascade');
             $table->string('name');
             $table->string('description')->nullable();

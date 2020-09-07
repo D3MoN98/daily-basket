@@ -14,6 +14,7 @@ class Order extends Model
      */
     protected $fillable = [
         'user_id',
+        'restaurant_id',
         'address_id',
         'subtotal',
         'delivery_charge',
@@ -24,11 +25,27 @@ class Order extends Model
         'delivery_assigned_to',
     ];
 
-    /**
-     * Get the post's image.
-     */
+
     public function payment()
     {
         return $this->morphOne('App\Payment', 'paymentable');
+    }
+
+
+    public function address()
+    {
+        return $this->belongsTo('App\Address');
+    }
+
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+
+    public function delevery_boy()
+    {
+        return $this->belongsTo('App\User', 'delivery_assigned_to');
     }
 }

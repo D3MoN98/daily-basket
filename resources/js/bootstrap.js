@@ -5,11 +5,11 @@
  */
 
 try {
-    window._ = require('lodash');
-    window.Popper = require('popper.js').default;
-    window.$ = window.jQuery = require('jquery');
+    window._ = require("lodash");
+    window.Popper = require("popper.js").default;
+    window.$ = window.jQuery = require("jquery");
 
-    require('bootstrap');
+    require("bootstrap");
 } catch (e) {}
 
 /**
@@ -18,10 +18,10 @@ try {
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = require('axios');
+window.axios = require("axios");
 
 window.axios.defaults.baseURL = `${process.env.MIX_APP_URL}`;
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 window.axios.defaults.withCredentials = true;
 
 /**

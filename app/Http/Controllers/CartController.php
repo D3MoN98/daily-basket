@@ -18,8 +18,9 @@ class CartController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $restaurant_id = $this->getRestaurntID();
         Cart::restore($user->id);
-        return response()->json(['data' => $this->toArray(Cart::content())]);
+        return response()->json(['data' => $this->toArray(Cart::content()), 'restaurant_id' => $restaurant_id]);
     }
 
     /**
@@ -42,6 +43,7 @@ class CartController extends Controller
     {
         $user = Auth::user();
         $menu_item = MenuItem::find($request->id);
+        $restaurant_id = $menu_item->menu->restaurant->id;
 
         Cart::restore($user->id);
 
@@ -61,7 +63,7 @@ class CartController extends Controller
         Cart::add($menu_item, $request->qty ?? 1);
         Cart::store($user->id);
 
-        return response()->json(['data' => $this->toArray(Cart::content())]);
+        return response()->json(['data' => $this->toArray(Cart::content()), 'restaurant_id' => $restaurant_id]);
     }
 
     /**
@@ -164,5 +166,14 @@ class CartController extends Controller
         }
 
         return $array;
+    }
+
+    public function getRestaurntID()
+    {
+        $user = Auth::user();
+        Cart::restore($user->id);
+        $menu_id = Cart::content()->first()->id;
+        $menu_item = MenuItem::find($menu_id);
+        return $menu_item->menu->restaurant->id;
     }
 }

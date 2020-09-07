@@ -103,6 +103,7 @@
 <script>
 import CardJs from 'card-js';
 import CardValidator from 'card-validator';
+import { mapGetters } from 'vuex';
 
 export default {
   data () {
@@ -127,7 +128,7 @@ export default {
   },
   props: {
     deleveyAddress: null,
-    subTotalAmount: null
+    subTotalAmount: null,
   },
   mounted () {
     $('.card-js').CardJs();

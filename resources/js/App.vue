@@ -80,4 +80,8 @@ export default {
     border-color: transparent !important;
   }
 }
+.modal-backdrop {
+  z-index: 1000 !important;
+  opacity: 0.5;
+}
 </style>

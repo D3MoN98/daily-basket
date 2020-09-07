@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
@@ -56,5 +57,16 @@ class Restaurant extends Model
         }
 
         return Cuisine::whereIn('id', explode(',', $this->cuisines))->get();
+    }
+
+    public function orders()
+    {
+        return $this->hasMany('App\Order');
+    }
+
+
+    public function todaysOorders()
+    {
+        return $this->orders()->whereDate('created_at', Carbon::today())->get();
     }
 }

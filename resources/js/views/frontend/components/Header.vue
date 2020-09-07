@@ -84,12 +84,12 @@
                     </span>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right">
-                    <a href="#!" class="dropdown-item">
-                      <span>My profile</span>
-                    </a>
-                    <a href="#!" class="dropdown-item">
+                    <router-link to="/profile" class="dropdown-item">
+                      <span>My Profile</span>
+                    </router-link>
+                    <router-link to="/profile/orders" class="dropdown-item">
                       <span>My Order</span>
-                    </a>
+                    </router-link>
                     <a @click.prevent="logout" class="dropdown-item">
                       <span>Logout</span>
                     </a>

@@ -10,7 +10,7 @@
           </router-link>
           <ul aria-expanded="false">
             <li>
-              <a href="javascript:void()" class="select_link">Activity</a>
+              <a href="javascript:void()">Activity</a>
             </li>
             <li>
               <a href="javascript:void()">Customers</a>
@@ -28,7 +28,7 @@
           </a>
         </li>
         <li>
-          <router-link to="/seller/menu" aria-expanded="false">
+          <router-link to="/seller/menu" aria-expanded="false" active-class="select_link">
             <i class="fas fa-pizza-slice"></i>
             <span class="nav-text">Menu</span>
           </router-link>
@@ -37,16 +37,16 @@
         <li>
           <a href="javascript:void()" aria-expanded="false">
             <i class="kithen_image">
-              <img src="images/custom_image/kitchen_blue.png" alt="Pic-not-found" />
+              <img :src="'/images/custom_image/kitchen_blue.png'" alt="Pic-not-found" />
             </i>
             <span class="nav-text">Kitchen</span>
           </a>
         </li>
         <li>
-          <a href="javascript:void()" aria-expanded="false">
+          <router-link to="/seller/deleveries" aria-expanded="false" active-class="select_link">
             <i class="fas fa-shipping-fast"></i>
             <span class="nav-text">Delivery</span>
-          </a>
+          </router-link>
         </li>
         <li>
           <a href="javascript:void()" aria-expanded="false">

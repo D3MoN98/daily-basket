@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Cart;
 use App\Order;
 use App\OrderItem;
+use App\MenuItem;
 use Illuminate\Support\Facades\Validator;
 use Cartalyst\Stripe\Stripe;
 use Exception;
@@ -94,41 +95,57 @@ class CheckoutController extends Controller
 
     public function order($request, $charge)
     {
-        $user = Auth::user();
+        try {
 
-        $order = Order::create([
-            'user_id' => $user->id,
-            'address_id' => $request['address_id'],
-            'subtotal' => $request['subtotal'],
-            'total' => (float) ($request['subtotal'] + ($request['tax'] ?? 0) + ($request['delivery_charge'] ?? 0)),
-            'tax' => $request['tax'] ?? 0,
-            'delivery_charge' => $request['delivery_charge'] ?? 0,
-            'discount' => $request['discount'] ?? null,
-        ]);
+            $user = Auth::user();
 
-        $order->payment()->create([
-            'charge_id' => $charge['id'],
-            'amount' => (float) ($charge['amount']) / 100,
-            'status' => $charge['status']
-        ]);
-
-        Cart::restore($user->id);
-        $cart_items = Cart::content();
-
-        foreach ($cart_items as $key) {
-            OrderItem::create([
-                'order_id' => $order->id,
-                'menu_item_id' => $key->id,
-                'quantity' => $key->qty,
-                // 'subtotal' => $key->subtotal,
+            $order = Order::create([
+                'user_id' => $user->id,
+                'restaurant_id' => $this->getRestaurntID(),
+                'address_id' => $request['address_id'],
+                'subtotal' => $request['subtotal'],
+                'total' => (float) ($request['subtotal'] + ($request['tax'] ?? 0) + ($request['delivery_charge'] ?? 0)),
+                'tax' => $request['tax'] ?? 0,
+                'delivery_charge' => $request['delivery_charge'] ?? 0,
+                'discount' => $request['discount'] ?? null,
             ]);
+
+            $order->payment()->create([
+                'charge_id' => $charge['id'],
+                'amount' => (float) ($charge['amount']) / 100,
+                'status' => $charge['status']
+            ]);
+
+            Cart::restore($user->id);
+            $cart_items = Cart::content();
+
+            foreach ($cart_items as $key) {
+                OrderItem::create([
+                    'order_id' => $order->id,
+                    'menu_item_id' => $key->id,
+                    'quantity' => $key->qty,
+                    'subtotal' => $key->subtotal,
+                ]);
+            }
+
+            Cart::destroy();
+            Cart::store($user->id);
+
+
+            return response()->json(['success' => 'Your order has been placed']);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 422);
         }
-
-        Cart::destroy();
-        Cart::store($user->id);
+    }
 
 
-        return response()->json(['success' => 'Your order has been placed']);
+    public function getRestaurntID()
+    {
+        $user = Auth::user();
+        Cart::restore($user->id);
+        $menu_id = Cart::content()->first()->id;
+        $menu_item = MenuItem::find($menu_id);
+        return $menu_item->menu->restaurant->id;
     }
 
 

@@ -5,12 +5,16 @@
     "/new-restaurants.js": "/new-restaurants.js",
     "/new-restaurants~premium-restaurants~trending-restaurants.js": "/new-restaurants~premium-restaurants~trending-restaurants.js",
     "/premium-restaurants.js": "/premium-restaurants.js",
+    "/profile-edit.js": "/profile-edit.js",
+    "/profile-orders.js": "/profile-orders.js",
     "/restaurant-details.js": "/restaurant-details.js",
     "/restaurants.js": "/restaurants.js",
     "/seller-dashboard.js": "/seller-dashboard.js",
     "/seller-default-layout.js": "/seller-default-layout.js",
+    "/seller-deleveries.js": "/seller-deleveries.js",
     "/trending-restaurants.js": "/trending-restaurants.js",
     "/vendors~new-restaurants~premium-restaurants~restaurant-details~trending-restaurants.js": "/vendors~new-restaurants~premium-restaurants~restaurant-details~trending-restaurants.js",
     "/vendors~restaurant-details.js": "/vendors~restaurant-details.js",
-    "/vendors~seller-dashboard.js": "/vendors~seller-dashboard.js"
+    "/vendors~seller-dashboard.js": "/vendors~seller-dashboard.js",
+    "/vendors~seller-dashboard~seller-deleveries.js": "/vendors~seller-dashboard~seller-deleveries.js"
 }

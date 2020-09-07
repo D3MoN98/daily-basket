@@ -3,14 +3,59 @@
 namespace App\Http\Controllers;
 
 use App\Address;
+use App\Http\Resources\Address as ResourcesAddress;
+use App\user;
+use App\Http\Resources\User as ResourcesUser;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 
 class UserController extends Controller
 {
+
+    public function index()
+    {
+        try {
+            return new ResourcesUser(Auth::user());
+        } catch (Exception $e) {
+            return response()->json(['error' => $e], 500);
+        }
+    }
+
+    public function update(Request $request)
+    {
+        try {
+            $id = Auth::id();
+
+            $validator = Validator::make($request->all(), [
+                'name' => 'required',
+                'email' => ['required', 'email', Rule::unique('users', 'email')->ignore($id)],
+                'contact_no' => 'required',
+            ], [
+                'name.required' => 'Name field is required.',
+                'email.required' => 'Email field is required.',
+                'email.email' => 'Please proide an valid email address.',
+                'contact_no.required' => 'Contact No field is required.',
+            ]);
+
+
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
+
+            User::findOrFail($id)->update($request->all());
+
+            return new ResourcesUser(Auth::user()->fresh());
+        } catch (Exception $e) {
+            return response()->json(['error' => $e], 500);
+        }
+    }
+
+
+
     public function userStoreAddresses(Request $request)
     {
         try {
@@ -52,5 +97,24 @@ class UserController extends Controller
         } catch (Exception $e) {
             return response()->json(['error' => $e], 500);
         }
+    }
+
+    public function getAddressById($id)
+    {
+        return new ResourcesAddress(Address::find($id));
+    }
+
+    public function updateAddress(Request $request, $id)
+    {
+        $address = Address::find($id);
+        $address->update($request->all());
+        return response()->json(['success' => 'deleted']);
+    }
+
+
+    public function deleteAddress($id)
+    {
+        $address = Address::find($id)->delete();
+        return response()->json(['success' => 'deleted']);
     }
 }

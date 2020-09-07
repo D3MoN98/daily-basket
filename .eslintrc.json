@@ -23,6 +23,6 @@
         "indent": 0,
         "max-len": 0,
         "camelcase": 0,
-        "no-console": 0,
+        "no-console": 0
     }
 }

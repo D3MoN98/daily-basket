@@ -24,6 +24,10 @@ class CreateRestaurantsTable extends Migration
             $table->text('image')->nullable();
             $table->string('gstin_no');
             $table->string('fssai_license_no');
+            $table->string('cuisines')->nullable();
+            $table->time('opening_time', 0)->nullable();
+            $table->time('closing_time', 0)->nullable();
+            $table->enum('subscription', [0, 1])->default(1);
             $table->timestamps();
         });
     }

@@ -18,7 +18,7 @@ import Sidebar from '@/views/seller/components/Sidebar';
 export default {
   components: {
     Header,
-    Sidebar,
+    Sidebar
   },
 
   data () {
