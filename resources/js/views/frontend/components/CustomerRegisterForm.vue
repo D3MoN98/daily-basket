@@ -45,7 +45,7 @@
         class="invalid-feedback"
       >Enter a valid email</span>
       <span
-        v-if="formError && !$v.customer.email.isUniqe"
+        v-if="formError && !$v.customer.email.isUnique"
         class="invalid-feedback"
       >Email already exist</span>
     </div>
@@ -114,6 +114,10 @@
             v-if="formError && !$v.customer.contact_no.minLength"
             class="invalid-feedback"
           >Contact No should be between 10 to 12 digit</span>
+          <span
+            v-if="formError && !$v.customer.contact_no.isUniqueContact"
+            class="invalid-feedback"
+          >Contact No already exist</span>
         </div>
       </div>
       <div class="col-sm-6">
@@ -278,6 +282,7 @@ export default {
         address_type: null,
       },
       isUnique: true,
+      isUniqueContact: true,
       submitted: false,
       formError: false,
     };
@@ -305,6 +310,9 @@ export default {
       contact_no: {
         required,
         minLength: minLength(10),
+        isUniqueContact () {
+          return this.isUniqueContact
+        }
       },
       house_no: {
         required,
@@ -321,6 +329,7 @@ export default {
     customerRegister () {
       this.submitted = true;
       this.isUnique = true;
+      this.isUniqueContact = true;
       this.formError = false;
 
       this.$v.$touch();
@@ -339,6 +348,7 @@ export default {
           this.resetForm();
         })
         .catch((error) => {
+          console.log(error.response);
           this.submitted = false;
           if (error.response) {
             if (error.response.status === 500) {
@@ -353,7 +363,12 @@ export default {
             }
             if (error.response.status === 422) {
               this.formError = true;
-              this.isUnique = false;
+              if (error.response.data.errors.email) {
+                this.isUnique = false;
+              }
+              if (error.response.data.errors.contact_no) {
+                this.isUniqueContact = false;
+              }
             }
           }
         });
@@ -376,7 +391,7 @@ export default {
       const inp = document.getElementById('address-type-inp');
       inp.value = '';
       if ($e.target.value !== 'other') {
-        inp.value = $e.target.value;
+        this.customer.address_type = $e.target.value;
       }
     },
   },

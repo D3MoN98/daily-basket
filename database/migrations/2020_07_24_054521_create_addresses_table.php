@@ -21,8 +21,8 @@ class CreateAddressesTable extends Migration
             $table->text('address');
             $table->string('landmark')->nullable();
             $table->string('type')->nullable();
-            $table->float('latitude', 8, 8);
-            $table->float('longitude', 8, 8);
+            $table->float('latitude', 8, 6);
+            $table->float('longitude', 8, 6);
             $table->softDeletes();
             $table->timestamps();
         });

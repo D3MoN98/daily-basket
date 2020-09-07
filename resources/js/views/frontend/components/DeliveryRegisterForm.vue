@@ -16,6 +16,7 @@
         :class="{'is-invalid': formError && $v.delivery.name.$error}"
         placeholder="Enter Name"
       />
+      <label class="form-control-placeholder" for="name">Enter Name</label>
       <span v-if="formError && !$v.delivery.name.required" class="invalid-feedback">Name is required</span>
       <span
         v-if="formError && !$v.delivery.name.minLength"
@@ -33,6 +34,7 @@
         :class="{'is-invalid': formError && $v.delivery.email.$error}"
         placeholder="Enter email address"
       />
+      <label class="form-control-placeholder" for="name">Enter Email</label>
       <span
         v-if="formError && !$v.delivery.email.required"
         class="invalid-feedback"
@@ -42,7 +44,7 @@
         class="invalid-feedback"
       >Enter a valid email</span>
       <span
-        v-if="formError && !$v.delivery.email.isUniqe"
+        v-if="formError && !$v.delivery.email.isUnique"
         class="invalid-feedback"
       >Email already exist</span>
     </div>
@@ -58,6 +60,7 @@
         :class="{'is-invalid': formError && $v.delivery.password.$error}"
         placeholder="Enter password"
       />
+      <label class="form-control-placeholder" for="name">Enter Password</label>
       <span
         v-if="formError && !$v.delivery.password.required"
         class="invalid-feedback"
@@ -79,6 +82,7 @@
         class="form-control"
         placeholder="Re-enter password"
       />
+      <label class="form-control-placeholder" for="name">Enter Confirm Password</label>
       <span
         v-if="formError && !$v.delivery.confirm_password.sameAsPassword"
         class="invalid-feedback"
@@ -99,6 +103,7 @@
             placeholder="Contact No."
             @keypress="isNumber"
           />
+          <label class="form-control-placeholder" for="name">Enter Contact No</label>
           <span
             v-if="formError && !$v.delivery.contact_no.required"
             class="invalid-feedback"
@@ -107,11 +112,16 @@
             v-if="formError && !$v.delivery.contact_no.minLength"
             class="invalid-feedback"
           >Contact No should be between 10 to 12 digit</span>
+          <span
+            v-if="formError && !$v.delivery.contact_no.isUniqueContact"
+            class="invalid-feedback"
+          >Contact No already exist</span>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Agent Code (optional)" />
+          <label class="form-control-placeholder" for="name">Enter Agent Code</label>
         </div>
       </div>
     </div>
@@ -127,6 +137,7 @@
         :class="{'is-invalid': formError && $v.delivery.house_no.$error}"
         placeholder="Flat No./ House No"
       />
+      <label class="form-control-placeholder" for="name">Enter Flat No</label>
       <span
         v-if="formError && !$v.delivery.house_no.required"
         class="invalid-feedback"
@@ -143,28 +154,13 @@
         :class="{'is-invalid': formError && $v.delivery.address.$error}"
         placeholder="Enter address"
       ></textarea>
+      <label class="form-control-placeholder" for="name">Enter Address</label>
       <span
         v-if="formError && !$v.delivery.address.required"
         class="invalid-feedback"
       >Address is required</span>
     </div>
 
-    <div
-      class="form-group mar_btn_0"
-      :class="{'animate__animated animate__shakeX': formError && $v.delivery.address_type.$error}"
-    >
-      <input
-        type="text"
-        v-model="delivery.address_type"
-        class="form-control"
-        :class="{'is-invalid': formError && $v.delivery.address_type.$error}"
-        placeholder="Save As Home/Office/Work/Other Etc."
-      />
-      <span
-        v-if="formError && !$v.delivery.address_type.required"
-        class="invalid-feedback"
-      >Address Type is required</span>
-    </div>
     <div class="frm_btm">
       <button type="submit" class="btn btn-primary btn-block" :disabled="submitted">
         Sign Up
@@ -209,9 +205,9 @@ export default {
         contact_no: null,
         house_no: null,
         address: null,
-        address_type: null,
       },
       isUnique: true,
+      isUniqueContact: true,
       submitted: false,
       formError: false,
     };
@@ -239,14 +235,14 @@ export default {
       contact_no: {
         required,
         minLength: minLength(10),
+        isUniqueContact () {
+          return this.isUniqueContact
+        }
       },
       house_no: {
         required,
       },
       address: {
-        required,
-      },
-      address_type: {
         required,
       },
     },
@@ -255,6 +251,7 @@ export default {
     deliveryRegister () {
       this.submitted = true;
       this.isUnique = true;
+      this.isUniqueContact = true;
       this.formError = false;
 
       this.$v.$touch();
@@ -288,7 +285,12 @@ export default {
             }
             if (error.response.status === 422) {
               this.formError = true;
-              this.isUnique = false;
+              if (error.response.data.errors.email) {
+                this.isUnique = false;
+              }
+              if (error.response.data.errors.contact_no) {
+                this.isUniqueContact = false;
+              }
             }
           }
         });

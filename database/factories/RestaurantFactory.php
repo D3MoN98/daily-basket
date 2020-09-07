@@ -19,6 +19,7 @@ $factory->define(Restaurant::class, function ($faker) {
         'contact_no' => $faker->phoneNumber,
         'image' => $faker->imageUrl(640, 480),
         'gstin_no' => $faker->md5,
-        'fssai_license_no' => $faker->md5
+        'fssai_license_no' => $faker->md5,
+        'is_verified' => 1,
     ];
 });

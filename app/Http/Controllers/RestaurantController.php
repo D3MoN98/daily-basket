@@ -10,17 +10,17 @@ class RestaurantController extends Controller
 {
     public function trending()
     {
-        return ResourcesRestaurant::collection(Restaurant::whereNotIn('id', [3, 4])->get());
+        return ResourcesRestaurant::collection(Restaurant::where('is_verified', 1)->get());
     }
 
     public function new()
     {
-        return ResourcesRestaurant::collection(Restaurant::all());
+        return ResourcesRestaurant::collection(Restaurant::where('is_verified', 1)->get());
     }
 
     public function premium()
     {
-        return ResourcesRestaurant::collection(Restaurant::all());
+        return ResourcesRestaurant::collection(Restaurant::where('is_verified', 1)->get());
     }
 
     public function show($slug)

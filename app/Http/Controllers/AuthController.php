@@ -77,7 +77,7 @@ class AuthController extends Controller
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'email' => ['required', 'email', Rule::unique('users', 'email')],
-                'contact_no' => 'required',
+                'contact_no' => ['required', Rule::unique('users', 'contact_no')],
                 'password' => 'required|min:6|required_with:confirm_password|same:confirm_password',
                 'confirm_password' => 'min:6',
                 'house_no' => 'required',
@@ -114,6 +114,7 @@ class AuthController extends Controller
                 'user_id' => $user->id,
                 'house_no' => $request->house_no,
                 'address' => $request->address,
+                'type' => 'home',
                 'latitude' => $coordinate['lat'],
                 'longitude' => $coordinate['lng'],
             ]);
@@ -161,7 +162,7 @@ class AuthController extends Controller
                 'house_no' => $request->house_no,
                 'address' => $request->address,
                 'landmark' => $request->landmark,
-                'type' => $request->address_type,
+                'type' => 'home',
                 'latitude' => $coordinate['lat'],
                 'longitude' => $coordinate['lng'],
             ]);

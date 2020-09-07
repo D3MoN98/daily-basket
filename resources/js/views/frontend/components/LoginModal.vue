@@ -18,7 +18,7 @@
               v-show="credentialError"
               role="alert"
             >
-              <strong>{{credentialErrorMessage}}</strong>
+              <strong>{{ credentialErrorMessage }}</strong>
             </div>
             <div class="form-group">
               <input
@@ -31,6 +31,7 @@
                                 }"
                 placeholder="Email"
               />
+              <label class="form-control-placeholder" for="name">Enter Email</label>
               <span
                 v-if="formError && !$v.user.email.required"
                 class="invalid-feedback"
@@ -51,19 +52,20 @@
                                 }"
                 placeholder="Password"
               />
+              <label class="form-control-placeholder" for="name">Enter Password</label>
               <span
                 v-if="formError && !$v.user.email.required"
                 class="invalid-feedback"
               >Password is required</span>
             </div>
-            <div class="alter_login">
-              <div class="otp_login">
+            <div class="alter_login flex-row-reverse">
+              <!-- <div class="otp_login">
                 <div class="form-check">
                   <input type="checkbox" class="form-check-input" id="check1" value checked />
                   <label class="form-check-label" for="check1">Login via OTP</label>
                 </div>
-              </div>
-              <div class="forget_pass">
+              </div>-->
+              <div class="forget_pass float-right">
                 <a href="javaScript:void(0);">Forgot password?</a>
               </div>
             </div>
@@ -97,34 +99,32 @@
 </template>
 
 <script>
-import {
-  required, email,
-} from 'vuelidate/lib/validators';
+import { required, email } from "vuelidate/lib/validators";
 
 export default {
   data () {
     return {
       user: {
         email: null,
-        password: null,
+        password: null
       },
       remember: false,
       submitted: false,
       formError: false,
       credentialError: false,
-      credentialErrorMessage: null,
+      credentialErrorMessage: null
     };
   },
   validations: {
     user: {
       email: {
         required,
-        email,
+        email
       },
       password: {
-        required,
-      },
-    },
+        required
+      }
+    }
   },
   methods: {
     login () {
@@ -139,13 +139,13 @@ export default {
       }
 
       this.$store
-        .dispatch('auth/login', this.user)
+        .dispatch("auth/login", this.user)
         .then(() => {
           this.submitted = false;
           this.formError = false;
           this.resetForm();
         })
-        .catch((error) => {
+        .catch(error => {
           if (error.response.status === 400) {
             this.credentialErrorMessage = error.response.data.error;
             this.credentialError = true;
@@ -159,13 +159,12 @@ export default {
     },
     resetForm () {
       const self = this;
-      Object.keys(this.user).forEach((key) => {
-        self.user[key] = '';
+      Object.keys(this.user).forEach(key => {
+        self.user[key] = "";
       });
-    },
-  },
+    }
+  }
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

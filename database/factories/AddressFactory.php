@@ -15,7 +15,8 @@ $factory->define(Address::class, function ($faker) {
     return [
         'house_no' => $faker->secondaryAddress,
         'address' => $faker->address,
-        'latitude' => $faker->latitude,
-        'longitude' => $faker->longitude,
+        'type' => 'home',
+        'latitude' => 22.504571,
+        'longitude' => 88.316715,
     ];
 });

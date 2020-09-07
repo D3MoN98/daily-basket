@@ -84,4 +84,7 @@ export default {
   z-index: 1000 !important;
   opacity: 0.5;
 }
+.form-control-placeholder {
+  z-index: 1;
+}
 </style>

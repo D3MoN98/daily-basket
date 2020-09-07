@@ -17,7 +17,7 @@ class CreateRestaurantsTable extends Migration
             $table->id();
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('slug')->unique();
+            $table->string('slug')->unique()->nullable();
             $table->string('name')->nullable();
             $table->string('description')->nullable();
             $table->string('contact_no')->nullable();
@@ -28,6 +28,7 @@ class CreateRestaurantsTable extends Migration
             $table->time('opening_time', 0)->nullable();
             $table->time('closing_time', 0)->nullable();
             $table->enum('subscription', [0, 1])->default(1);
+            $table->enum('is_verified', [0, 1])->default(0);
             $table->timestamps();
         });
     }

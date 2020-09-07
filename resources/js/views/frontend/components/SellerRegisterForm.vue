@@ -16,6 +16,7 @@
         :class="{'is-invalid': formError && $v.seller.name.$error}"
         placeholder="Enter Seller Name"
       />
+      <label class="form-control-placeholder" for="name">Enter Name</label>
       <span v-if="formError && !$v.seller.name.required" class="invalid-feedback">Name is required</span>
       <span
         v-if="formError && !$v.seller.name.minLength"
@@ -34,10 +35,11 @@
         :class="{'is-invalid': formError && $v.seller.email.$error}"
         placeholder="Enter email address"
       />
+      <label class="form-control-placeholder" for="name">Enter Email</label>
       <span v-if="formError && !$v.seller.email.required" class="invalid-feedback">Email is required</span>
       <span v-if="formError && !$v.seller.email.email" class="invalid-feedback">Enter a valid email</span>
       <span
-        v-if="formError && !$v.seller.email.isUniqe"
+        v-if="formError && !$v.seller.email.isUnique"
         class="invalid-feedback"
       >Email already exist</span>
     </div>
@@ -53,6 +55,7 @@
         :class="{'is-invalid': formError && $v.seller.password.$error}"
         placeholder="Enter password"
       />
+      <label class="form-control-placeholder" for="name">Enter Password</label>
       <span
         v-if="formError && !$v.seller.password.required"
         class="invalid-feedback"
@@ -74,6 +77,7 @@
         class="form-control"
         placeholder="Re-enter password"
       />
+      <label class="form-control-placeholder" for="name">Enter Confirm Password</label>
       <span
         v-if="formError && !$v.seller.confirm_password.sameAsPassword"
         class="invalid-feedback"
@@ -92,7 +96,9 @@
             :class="{'is-invalid': formError && $v.seller.contact_no.$error}"
             class="form-control"
             placeholder="Contact No."
+            @keypress="isNumber"
           />
+          <label class="form-control-placeholder" for="name">Enter Contact No</label>
           <span
             v-if="formError && !$v.seller.contact_no.required"
             class="invalid-feedback"
@@ -101,11 +107,16 @@
             v-if="formError && !$v.seller.contact_no.minLength"
             class="invalid-feedback"
           >Contact No should be between 10 to 12 digit</span>
+          <span
+            v-if="formError && !$v.seller.contact_no.isUniqueContact"
+            class="invalid-feedback"
+          >Contact No already exist</span>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Agent Code (optional)" />
+          <label class="form-control-placeholder" for="name">Enter Agent Code</label>
         </div>
       </div>
     </div>
@@ -121,6 +132,7 @@
         :class="{'is-invalid': formError && $v.seller.house_no.$error}"
         placeholder="Flat No./ House No"
       />
+      <label class="form-control-placeholder" for="name">Enter Flat No</label>
       <span
         v-if="formError && !$v.seller.house_no.required"
         class="invalid-feedback"
@@ -137,6 +149,7 @@
         :class="{'is-invalid': formError && $v.seller.address.$error}"
         placeholder="Enter address"
       ></textarea>
+      <label class="form-control-placeholder" for="name">Enter Address</label>
       <span
         v-if="formError && !$v.seller.address.required"
         class="invalid-feedback"
@@ -154,6 +167,7 @@
         :class="{'is-invalid': formError && $v.seller.gstin_no.$error}"
         placeholder="Enter GSTIN No"
       />
+      <label class="form-control-placeholder" for="name">GSTIN No</label>
       <span
         v-if="formError && !$v.seller.gstin_no.required"
         class="invalid-feedback"
@@ -161,7 +175,7 @@
     </div>
 
     <div
-      class="form-group mar_btn_0"
+      class="form-group"
       :class="{'animate__animated animate__shakeX': formError && $v.seller.fssai_license_no.$error}"
     >
       <input
@@ -171,6 +185,7 @@
         :class="{'is-invalid': formError && $v.seller.fssai_license_no.$error}"
         placeholder="Enter Fssai License no"
       />
+      <label class="form-control-placeholder" for="name">Fssai License No</label>
       <span
         v-if="formError && !$v.seller.fssai_license_no.required"
         class="invalid-feedback"
@@ -226,6 +241,7 @@ export default {
         fssai_license_no: null,
       },
       isUnique: true,
+      isUniqueContact: true,
       submitted: false,
       formError: false,
     };
@@ -253,6 +269,9 @@ export default {
       contact_no: {
         required,
         minLength: minLength(8),
+        isUniqueContact () {
+          return this.isUniqueContact
+        }
       },
       house_no: {
         required,
@@ -272,6 +291,7 @@ export default {
     sellerRegister () {
       this.submitted = true;
       this.isUnique = true;
+      this.isUniqueContact = true;
       this.formError = false;
 
       this.$v.$touch();
@@ -305,7 +325,13 @@ export default {
             }
             if (error.response.status === 422) {
               this.formError = true;
-              this.isUnique = false;
+              this.formError = true;
+              if (error.response.data.errors.email) {
+                this.isUnique = false;
+              }
+              if (error.response.data.errors.contact_no) {
+                this.isUniqueContact = false;
+              }
             }
           }
         });
