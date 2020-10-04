@@ -22,10 +22,10 @@
         </li>
 
         <li>
-          <a href="javascript:void()" aria-expanded="false">
+          <router-link to="/seller/orders" aria-expanded="false" active-class="select_link">
             <i class="fas fa-clipboard-list"></i>
             <span class="nav-text">Order Management</span>
-          </a>
+          </router-link>
         </li>
         <li>
           <router-link to="/seller/menu" aria-expanded="false" active-class="select_link">

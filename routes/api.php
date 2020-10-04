@@ -41,11 +41,19 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::resource('cart', 'CartController');
     Route::delete('cart/all', 'CartController@destroy_all');
     Route::post('checkout', 'CheckoutController@store');
+    Route::get('order/current/', 'OrderController@currentOrders');
+    Route::get('order/past/', 'OrderController@pastOrders');
+    Route::get('subscription/current/', 'SubscriptionController@currentSubscriptions');
+    Route::get('subscription/past/', 'SubscriptionController@pastSubscriptions');
 });
 
 
 Route::middleware(['auth:sanctum', 'checkrole:seller'])->namespace('Seller')->prefix('seller/')->group(function () {
     Route::get('order/today/{type?}', 'OrderController@todaysOrder');
+    Route::get('order/past/{type?}', 'OrderController@pastOrder');
+    Route::get('order/current/{type?}', 'OrderController@currentOrder');
+    Route::get('subscription/current/{type?}', 'OrderController@currentSubscription');
+    Route::get('subscription/past/{type?}', 'OrderController@pastSubscription');
     Route::get('delivery_boy', 'OrderController@getDeleveryBoys');
     Route::put('order/assign/{id}', 'OrderController@assignOrder');
     Route::put('order/delivered/{id}', 'OrderController@orderDelivered');
@@ -57,4 +65,9 @@ Route::middleware(['auth:sanctum', 'checkrole:seller'])->namespace('Seller')->pr
     Route::get('cuisines', 'RestaurantController@cuisines');
     Route::get('menu_categories', 'RestaurantController@menu_categories');
     Route::get('menu_sub_categories', 'RestaurantController@menu_sub_categories');
+});
+
+
+Route::middleware(['auth:sanctum', 'checkrole:admin'])->namespace('Admin')->prefix('admin/')->group(function () {
+    Route::get('restaurant', 'RestaurantController@index');
 });

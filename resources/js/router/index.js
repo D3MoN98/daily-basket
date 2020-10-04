@@ -4,6 +4,7 @@ import store from "@/store";
 import DefaultLayout from "@/views/frontend/layouts/DefaultLayout";
 import Vue from "vue";
 import VueRouter from "vue-router";
+import adminMiddleware from "./middleware/adminMiddleware";
 import authMiddleware from "./middleware/authMiddleware";
 import sellerMiddleware from "./middleware/sellerMiddleware";
 import middlewarePipeline from "./middlewarePipeline";
@@ -128,6 +129,21 @@ const routes = [
             },
 
             {
+                name: "profile.subscriptions",
+                path: "subscriptions",
+                // @ts-ignore
+                component: () =>
+                    import(
+                        /* webpackChunkName: "profile-subscriptions" */ "@/views/frontend/Subscriptions"
+                    ),
+                meta: {
+                    // @ts-ignore
+                    layout: DefaultLayout,
+                    middleware: [authMiddleware]
+                }
+            },
+
+            {
                 name: "profile.addresses",
                 path: "addresses",
                 // @ts-ignore
@@ -209,6 +225,60 @@ const routes = [
                     /* webpackChunkName: "seller-default-layout" */ "@/views/seller/layouts/DefaultLayout"
                 ),
             middleware: [sellerMiddleware]
+        }
+    },
+    {
+        name: "seller.orders",
+        path: "/seller/orders",
+        // @ts-ignore
+        component: () =>
+            import(
+                /* webpackChunkName: "seller-orders" */ "@/views/seller/Orders"
+            ),
+        meta: {
+            // @ts-ignore
+            layout: () =>
+                import(
+                    /* webpackChunkName: "seller-default-layout" */ "@/views/seller/layouts/DefaultLayout"
+                ),
+            middleware: [sellerMiddleware]
+        }
+    },
+
+    // admin routes
+    {
+        name: "admin.dashboard",
+        path: "/admin",
+        // @ts-ignore
+        component: () =>
+            import(
+                /* webpackChunkName: "admin-dashboard" */ "@/views/admin/Dashboard"
+            ),
+        meta: {
+            // @ts-ignore
+            layout: () =>
+                import(
+                    /* webpackChunkName: "admin-default-layout" */ "@/views/admin/layouts/DefaultLayout"
+                ),
+            middleware: [adminMiddleware]
+        }
+    },
+
+    {
+        name: "admin.restaurants",
+        path: "/admin/restaurants",
+        // @ts-ignore
+        component: () =>
+            import(
+                /* webpackChunkName: "admin-restaurants" */ "@/views/admin/Restaurants"
+            ),
+        meta: {
+            // @ts-ignore
+            layout: () =>
+                import(
+                    /* webpackChunkName: "admin-default-layout" */ "@/views/admin/layouts/DefaultLayout"
+                ),
+            middleware: [adminMiddleware]
         }
     },
 

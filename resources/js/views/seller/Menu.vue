@@ -8,7 +8,9 @@
 
       <div class="menu_btm iinr_side_pad">
         <div class="menu_btm_hdd fnt_18_smb">
-          <h3>Create Item</h3>
+          <h3>
+            <a href @click.prevent="toggleMenuForm">Create Item</a>
+          </h3>
           <div class="selct_bxx small_slct">
             <select id="mounth">
               <option value="hide">-- Secect --</option>
@@ -19,7 +21,7 @@
           </div>
         </div>
 
-        <MenuForm />
+        <MenuForm v-if="showMenuForm" />
 
         <div class="custom_footer iinr_side_pad">
           <p>
@@ -45,7 +47,8 @@ export default {
   },
   data () {
     return {
-      isLoaded: false
+      isLoaded: false,
+      showMenuForm: false
     }
   },
   created () {
@@ -60,6 +63,11 @@ export default {
       restaurant: 'sellerRestaurant/getRestaurant',
       cuisines: 'sellerRestaurant/getCuisines'
     })
+  },
+  methods: {
+    toggleMenuForm () {
+      this.showMenuForm = !this.showMenuForm;
+    }
   }
 }
 </script>

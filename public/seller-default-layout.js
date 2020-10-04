@@ -712,7 +712,29 @@ var render = function() {
           1
         ),
         _vm._v(" "),
-        _vm._m(1),
+        _c(
+          "li",
+          [
+            _c(
+              "router-link",
+              {
+                attrs: {
+                  to: "/seller/orders",
+                  "aria-expanded": "false",
+                  "active-class": "select_link"
+                }
+              },
+              [
+                _c("i", { staticClass: "fas fa-clipboard-list" }),
+                _vm._v(" "),
+                _c("span", { staticClass: "nav-text" }, [
+                  _vm._v("Order Management")
+                ])
+              ]
+            )
+          ],
+          1
+        ),
         _vm._v(" "),
         _c(
           "li",
@@ -777,9 +799,9 @@ var render = function() {
           1
         ),
         _vm._v(" "),
-        _vm._m(2),
+        _vm._m(1),
         _vm._v(" "),
-        _vm._m(3)
+        _vm._m(2)
       ])
     ])
   ])
@@ -803,22 +825,6 @@ var staticRenderFns = [
           _vm._v("Collections")
         ])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c(
-        "a",
-        { attrs: { href: "javascript:void()", "aria-expanded": "false" } },
-        [
-          _c("i", { staticClass: "fas fa-clipboard-list" }),
-          _vm._v(" "),
-          _c("span", { staticClass: "nav-text" }, [_vm._v("Order Management")])
-        ]
-      )
     ])
   },
   function() {

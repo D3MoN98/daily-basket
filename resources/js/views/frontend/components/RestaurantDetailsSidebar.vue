@@ -15,7 +15,7 @@
           role="button"
           data-toggle="modal"
           data-dismiss="modal"
-          data-target="#subscribe_modal"
+          data-target="#subscribeModal"
         >Subscribe</a>
       </div>
       <div class="we_offer">

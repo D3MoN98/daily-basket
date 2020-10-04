@@ -8,33 +8,47 @@
     </div>
     <div class="fill_cart_inn" v-else-if="this.cart_items.length > 0">
       <h2>Cart</h2>
-      <!-- <div class="modal_chkbox">
-        <div class="chk_inn">
-          <div class="form-check custom_chkbx">
-            <input class="form-check-input" type="radio" name="gridRadios" value="Customer" checked />
-            <span class="checkmark"></span>
-            <label class="form-check-label">Lunch</label>
-          </div>
-          <div class="form-check custom_chkbx">
-            <input class="form-check-input" type="radio" name="gridRadios" value="Seller" />
-            <span class="checkmark"></span>
-            <label class="form-check-label">Dinner</label>
-          </div>
-          <div class="form-check custom_chkbx">
-            <input class="form-check-input" type="radio" name="gridRadios" value="Delivery" />
-            <span class="checkmark"></span>
-            <label class="form-check-label">Both</label>
+
+      <div class="subscription-box" v-if="isSubscribeApplied">
+        <h4>Subscription Applied</h4>
+        <div class="modal_chkbox">
+          <div class="chk_inn">
+            <div class="form-check custom_chkbx">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="gridRadios"
+                value="Customer"
+                checked
+              />
+              <span class="checkmark"></span>
+              <label class="form-check-label">Lunch</label>
+            </div>
+            <div class="form-check custom_chkbx">
+              <input class="form-check-input" type="radio" name="gridRadios" value="Seller" />
+              <span class="checkmark"></span>
+              <label class="form-check-label">Dinner</label>
+            </div>
+            <div class="form-check custom_chkbx">
+              <input class="form-check-input" type="radio" name="gridRadios" value="Delivery" />
+              <span class="checkmark"></span>
+              <label class="form-check-label">Both</label>
+            </div>
           </div>
         </div>
+        <div class="subc_box text-center">
+          <p>
+            <span>
+              <i class="fas fa-check-circle"></i>
+            </span>
+            {{getSubscribeDateDiff}} days
+          </p>
+          <h5>{{`${getSubscribeDateInFormate.start.ordinal} ${getSubscribeDateInFormate.start.month_short_name}`}} - {{`${getSubscribeDateInFormate.end.ordinal} ${getSubscribeDateInFormate.end.month_short_name}`}}</h5>
+        </div>
+        <div class="subscription-action" v-if="userAddresses.length > 0">
+          <a href="javascript:void(0);" @click.prevent="removeSubscription()">Remove</a>
+        </div>
       </div>
-      <div class="subc_box text-center">
-        <p>
-          <span>
-            <i class="fas fa-check-circle"></i>
-          </span>3 days subscription applied
-        </p>
-        <h5>17th May - 19th May</h5>
-      </div>-->
       <div class="delivery_food">
         <ul>
           <CartItem v-for="cart_item in cart_items" :cart_item="cart_item" :key="cart_item.rowId" />
@@ -95,7 +109,11 @@
           <a href="javascript:void(0);" @click.prevent="openSaveAddress()">Add New</a>
         </div>
       </div>
-      <Payment :deleveyAddress="deleveyAddress" :subTotalAmount="subTotal" />
+      <Payment
+        :deleveyAddress="deleveyAddress"
+        :subTotalAmount="subTotal"
+        :subscribeDetails="getSubscribe"
+      />
     </div>
   </div>
 </template>
@@ -119,13 +137,40 @@ export default {
     ...mapGetters({
       cart_items: 'cart/getCartItems',
       isCartEmpty: 'cart/isCartEmpty',
+      isSubscribeApplied: 'cart/isSubscribeApplied',
+      getSubscribe: 'cart/getSubscribe',
+      getSubscribeDateDiff: 'cart/getSubscribeDateDiff',
       userAddresses: 'auth/userAddresses',
       currentLocation: 'auth/currentLocation',
       deleveyAddress: 'auth/deleveyAddress',
     }),
     subTotal () {
-      return this.cart_items.reduce(((acc, value) => acc + Math.floor(value.subtotal)), 0);
+      let subtotal = this.cart_items.reduce(((acc, value) => acc + Math.floor(value.subtotal)), 0)
+      let subscriptionMultiply = this.isSubscribeApplied ? this.getSubscribeDateDiff : 1
+      return subtotal * subscriptionMultiply;
     },
+    getSubscribeDateInFormate () {
+      let start = new Date(this.getSubscribe.start)
+      const formatter = new Intl.DateTimeFormat('fr', { month: 'short' });
+
+      start = {
+        day: start.getDate(),
+        month: start.getMonth(),
+        month_short_name: formatter.format(new Date(start)),
+        year: start.getFullYear(),
+        ordinal: start.getDate() + (start.getDate() > 0 ? ['th', 'st', 'nd', 'rd'][(start.getDate() > 3 && start.getDate() < 21) || start.getDate() % 10 > 3 ? 0 : start.getDate() % 10] : '')
+      }
+
+      let end = new Date(this.getSubscribe.end)
+      end = {
+        day: end.getDate(),
+        month: end.getMonth(),
+        month_short_name: formatter.format(new Date(end)),
+        year: end.getFullYear(),
+        ordinal: end.getDate() + (end.getDate() > 0 ? ['th', 'st', 'nd', 'rd'][(end.getDate() > 3 && end.getDate() < 21) || end.getDate() % 10 > 3 ? 0 : end.getDate() % 10] : '')
+      }
+      return { start, end }
+    }
   },
   mounted () {
     if (this.$store.getters['auth/check']) {
@@ -147,6 +192,28 @@ export default {
       mn_wrapper.classList.add('full_body_opacity');
       mn_wrapper.parentElement.classList.add('no_scroll');
     },
+    removeSubscription () {
+      this.$store.dispatch('cart/removeSubscribe').then(() => {
+        toastr.success('Subscribe removed', '', {
+          positionClass: 'toast-bottom-center',
+          timeOut: 1500,
+          closeButton: !0,
+          debug: !1,
+          newestOnTop: !0,
+          progressBar: !0,
+          preventDuplicates: !0,
+          onclick: null,
+          showDuration: '300',
+          hideDuration: '1000',
+          extendedTimeOut: '1000',
+          showEasing: 'swing',
+          hideEasing: 'linear',
+          showMethod: 'fadeIn',
+          hideMethod: 'fadeOut',
+          tapToDismiss: !1,
+        });
+      })
+    }
   },
 
 };
@@ -194,11 +261,38 @@ export default {
     }
   }
 }
+
 .delevery-action {
   text-align: right;
   margin-bottom: 10px;
   a {
     margin-left: 10px;
   }
+}
+
+.subscription-box {
+  h4 {
+    font-size: 17px;
+    line-height: 1;
+    color: #030303;
+    font-family: "Averta_Semibold";
+  }
+  margin-bottom: 15px;
+  border-bottom: 1px solid #c8c2c2;
+  .subscription-action {
+    text-align: right;
+    margin-bottom: 10px;
+    a {
+      margin-left: 10px;
+    }
+  }
+}
+.fill_cart_inn .modal_chkbox {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.subc_box {
+  border-width: 2px;
+  border-style: dashed;
 }
 </style>

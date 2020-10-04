@@ -67,17 +67,30 @@ export default {
 .form-control:focus {
   border-color: #6883b9;
 }
-.btn-primary {
-  color: #ffffff;
-  background: #6883b9;
+.btn {
   border: 1px solid transparent;
   border-radius: 2px;
   transition: all 0.4s;
+  color: #ffffff;
+}
+.btn.btn-primary {
+  background: #6883b9;
   &:hover,
   &:focus {
     color: #ffffff !important;
     background: #6883b9 !important;
     border-color: transparent !important;
+  }
+}
+.btn.btn-secondary {
+  border: 2px solid #6883b9;
+  background: white;
+  color: #6883b9;
+  &:hover,
+  &:focus {
+    color: #ffffff !important;
+    background: #6883b9 !important;
+    border-color: #6883b9 !important;
   }
 }
 .modal-backdrop {

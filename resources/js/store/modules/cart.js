@@ -2,13 +2,27 @@ import axios from "axios";
 
 const state = {
     cart_items: [],
-    restaurant_id: null
+    restaurant_id: null,
+    subscribe: {
+        applied: false,
+        start: null,
+        end: null
+    }
 };
 
 const getters = {
     getCartItems: state => state.cart_items,
     isCartEmpty: state => state.cart_items.length === 0,
-    getRestaurantId: state => state.restaurant_id
+    getRestaurantId: state => state.restaurant_id,
+    isSubscribeApplied: state => state.subscribe.applied,
+    getSubscribe: state => state.subscribe,
+    getSubscribeDateDiff: state => {
+        const date1 = new Date(state.subscribe.start);
+        const date2 = new Date(state.subscribe.end);
+        const diffTime = Math.abs(date2 - date1);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        return diffDays + 1;
+    }
 };
 
 const mutations = {
@@ -17,6 +31,16 @@ const mutations = {
     },
     setRestaurantId(state, payload) {
         state.restaurant_id = payload;
+    },
+    setSubscribe(state, { start, end }) {
+        state.subscribe.applied = true;
+        state.subscribe.start = start;
+        state.subscribe.end = end;
+    },
+    removeSubscribe(state) {
+        state.subscribe.applied = false;
+        state.subscribe.start = null;
+        state.subscribe.end = null;
     }
 };
 
@@ -88,6 +112,12 @@ const actions = {
             .catch(err => {
                 console.log(err);
             });
+    },
+    setSubscribe({ commit }, date) {
+        commit("setSubscribe", date);
+    },
+    async removeSubscribe({ commit }) {
+        commit("removeSubscribe");
     }
 };
 

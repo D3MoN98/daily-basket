@@ -1,15 +1,10 @@
-import App from '@/App.vue';
-import router from '@/router';
-import store from '@/store';
-import {
-    BModal,
-    BootstrapVue,
-    IconsPlugin,
-    VBModal
-} from 'bootstrap-vue';
-import VueProgressBar from 'vue-progressbar';
-import * as VueGoogleMaps from 'vue2-google-maps';
-import Vuelidate from 'vuelidate';
+import App from "@/App.vue";
+import router from "@/router";
+import store from "@/store";
+import { BModal, BootstrapVue, IconsPlugin, VBModal } from "bootstrap-vue";
+import VueProgressBar from "vue-progressbar";
+import * as VueGoogleMaps from "vue2-google-maps";
+import Vuelidate from "vuelidate";
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -17,20 +12,21 @@ import Vuelidate from 'vuelidate';
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+require("./bootstrap");
 
-window.Vue = require('vue');
+window.Vue = require("vue");
 
-Vue.set(Vue.prototype, '_', _);
+Vue.set(Vue.prototype, "_", _);
 
 // Install BootstrapVue
 Vue.use(BootstrapVue);
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin);
 
-Vue.component('b-modal', BModal);
+Vue.component("b-modal", BModal);
 // Note that Vue automatically prefixes directive names with `v-`
-Vue.directive('b-modal', VBModal);
+Vue.directive("b-modal", VBModal);
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -48,17 +44,17 @@ Vue.config.productionTip = false;
 
 // Set Vue progressbar
 const options = {
-    color: '#7367F0',
-    failedColor: '#7367f0',
-    thickness: '4px',
+    color: "#7367F0",
+    failedColor: "#7367f0",
+    thickness: "4px",
     transition: {
-        speed: '0.75s',
-        opacity: '0.9s',
-        termination: 500,
+        speed: "0.75s",
+        opacity: "0.9s",
+        termination: 500
     },
     autoRevert: true,
-    location: 'top',
-    inverse: false,
+    location: "top",
+    inverse: false
 };
 
 Vue.use(VueProgressBar, options);
@@ -71,8 +67,8 @@ Vue.use(Vuelidate);
 
 Vue.use(VueGoogleMaps, {
     load: {
-        key: 'AIzaSyCQ50fCTWgDOCjgUmkxARbJCFpIrqq-Uok',
-        libraries: 'places', // This is required if you use the Autocomplete plugin
+        key: "AIzaSyCQ50fCTWgDOCjgUmkxARbJCFpIrqq-Uok",
+        libraries: "places" // This is required if you use the Autocomplete plugin
         // OR: libraries: 'places,drawing'
         // OR: libraries: 'places,drawing,visualization'
         // (as you require)
@@ -85,7 +81,7 @@ Vue.use(VueGoogleMaps, {
     /// / (e.g. `this.$refs.gmap.$on('zoom_changed', someFunc)`)
     /// / instead of going through Vue templates (e.g. `<GmapMap @zoom_changed="someFunc">`)
     /// / you might need to turn this on.
-    autobindAllEvents: false,
+    autobindAllEvents: false
 
     /// / If you want to manually install components, e.g.
     /// / import {GmapMarker} from 'vue2-google-maps/src/components/marker'
@@ -104,5 +100,5 @@ Vue.use(VueGoogleMaps, {
 const app = new Vue({
     router,
     store,
-    render: (h) => h(App),
-}).$mount('#app');
+    render: h => h(App)
+}).$mount("#app");

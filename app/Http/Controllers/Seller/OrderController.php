@@ -4,11 +4,16 @@ namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Order as ResourcesOrder;
+use App\Http\Resources\Subscription as ResourcesSubscription;
 use App\Http\Resources\User as ResourcesUser;
 use App\Order;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
+use Carbon\Carbon;
+
+
 
 class OrderController extends Controller
 {
@@ -23,9 +28,51 @@ class OrderController extends Controller
         $restaurant = $user->restaurant;
         $todays_orders = $restaurant->todaysOorders();
         if ($type !== 'all') {
-            $todays_orders = $restaurant->todaysOorders()->where('status', $type);
+            $todays_orders = $restaurant->todaysOorders()->where('status', $type)->orderBy('created_at');
         }
         return ResourcesOrder::collection($todays_orders);
+    }
+
+    public function currentOrder(Request $request, $type = 'all')
+    {
+        $keyword = $request->get('keyword');
+        $orderByColumn = $request->get('order_by_column') ?? 'created_at';
+        $orderBy = $request->get('order_by') ?? 'asc';
+        $draw = $request->get('draw') ?? 1;
+
+
+        $user = Auth::user();
+        $restaurant = $user->restaurant;
+
+        $current_orders = $restaurant->orders()->whereDate('created_at', Carbon::today())->with('user')
+            ->whereHas('user', function (Builder $query) use ($keyword) {
+                $query->where('name', 'like', "%$keyword%");
+                $query->orWhere('contact_no', 'like', "%$keyword%");
+            })->orderBy($orderByColumn, $orderBy)->paginate($draw);
+
+
+        return ResourcesOrder::collection($current_orders);
+    }
+
+    public function pastOrder(Request $request, $type = 'all')
+    {
+        $keyword = $request->get('keyword');
+        $orderByColumn = $request->get('order_by_column') ?? 'created_at';
+        $orderBy = $request->get('order_by') ?? 'asc';
+        $draw = $request->get('draw') ?? 1;
+
+
+        $user = Auth::user();
+        $restaurant = $user->restaurant;
+
+        $current_orders = $restaurant->orders()->with('user')
+            ->whereHas('user', function (Builder $query) use ($keyword) {
+                $query->where('name', 'like', "%$keyword%");
+                $query->orWhere('contact_no', 'like', "%$keyword%");
+            })->orderBy($orderByColumn, $orderBy)->paginate($draw);
+
+
+        return ResourcesOrder::collection($current_orders);
     }
 
     public function assignOrder(Request $request, $id)
@@ -38,6 +85,48 @@ class OrderController extends Controller
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()]);
         }
+    }
+
+    public function pastSubscription(Request $request, $type = 'all')
+    {
+        $keyword = $request->get('keyword');
+        $orderByColumn = $request->get('order_by_column') ?? 'created_at';
+        $orderBy = $request->get('order_by') ?? 'asc';
+        $draw = $request->get('draw') ?? 1;
+
+
+        $user = Auth::user();
+        $restaurant = $user->restaurant;
+
+        $current_subscriptionss = $restaurant->subscriptions()->whereDate('created_at', '<', Carbon::today())->with('user')
+            ->whereHas('user', function (Builder $query) use ($keyword) {
+                $query->where('name', 'like', "%$keyword%");
+                $query->orWhere('contact_no', 'like', "%$keyword%");
+            })->orderBy($orderByColumn, $orderBy)->paginate($draw);
+
+
+        return ResourcesSubscription::collection($current_subscriptionss);
+    }
+
+    public function currentSubscription(Request $request, $type = 'all')
+    {
+        $keyword = $request->get('keyword');
+        $orderByColumn = $request->get('order_by_column') ?? 'created_at';
+        $orderBy = $request->get('order_by') ?? 'asc';
+        $draw = $request->get('draw') ?? 1;
+
+
+        $user = Auth::user();
+        $restaurant = $user->restaurant;
+
+        $current_subscriptionss = $restaurant->subscriptions()->whereDate('created_at', Carbon::today())->with('user')
+            ->whereHas('user', function (Builder $query) use ($keyword) {
+                $query->where('name', 'like', "%$keyword%");
+                $query->orWhere('contact_no', 'like', "%$keyword%");
+            })->orderBy($orderByColumn, $orderBy)->paginate($draw);
+
+
+        return ResourcesSubscription::collection($current_subscriptionss);
     }
 
 

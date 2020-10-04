@@ -305,6 +305,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -325,14 +343,44 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
     cart_items: 'cart/getCartItems',
     isCartEmpty: 'cart/isCartEmpty',
+    isSubscribeApplied: 'cart/isSubscribeApplied',
+    getSubscribe: 'cart/getSubscribe',
+    getSubscribeDateDiff: 'cart/getSubscribeDateDiff',
     userAddresses: 'auth/userAddresses',
     currentLocation: 'auth/currentLocation',
     deleveyAddress: 'auth/deleveyAddress'
   })), {}, {
     subTotal: function subTotal() {
-      return this.cart_items.reduce(function (acc, value) {
+      var subtotal = this.cart_items.reduce(function (acc, value) {
         return acc + Math.floor(value.subtotal);
       }, 0);
+      var subscriptionMultiply = this.isSubscribeApplied ? this.getSubscribeDateDiff : 1;
+      return subtotal * subscriptionMultiply;
+    },
+    getSubscribeDateInFormate: function getSubscribeDateInFormate() {
+      var start = new Date(this.getSubscribe.start);
+      var formatter = new Intl.DateTimeFormat('fr', {
+        month: 'short'
+      });
+      start = {
+        day: start.getDate(),
+        month: start.getMonth(),
+        month_short_name: formatter.format(new Date(start)),
+        year: start.getFullYear(),
+        ordinal: start.getDate() + (start.getDate() > 0 ? ['th', 'st', 'nd', 'rd'][start.getDate() > 3 && start.getDate() < 21 || start.getDate() % 10 > 3 ? 0 : start.getDate() % 10] : '')
+      };
+      var end = new Date(this.getSubscribe.end);
+      end = {
+        day: end.getDate(),
+        month: end.getMonth(),
+        month_short_name: formatter.format(new Date(end)),
+        year: end.getFullYear(),
+        ordinal: end.getDate() + (end.getDate() > 0 ? ['th', 'st', 'nd', 'rd'][end.getDate() > 3 && end.getDate() < 21 || end.getDate() % 10 > 3 ? 0 : end.getDate() % 10] : '')
+      };
+      return {
+        start: start,
+        end: end
+      };
     }
   }),
   mounted: function mounted() {
@@ -352,6 +400,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var mn_wrapper = document.getElementById('main-wrapper');
       mn_wrapper.classList.add('full_body_opacity');
       mn_wrapper.parentElement.classList.add('no_scroll');
+    },
+    removeSubscription: function removeSubscription() {
+      this.$store.dispatch('cart/removeSubscribe').then(function () {
+        toastr.success('Subscribe removed', '', {
+          positionClass: 'toast-bottom-center',
+          timeOut: 1500,
+          closeButton: !0,
+          debug: !1,
+          newestOnTop: !0,
+          progressBar: !0,
+          preventDuplicates: !0,
+          onclick: null,
+          showDuration: '300',
+          hideDuration: '1000',
+          extendedTimeOut: '1000',
+          showEasing: 'swing',
+          hideEasing: 'linear',
+          showMethod: 'fadeIn',
+          hideMethod: 'fadeOut',
+          tapToDismiss: !1
+        });
+      });
     }
   }
 });
@@ -765,13 +835,15 @@ __webpack_require__.r(__webpack_exports__);
         card_exp_years: null,
         card_cvv: null,
         address_id: this.deleveyAddress.id,
-        subtotal: this.subTotalAmount
+        subtotal: this.subTotalAmount,
+        subscription: this.subscribeDetails
       }
     };
   },
   props: {
     deleveyAddress: null,
-    subTotalAmount: null
+    subTotalAmount: null,
+    subscribeDetails: null
   },
   mounted: function mounted() {
     $('.card-js').CardJs();
@@ -1021,7 +1093,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "/* width */\n[data-v-a26d16ca]::-webkit-scrollbar {\n  width: 0;\n}\n\n/* Track */\n[data-v-a26d16ca]::-webkit-scrollbar-track {\n  box-shadow: transparent;\n  border-radius: none;\n}\n\n/* Handle */\n[data-v-a26d16ca]::-webkit-scrollbar-thumb {\n  background: #ecebeb;\n  border-radius: none;\n}\n.delivery_to[data-v-a26d16ca] {\n  margin-bottom: 15px;\n  border-bottom: 1px solid #c8c2c2;\n}\n.delivery_to h4[data-v-a26d16ca] {\n  font-size: 17px;\n  line-height: 1;\n  color: #030303;\n  font-family: \"Averta_Semibold\";\n}\n.delivery-address[data-v-a26d16ca] {\n  margin: 15px 0;\n  display: flex;\n}\n.delivery-address .address-icon[data-v-a26d16ca] {\n  width: 40px;\n  height: 40px;\n  border: 1px solid #cfcfcf;\n  margin-right: 10px;\n  display: flex;\n}\n.delivery-address .address-icon .fas[data-v-a26d16ca] {\n  margin: auto;\n}\n.delevery-action[data-v-a26d16ca] {\n  text-align: right;\n  margin-bottom: 10px;\n}\n.delevery-action a[data-v-a26d16ca] {\n  margin-left: 10px;\n}", ""]);
+exports.push([module.i, "/* width */\n[data-v-a26d16ca]::-webkit-scrollbar {\n  width: 0;\n}\n\n/* Track */\n[data-v-a26d16ca]::-webkit-scrollbar-track {\n  box-shadow: transparent;\n  border-radius: none;\n}\n\n/* Handle */\n[data-v-a26d16ca]::-webkit-scrollbar-thumb {\n  background: #ecebeb;\n  border-radius: none;\n}\n.delivery_to[data-v-a26d16ca] {\n  margin-bottom: 15px;\n  border-bottom: 1px solid #c8c2c2;\n}\n.delivery_to h4[data-v-a26d16ca] {\n  font-size: 17px;\n  line-height: 1;\n  color: #030303;\n  font-family: \"Averta_Semibold\";\n}\n.delivery-address[data-v-a26d16ca] {\n  margin: 15px 0;\n  display: flex;\n}\n.delivery-address .address-icon[data-v-a26d16ca] {\n  width: 40px;\n  height: 40px;\n  border: 1px solid #cfcfcf;\n  margin-right: 10px;\n  display: flex;\n}\n.delivery-address .address-icon .fas[data-v-a26d16ca] {\n  margin: auto;\n}\n.delevery-action[data-v-a26d16ca] {\n  text-align: right;\n  margin-bottom: 10px;\n}\n.delevery-action a[data-v-a26d16ca] {\n  margin-left: 10px;\n}\n.subscription-box[data-v-a26d16ca] {\n  margin-bottom: 15px;\n  border-bottom: 1px solid #c8c2c2;\n}\n.subscription-box h4[data-v-a26d16ca] {\n  font-size: 17px;\n  line-height: 1;\n  color: #030303;\n  font-family: \"Averta_Semibold\";\n}\n.subscription-box .subscription-action[data-v-a26d16ca] {\n  text-align: right;\n  margin-bottom: 10px;\n}\n.subscription-box .subscription-action a[data-v-a26d16ca] {\n  margin-left: 10px;\n}\n.fill_cart_inn .modal_chkbox[data-v-a26d16ca] {\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n.subc_box[data-v-a26d16ca] {\n  border-width: 2px;\n  border-style: dashed;\n}", ""]);
 
 // exports
 
@@ -1225,6 +1297,61 @@ var render = function() {
             [
               _c("h2", [_vm._v("Cart")]),
               _vm._v(" "),
+              _vm.isSubscribeApplied
+                ? _c("div", { staticClass: "subscription-box" }, [
+                    _c("h4", [_vm._v("Subscription Applied")]),
+                    _vm._v(" "),
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "subc_box text-center" }, [
+                      _c("p", [
+                        _vm._m(1),
+                        _vm._v(
+                          "\n          " +
+                            _vm._s(_vm.getSubscribeDateDiff) +
+                            " days\n        "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("h5", [
+                        _vm._v(
+                          _vm._s(
+                            _vm.getSubscribeDateInFormate.start.ordinal +
+                              " " +
+                              _vm.getSubscribeDateInFormate.start
+                                .month_short_name
+                          ) +
+                            " - " +
+                            _vm._s(
+                              _vm.getSubscribeDateInFormate.end.ordinal +
+                                " " +
+                                _vm.getSubscribeDateInFormate.end
+                                  .month_short_name
+                            )
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _vm.userAddresses.length > 0
+                      ? _c("div", { staticClass: "subscription-action" }, [
+                          _c(
+                            "a",
+                            {
+                              attrs: { href: "javascript:void(0);" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.removeSubscription()
+                                }
+                              }
+                            },
+                            [_vm._v("Remove")]
+                          )
+                        ])
+                      : _vm._e()
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
               _c("div", { staticClass: "delivery_food" }, [
                 _c(
                   "ul",
@@ -1248,12 +1375,12 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _vm._m(0),
+                  _vm._m(2),
                   _vm._v(" "),
-                  _vm._m(1)
+                  _vm._m(3)
                 ]),
                 _vm._v(" "),
-                _vm._m(2)
+                _vm._m(4)
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "amt_cal" }, [
@@ -1301,7 +1428,7 @@ var render = function() {
                     ])
                   : _vm.userAddresses.length === 0
                   ? _c("div", { staticClass: "delivery-address" }, [
-                      _vm._m(3),
+                      _vm._m(5),
                       _vm._v(" "),
                       _c("p", [
                         _vm._v(
@@ -1367,7 +1494,8 @@ var render = function() {
               _c("Payment", {
                 attrs: {
                   deleveyAddress: _vm.deleveyAddress,
-                  subTotalAmount: _vm.subTotal
+                  subTotalAmount: _vm.subTotal,
+                  subscribeDetails: _vm.getSubscribe
                 }
               })
             ],
@@ -1378,6 +1506,58 @@ var render = function() {
   )
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal_chkbox" }, [
+      _c("div", { staticClass: "chk_inn" }, [
+        _c("div", { staticClass: "form-check custom_chkbx" }, [
+          _c("input", {
+            staticClass: "form-check-input",
+            attrs: {
+              type: "radio",
+              name: "gridRadios",
+              value: "Customer",
+              checked: ""
+            }
+          }),
+          _vm._v(" "),
+          _c("span", { staticClass: "checkmark" }),
+          _vm._v(" "),
+          _c("label", { staticClass: "form-check-label" }, [_vm._v("Lunch")])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-check custom_chkbx" }, [
+          _c("input", {
+            staticClass: "form-check-input",
+            attrs: { type: "radio", name: "gridRadios", value: "Seller" }
+          }),
+          _vm._v(" "),
+          _c("span", { staticClass: "checkmark" }),
+          _vm._v(" "),
+          _c("label", { staticClass: "form-check-label" }, [_vm._v("Dinner")])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-check custom_chkbx" }, [
+          _c("input", {
+            staticClass: "form-check-input",
+            attrs: { type: "radio", name: "gridRadios", value: "Delivery" }
+          }),
+          _vm._v(" "),
+          _c("span", { staticClass: "checkmark" }),
+          _vm._v(" "),
+          _c("label", { staticClass: "form-check-label" }, [_vm._v("Both")])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", [_c("i", { staticClass: "fas fa-check-circle" })])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -1883,7 +2063,7 @@ var render = function() {
         }
       },
       [
-        _vm._m(0),
+        _c("div", { staticClass: "modal_chkbox" }),
         _vm._v(" "),
         _c("div", { staticClass: "card_field" }, [
           _c(
@@ -2032,7 +2212,11 @@ var render = function() {
                 attrs: { type: "submit", disabled: _vm.submitted }
               },
               [
-                _vm._v("\n          Pay & Order\n          "),
+                _vm._v(
+                  "\n          Pay " +
+                    _vm._s(_vm.order.subtotal) +
+                    " & Order\n          "
+                ),
                 _c("span", {
                   directives: [
                     {
@@ -2095,56 +2279,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal_chkbox" }, [
-      _c("div", { staticClass: "chk_inn" }, [
-        _c("div", { staticClass: "form-check custom_chkbx" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: {
-              type: "radio",
-              name: "gridRadios",
-              value: "Customer",
-              checked: ""
-            }
-          }),
-          _vm._v(" "),
-          _c("span", { staticClass: "checkmark" }),
-          _vm._v(" "),
-          _c("label", { staticClass: "form-check-label" }, [
-            _vm._v("Credit/Debit Card")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-check custom_chkbx" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: { type: "radio", name: "gridRadios", value: "Seller" }
-          }),
-          _vm._v(" "),
-          _c("span", { staticClass: "checkmark" }),
-          _vm._v(" "),
-          _c("label", { staticClass: "form-check-label" }, [_vm._v("Wallet")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-check custom_chkbx" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: { type: "radio", name: "gridRadios", value: "Delivery" }
-          }),
-          _vm._v(" "),
-          _c("span", { staticClass: "checkmark" }),
-          _vm._v(" "),
-          _c("label", { staticClass: "form-check-label" }, [_vm._v("COD")])
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -2274,7 +2409,7 @@ var staticRenderFns = [
             role: "button",
             "data-toggle": "modal",
             "data-dismiss": "modal",
-            "data-target": "#subscribe_modal"
+            "data-target": "#subscribeModal"
           }
         },
         [_vm._v("Subscribe")]

@@ -1,5 +1,5 @@
 <template>
-  <div class="bsc_det_otr">
+  <div class="bsc_det_otr animate__animated animate__fadeIn">
     <form @submit.prevent="createMenuItem">
       <div class="bec_det_innr fnt_18_smb">
         <div class="bsc_det mar_btn_45">
@@ -295,7 +295,7 @@
             </div>
           </div>
         </div>
-        <div class="oth_det row4">
+        <div class="oth_det row4 w-100">
           <div class="oth_det_inn">
             <!-- <h3>Item Availability</h3>
               <div class="itm_avv">

@@ -20,6 +20,7 @@ class CreateSubscriptionItemsTable extends Migration
             $table->bigInteger('menu_item_id')->unsigned();
             $table->foreign('menu_item_id')->references('id')->on('menu_items');
             $table->integer('quantity');
+            $table->float('subtotal');
             $table->enum('cooking_status', ['in progress', 'in queue', 'completed'])->default('in queue');
             $table->timestamps();
         });

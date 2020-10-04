@@ -13,6 +13,7 @@
     <link href="{{asset('vendor/jqvmap/css/jqvmap.min.css')}}" rel="stylesheet">
     {{-- <link rel="stylesheet" href="{{asset('vendor/bootstrap-daterangepicker/daterangepicker.css')}}"> --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.21/datatables.min.css" />
     <link rel="stylesheet" href="{{asset('css/card-js.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/toastr/css/toastr.min.css') }}">
     <link href="{{asset('css/style.css')}}" rel="stylesheet">
@@ -45,6 +46,8 @@
     <script src="{{ asset('js/easy-responsive-tabs.js') }}"></script>
     <script src="{{ asset('js/my_js.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
 </body>
 <!-- Mirrored from demo.themefisher.com/corbin/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 03 Jul 2020 07:39:56 GMT -->
 

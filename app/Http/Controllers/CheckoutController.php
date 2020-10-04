@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Cart;
 use App\Order;
+use App\Subscription;
 use App\OrderItem;
+use App\SubscriptionItem;
 use App\MenuItem;
 use Illuminate\Support\Facades\Validator;
 use Cartalyst\Stripe\Stripe;
@@ -42,6 +44,8 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
+        // return response()->json($request->all());
+
         $validator = Validator::make($request->all(), [
             'card_number' => 'required',
             'card_exp_month' => 'required',
@@ -82,7 +86,12 @@ class CheckoutController extends Controller
 
 
             if ($charge['status'] === 'succeeded') {
-                return $this->order($request->all(), $charge);
+                $subscription = $request->get('subscription');
+                if ($subscription['applied'] === true) {
+                    return $this->subscribe($request->all(), $charge);
+                } else if ($subscription['applied'] === false) {
+                    return $this->order($request->all(), $charge);
+                }
             }
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()]);
@@ -122,6 +131,54 @@ class CheckoutController extends Controller
             foreach ($cart_items as $key) {
                 OrderItem::create([
                     'order_id' => $order->id,
+                    'menu_item_id' => $key->id,
+                    'quantity' => $key->qty,
+                    'subtotal' => $key->subtotal,
+                ]);
+            }
+
+            Cart::destroy();
+            Cart::store($user->id);
+
+
+            return response()->json(['success' => 'Your order has been placed']);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 422);
+        }
+    }
+
+
+    public function subscribe($request, $charge)
+    {
+        try {
+
+            $user = Auth::user();
+
+            $order = Subscription::create([
+                'user_id' => $user->id,
+                'restaurant_id' => $this->getRestaurntID(),
+                'address_id' => $request['address_id'],
+                'subtotal' => $request['subtotal'],
+                'total' => (float) ($request['subtotal'] + ($request['tax'] ?? 0) + ($request['delivery_charge'] ?? 0)),
+                'tax' => $request['tax'] ?? 0,
+                'delivery_charge' => $request['delivery_charge'] ?? 0,
+                'discount' => $request['discount'] ?? null,
+                'started_at' => date('Y-m-d', floor($request['subscription']['start'] / 1000)),
+                'expired_at' => date('Y-m-d', floor($request['subscription']['end'] / 1000)),
+            ]);
+
+            $order->payment()->create([
+                'charge_id' => $charge['id'],
+                'amount' => (float) ($charge['amount']) / 100,
+                'status' => $charge['status']
+            ]);
+
+            Cart::restore($user->id);
+            $cart_items = Cart::content();
+
+            foreach ($cart_items as $key) {
+                SubscriptionItem::create([
+                    'subscription_id' => $order->id,
                     'menu_item_id' => $key->id,
                     'quantity' => $key->qty,
                     'subtotal' => $key->subtotal,

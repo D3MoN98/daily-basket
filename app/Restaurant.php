@@ -64,9 +64,18 @@ class Restaurant extends Model
         return $this->hasMany('App\Order');
     }
 
-
     public function todaysOorders()
     {
         return $this->orders()->whereDate('created_at', Carbon::today())->get();
+    }
+
+    public function subscriptions()
+    {
+        return $this->hasMany('App\Subscription');
+    }
+
+    public function address()
+    {
+        return $this->user()->addresses()->first();
     }
 }

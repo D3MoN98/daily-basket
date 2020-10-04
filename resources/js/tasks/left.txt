@@ -1,0 +1,37 @@
+# features
+    # input search location
+    # coupon
+    # search restaurant and dish
+    # customer feedback
+    # subscription daily delivery
+    # subscription box
+    # payment tab on profile?
+    # restaurant list based on location
+    # restaurant filter
+    # landing page with searching location
+
+    # admin
+        # customers
+        # restaurants
+        # monthly reviue
+        # chart
+
+    # seller
+        # chart
+        # monthly revinue
+        # menu listing and editing
+        # time picker change
+        # adding delivery boy
+
+    # kitchen
+        # kitchen staff member will maanage order
+
+    # delivery
+        # delivery related features
+
+# small works
+    # subscription type dinner/lunch
+    # we offer on subscription box
+    # remove button on subscription box
+    # tell on res details page
+

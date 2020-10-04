@@ -20,6 +20,8 @@
 
     <SignupModal v-if="!this.$store.getters['auth/check']" />
 
+    <SubscribeModal />
+
     <vue-progress-bar></vue-progress-bar>
   </div>
 </template>
@@ -32,6 +34,8 @@ import EditAddress from '@/views/frontend/components/EditAddress';
 import ChangeAddress from '@/views/frontend/components/ChangeAddress';
 import SignupModal from '@/views/frontend/components/SignupModal';
 import LoginModal from '@/views/frontend/components/LoginModal';
+import SubscribeModal from "@/views/frontend/components/SubscribeModal";
+
 
 export default {
   components: {
@@ -42,6 +46,7 @@ export default {
     ChangeAddress,
     SignupModal,
     LoginModal,
+    SubscribeModal
   },
   data () {
     return {
@@ -97,7 +102,8 @@ export default {
             'profile',
             'profile.orders',
             'profile.edit',
-            'profile.addresses'
+            'profile.addresses',
+            'profile.subscriptions',
           ],
           this.$route.name,
         ) !== -1

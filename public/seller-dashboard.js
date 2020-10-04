@@ -191,6 +191,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 
@@ -201,7 +203,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      isLoaded: false
+      isLoaded: false,
+      showMenuForm: false
     };
   },
   created: function created() {
@@ -216,7 +219,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])({
     restaurant: 'sellerRestaurant/getRestaurant',
     cuisines: 'sellerRestaurant/getCuisines'
-  }))
+  })),
+  methods: {
+    toggleMenuForm: function toggleMenuForm() {
+      this.showMenuForm = !this.showMenuForm;
+    }
+  }
 });
 
 /***/ }),
@@ -1348,7 +1356,31 @@ var render = function() {
       _c(
         "div",
         { staticClass: "menu_btm iinr_side_pad" },
-        [_vm._m(0), _vm._v(" "), _c("MenuForm"), _vm._v(" "), _vm._m(1)],
+        [
+          _c("div", { staticClass: "menu_btm_hdd fnt_18_smb" }, [
+            _c("h3", [
+              _c(
+                "a",
+                {
+                  attrs: { href: "" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.toggleMenuForm($event)
+                    }
+                  }
+                },
+                [_vm._v("Create Item")]
+              )
+            ]),
+            _vm._v(" "),
+            _vm._m(0)
+          ]),
+          _vm._v(" "),
+          _vm.showMenuForm ? _c("MenuForm") : _vm._e(),
+          _vm._v(" "),
+          _vm._m(1)
+        ],
         1
       )
     ])
@@ -1359,21 +1391,17 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "menu_btm_hdd fnt_18_smb" }, [
-      _c("h3", [_vm._v("Create Item")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "selct_bxx small_slct" }, [
-        _c("select", { attrs: { id: "mounth" } }, [
-          _c("option", { attrs: { value: "hide" } }, [_vm._v("-- Secect --")]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "a", rel: "icon-temperature" } }, [
-            _vm._v("All")
-          ]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "b" } }, [_vm._v("Demo 1")]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "c" } }, [_vm._v("Demo 2")])
-        ])
+    return _c("div", { staticClass: "selct_bxx small_slct" }, [
+      _c("select", { attrs: { id: "mounth" } }, [
+        _c("option", { attrs: { value: "hide" } }, [_vm._v("-- Secect --")]),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "a", rel: "icon-temperature" } }, [
+          _vm._v("All")
+        ]),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "b" } }, [_vm._v("Demo 1")]),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "c" } }, [_vm._v("Demo 2")])
       ])
     ])
   },
@@ -1412,612 +1440,621 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "bsc_det_otr" }, [
-    _c(
-      "form",
-      {
-        on: {
-          submit: function($event) {
-            $event.preventDefault()
-            return _vm.createMenuItem($event)
+  return _c(
+    "div",
+    { staticClass: "bsc_det_otr animate__animated animate__fadeIn" },
+    [
+      _c(
+        "form",
+        {
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.createMenuItem($event)
+            }
           }
-        }
-      },
-      [
-        _c("div", { staticClass: "bec_det_innr fnt_18_smb" }, [
-          _c("div", { staticClass: "bsc_det mar_btn_45" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("div", { staticClass: "flex_row row1 row_gap" }, [
-              _c("div", { staticClass: "wi280" }, [
-                _c("div", { staticClass: "fld fnt_15" }, [
-                  _vm._m(1),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "fld_inn" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.menu_item.name,
-                          expression: "menu_item.name"
-                        }
-                      ],
-                      staticClass: "form-control ligth_place",
-                      class: {
-                        "is-invalid":
-                          _vm.formError && _vm.$v.menu_item.name.$error
-                      },
-                      attrs: { type: "text", placeholder: "Enter Item name" },
-                      domProps: { value: _vm.menu_item.name },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.menu_item, "name", $event.target.value)
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm.formError && !_vm.$v.menu_item.name.required
-                      ? _c("span", { staticClass: "invalid-feedback" }, [
-                          _vm._v("Name is required")
-                        ])
-                      : _vm._e()
-                  ])
-                ])
-              ]),
+        },
+        [
+          _c("div", { staticClass: "bec_det_innr fnt_18_smb" }, [
+            _c("div", { staticClass: "bsc_det mar_btn_45" }, [
+              _vm._m(0),
               _vm._v(" "),
-              _c("div", { staticClass: "cata" }, [
-                _c("div", { staticClass: "fld fnt_15" }, [
-                  _vm._m(2),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "fld_inn small_slct" }, [
-                    _c(
-                      "div",
-                      { staticClass: "selct_bxx small_slct" },
-                      [
-                        _c("multiselect", {
-                          attrs: {
-                            "deselect-label": "",
-                            "select-label": "",
-                            placeholder: "Select one",
-                            options: _vm.menu_categories.map(function(type) {
-                              return type.id
-                            }),
-                            searchable: false,
-                            "allow-empty": false,
-                            "custom-label": function(opt) {
-                              return _vm.menu_categories.find(function(x) {
-                                return x.id == opt
-                              }).name
-                            }
-                          },
-                          scopedSlots: _vm._u([
-                            {
-                              key: "singleLabel",
-                              fn: function(ref) {
-                                var option = ref.option
-                                return [
-                                  _c("strong", [
-                                    _vm._v(
-                                      _vm._s(
-                                        _vm.menu_categories.find(function(x) {
-                                          return x.id == option
-                                        }).name
-                                      )
-                                    )
-                                  ])
-                                ]
-                              }
-                            }
-                          ]),
-                          model: {
-                            value: _vm.menu_item.menu_category_id,
-                            callback: function($$v) {
-                              _vm.$set(_vm.menu_item, "menu_category_id", $$v)
-                            },
-                            expression: "menu_item.menu_category_id"
-                          }
-                        })
-                      ],
-                      1
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "fld fnt_15" }, [
-                  _vm._m(3),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "fld_inn small_slct" }, [
-                    _c(
-                      "div",
-                      { staticClass: "selct_bxx small_slct" },
-                      [
-                        _c("multiselect", {
-                          attrs: {
-                            "deselect-label": "",
-                            "select-label": "",
-                            placeholder: "Select one",
-                            options: _vm.menu_sub_categories.map(function(
-                              type
-                            ) {
-                              return type.id
-                            }),
-                            searchable: false,
-                            "allow-empty": false,
-                            "custom-label": function(opt) {
-                              return _vm.menu_sub_categories.find(function(x) {
-                                return x.id == opt
-                              }).name
-                            }
-                          },
-                          scopedSlots: _vm._u([
-                            {
-                              key: "singleLabel",
-                              fn: function(ref) {
-                                var option = ref.option
-                                return [
-                                  _c("strong", [
-                                    _vm._v(
-                                      _vm._s(
-                                        _vm.menu_sub_categories.find(function(
-                                          x
-                                        ) {
-                                          return x.id == option
-                                        }).name
-                                      )
-                                    )
-                                  ])
-                                ]
-                              }
-                            }
-                          ]),
-                          model: {
-                            value: _vm.menu_item.menu_sub_category_id,
-                            callback: function($$v) {
-                              _vm.$set(
-                                _vm.menu_item,
-                                "menu_sub_category_id",
-                                $$v
-                              )
-                            },
-                            expression: "menu_item.menu_sub_category_id"
-                          }
-                        })
-                      ],
-                      1
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "fld fnt_15" }, [
-                  _vm._m(4),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "fld_inn small_slct" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "selct_bxx small_slct",
-                        class: {
-                          invalid: _vm.formError && _vm.$v.menu_item.type.$error
-                        }
-                      },
-                      [
-                        _c("multiselect", {
-                          attrs: {
-                            "deselect-label": "",
-                            "select-label": "",
-                            placeholder: "Select one",
-                            searchable: false,
-                            "allow-empty": false,
-                            options: _vm.types.map(function(type) {
-                              return type.value
-                            }),
-                            "custom-label": function(opt) {
-                              return _vm.types.find(function(x) {
-                                return x.value == opt
-                              }).name
-                            }
-                          },
-                          scopedSlots: _vm._u([
-                            {
-                              key: "singleLabel",
-                              fn: function(ref) {
-                                var option = ref.option
-                                return [
-                                  _c("strong", [
-                                    _vm._v(
-                                      _vm._s(
-                                        _vm.types.find(function(x) {
-                                          return x.value == option
-                                        }).name
-                                      )
-                                    )
-                                  ])
-                                ]
-                              }
-                            }
-                          ]),
-                          model: {
-                            value: _vm.menu_item.type,
-                            callback: function($$v) {
-                              _vm.$set(_vm.menu_item, "type", $$v)
-                            },
-                            expression: "menu_item.type"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _vm.formError && !_vm.$v.menu_item.type.required
-                          ? _c("span", { staticClass: "invalid-feedback" }, [
-                              _vm._v("Type is required")
-                            ])
-                          : _vm._e()
-                      ],
-                      1
-                    )
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "flex_row row2 row_gap" }, [
-              _c("div", { staticClass: "w-100" }, [
-                _c("div", { staticClass: "fld fnt_15" }, [
-                  _c("p", [_vm._v("Item Description")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "fld_inn" }, [
-                    _c("textarea", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.menu_item.description,
-                          expression: "menu_item.description"
-                        }
-                      ],
-                      staticClass: "form-control ligth_place",
-                      class: {
-                        "is-invalid":
-                          _vm.formError && _vm.$v.menu_item.description.$error
-                      },
-                      attrs: { placeholder: "Enter description", rows: "3" },
-                      domProps: { value: _vm.menu_item.description },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.menu_item,
-                            "description",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    }),
+              _c("div", { staticClass: "flex_row row1 row_gap" }, [
+                _c("div", { staticClass: "wi280" }, [
+                  _c("div", { staticClass: "fld fnt_15" }, [
+                    _vm._m(1),
                     _vm._v(" "),
-                    _vm.formError && !_vm.$v.menu_item.description.required
-                      ? _c("span", { staticClass: "invalid-feedback" }, [
-                          _vm._v("Description is required")
-                        ])
-                      : _vm._e()
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "fnt_15 add_image" }, [
-              _c("div", { staticClass: "upload-btn-wrapper" }, [
-                _c("button", { staticClass: "btnnn" }, [
-                  _c("p", [
-                    _c("a", { staticClass: "animtn", attrs: { href: "" } }, [
+                    _c("div", { staticClass: "fld_inn" }, [
                       _c("input", {
-                        ref: "file",
-                        attrs: { type: "file", name: "image" },
-                        on: { change: _vm.selectFile }
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.menu_item.name,
+                            expression: "menu_item.name"
+                          }
+                        ],
+                        staticClass: "form-control ligth_place",
+                        class: {
+                          "is-invalid":
+                            _vm.formError && _vm.$v.menu_item.name.$error
+                        },
+                        attrs: { type: "text", placeholder: "Enter Item name" },
+                        domProps: { value: _vm.menu_item.name },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.menu_item, "name", $event.target.value)
+                          }
+                        }
                       }),
                       _vm._v(" "),
-                      _c("span", { staticClass: "green_col" }, [
-                        _vm._v(
-                          "\n                    Add Item\n                    Image\n                  "
-                        )
-                      ]),
-                      _vm._v(
-                        "\n                  " +
-                          _vm._s(
-                            _vm.image_name !== null
-                              ? _vm._.truncate(_vm.image_name)
-                              : "(Size : Max 50x50 px)"
-                          ) +
-                          "\n                "
+                      _vm.formError && !_vm.$v.menu_item.name.required
+                        ? _c("span", { staticClass: "invalid-feedback" }, [
+                            _vm._v("Name is required")
+                          ])
+                        : _vm._e()
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "cata" }, [
+                  _c("div", { staticClass: "fld fnt_15" }, [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "fld_inn small_slct" }, [
+                      _c(
+                        "div",
+                        { staticClass: "selct_bxx small_slct" },
+                        [
+                          _c("multiselect", {
+                            attrs: {
+                              "deselect-label": "",
+                              "select-label": "",
+                              placeholder: "Select one",
+                              options: _vm.menu_categories.map(function(type) {
+                                return type.id
+                              }),
+                              searchable: false,
+                              "allow-empty": false,
+                              "custom-label": function(opt) {
+                                return _vm.menu_categories.find(function(x) {
+                                  return x.id == opt
+                                }).name
+                              }
+                            },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "singleLabel",
+                                fn: function(ref) {
+                                  var option = ref.option
+                                  return [
+                                    _c("strong", [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm.menu_categories.find(function(x) {
+                                            return x.id == option
+                                          }).name
+                                        )
+                                      )
+                                    ])
+                                  ]
+                                }
+                              }
+                            ]),
+                            model: {
+                              value: _vm.menu_item.menu_category_id,
+                              callback: function($$v) {
+                                _vm.$set(_vm.menu_item, "menu_category_id", $$v)
+                              },
+                              expression: "menu_item.menu_category_id"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "fld fnt_15" }, [
+                    _vm._m(3),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "fld_inn small_slct" }, [
+                      _c(
+                        "div",
+                        { staticClass: "selct_bxx small_slct" },
+                        [
+                          _c("multiselect", {
+                            attrs: {
+                              "deselect-label": "",
+                              "select-label": "",
+                              placeholder: "Select one",
+                              options: _vm.menu_sub_categories.map(function(
+                                type
+                              ) {
+                                return type.id
+                              }),
+                              searchable: false,
+                              "allow-empty": false,
+                              "custom-label": function(opt) {
+                                return _vm.menu_sub_categories.find(function(
+                                  x
+                                ) {
+                                  return x.id == opt
+                                }).name
+                              }
+                            },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "singleLabel",
+                                fn: function(ref) {
+                                  var option = ref.option
+                                  return [
+                                    _c("strong", [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm.menu_sub_categories.find(function(
+                                            x
+                                          ) {
+                                            return x.id == option
+                                          }).name
+                                        )
+                                      )
+                                    ])
+                                  ]
+                                }
+                              }
+                            ]),
+                            model: {
+                              value: _vm.menu_item.menu_sub_category_id,
+                              callback: function($$v) {
+                                _vm.$set(
+                                  _vm.menu_item,
+                                  "menu_sub_category_id",
+                                  $$v
+                                )
+                              },
+                              expression: "menu_item.menu_sub_category_id"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "fld fnt_15" }, [
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "fld_inn small_slct" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "selct_bxx small_slct",
+                          class: {
+                            invalid:
+                              _vm.formError && _vm.$v.menu_item.type.$error
+                          }
+                        },
+                        [
+                          _c("multiselect", {
+                            attrs: {
+                              "deselect-label": "",
+                              "select-label": "",
+                              placeholder: "Select one",
+                              searchable: false,
+                              "allow-empty": false,
+                              options: _vm.types.map(function(type) {
+                                return type.value
+                              }),
+                              "custom-label": function(opt) {
+                                return _vm.types.find(function(x) {
+                                  return x.value == opt
+                                }).name
+                              }
+                            },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "singleLabel",
+                                fn: function(ref) {
+                                  var option = ref.option
+                                  return [
+                                    _c("strong", [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm.types.find(function(x) {
+                                            return x.value == option
+                                          }).name
+                                        )
+                                      )
+                                    ])
+                                  ]
+                                }
+                              }
+                            ]),
+                            model: {
+                              value: _vm.menu_item.type,
+                              callback: function($$v) {
+                                _vm.$set(_vm.menu_item, "type", $$v)
+                              },
+                              expression: "menu_item.type"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.formError && !_vm.$v.menu_item.type.required
+                            ? _c("span", { staticClass: "invalid-feedback" }, [
+                                _vm._v("Type is required")
+                              ])
+                            : _vm._e()
+                        ],
+                        1
                       )
                     ])
                   ])
                 ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "prc_det mar_btn_45" }, [
-            _vm._m(5),
-            _vm._v(" "),
-            _c("div", { staticClass: "flex_row row3 row_gap" }, [
-              _c("div", { staticClass: "cata" }, [
-                _c("div", { staticClass: "fld fnt_15" }, [
-                  _c("p", [_vm._v("Item Price")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "fld_inn" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "currency",
-                          rawName: "v-currency",
-                          value: { currency: "INR", locale: "en-IN" },
-                          expression: "{currency: 'INR', locale: 'en-IN'}"
-                        }
-                      ],
-                      ref: "price",
-                      staticClass: "form-control",
-                      class: {
-                        "is-invalid":
-                          _vm.formError && _vm.$v.menu_item.price.$error
-                      },
-                      attrs: { type: "text", placeholder: "Enter Amount" },
-                      on: {
-                        keypress: _vm.isNumber,
-                        change: function($event) {
-                          _vm.menu_item.price = $event.target.value
-                        }
-                      }
-                    }),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "flex_row row2 row_gap" }, [
+                _c("div", { staticClass: "w-100" }, [
+                  _c("div", { staticClass: "fld fnt_15" }, [
+                    _c("p", [_vm._v("Item Description")]),
                     _vm._v(" "),
-                    _vm.formError && !_vm.$v.menu_item.price.required
-                      ? _c("span", { staticClass: "invalid-feedback" }, [
-                          _vm._v("Price is required")
-                        ])
-                      : _vm._e()
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "fld fnt_15" }, [
-                  _c("p", [_vm._v("Service Charge")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "fld_inn small_slct" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "selct_bxx small_slct",
-                        class: {
-                          invalid: _vm.formError && _vm.$v.menu_item.gst.$error
-                        }
-                      },
-                      [
-                        _c("multiselect", {
-                          attrs: {
-                            "deselect-label": "",
-                            "select-label": "",
-                            placeholder: "Select one",
-                            options: _vm.gsts.map(function(type) {
-                              return type.value
-                            }),
-                            searchable: false,
-                            "allow-empty": false,
-                            "custom-label": function(opt) {
-                              return _vm.gsts.find(function(x) {
-                                return x.value == opt
-                              }).name
-                            }
-                          },
-                          scopedSlots: _vm._u([
-                            {
-                              key: "singleLabel",
-                              fn: function(ref) {
-                                var option = ref.option
-                                return [
-                                  _c("strong", [
-                                    _vm._v(
-                                      _vm._s(
-                                        _vm.gsts.find(function(x) {
-                                          return x.value == option
-                                        }).name
-                                      )
-                                    )
-                                  ])
-                                ]
-                              }
-                            }
-                          ]),
-                          model: {
-                            value: _vm.menu_item.gst,
-                            callback: function($$v) {
-                              _vm.$set(_vm.menu_item, "gst", $$v)
-                            },
-                            expression: "menu_item.gst"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "span",
+                    _c("div", { staticClass: "fld_inn" }, [
+                      _c("textarea", {
+                        directives: [
                           {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value:
-                                  _vm.formError &&
-                                  !_vm.$v.menu_item.gst.required,
-                                expression:
-                                  "formError && !$v.menu_item.gst.required"
-                              }
-                            ],
-                            staticClass: "invalid-feedback"
-                          },
-                          [_vm._v("Must have at least one value")]
-                        )
-                      ],
-                      1
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "fld fnt_15" }, [
-                  _c("p", [_vm._v("Delivery Charge")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "fld_inn" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "currency",
-                          rawName: "v-currency",
-                          value: { currency: "INR", locale: "en-IN" },
-                          expression: "{currency: 'INR', locale: 'en-IN'}"
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.menu_item.description,
+                            expression: "menu_item.description"
+                          }
+                        ],
+                        staticClass: "form-control ligth_place",
+                        class: {
+                          "is-invalid":
+                            _vm.formError && _vm.$v.menu_item.description.$error
+                        },
+                        attrs: { placeholder: "Enter description", rows: "3" },
+                        domProps: { value: _vm.menu_item.description },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.menu_item,
+                              "description",
+                              $event.target.value
+                            )
+                          }
                         }
-                      ],
-                      ref: "delivery_charge",
-                      staticClass: "form-control",
-                      class: {
-                        "is-invalid":
-                          _vm.formError &&
-                          _vm.$v.menu_item.delivery_charge.$error
-                      },
-                      attrs: { type: "text", placeholder: "Delivery Charge" },
-                      on: {
-                        keypress: _vm.isNumber,
-                        change: function($event) {
-                          _vm.menu_item.delivery_charge = $event.target.value
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm.formError && !_vm.$v.menu_item.delivery_charge.required
-                      ? _c("span", { staticClass: "invalid-feedback" }, [
-                          _vm._v("Delivery Charge is required")
-                        ])
-                      : _vm._e()
+                      }),
+                      _vm._v(" "),
+                      _vm.formError && !_vm.$v.menu_item.description.required
+                        ? _c("span", { staticClass: "invalid-feedback" }, [
+                            _vm._v("Description is required")
+                          ])
+                        : _vm._e()
+                    ])
                   ])
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "wi280" }, [
-                _c("div", { staticClass: "fld fnt_15 text-center" }, [
-                  _c("p", [_vm._v("Total (Price + GST + Delivery)")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "fld_inn" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "currency",
-                          rawName: "v-currency",
-                          value: { currency: "INR", locale: "en-IN" },
-                          expression: "{currency: 'INR', locale: 'en-IN'}"
-                        }
-                      ],
-                      ref: "total",
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "text",
-                        placeholder: "Total",
-                        disabled: ""
-                      },
-                      domProps: { value: _vm.menu_item_total }
-                    })
+              _c("div", { staticClass: "fnt_15 add_image" }, [
+                _c("div", { staticClass: "upload-btn-wrapper" }, [
+                  _c("button", { staticClass: "btnnn" }, [
+                    _c("p", [
+                      _c("a", { staticClass: "animtn", attrs: { href: "" } }, [
+                        _c("input", {
+                          ref: "file",
+                          attrs: { type: "file", name: "image" },
+                          on: { change: _vm.selectFile }
+                        }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "green_col" }, [
+                          _vm._v(
+                            "\n                    Add Item\n                    Image\n                  "
+                          )
+                        ]),
+                        _vm._v(
+                          "\n                  " +
+                            _vm._s(
+                              _vm.image_name !== null
+                                ? _vm._.truncate(_vm.image_name)
+                                : "(Size : Max 50x50 px)"
+                            ) +
+                            "\n                "
+                        )
+                      ])
+                    ])
                   ])
                 ])
               ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "oth_det mar_btn_45" }, [
-            _vm._m(6),
+            ]),
             _vm._v(" "),
-            _c("div", { staticClass: "flex_row row4 row_gap" }, [
-              _c("div", { staticClass: "oth_innr" }, [
-                _c("div", { staticClass: "fld fnt_15 lff" }, [
-                  _c("p", [_vm._v("Quantity Serve Per day")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "fld_inn" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.menu_item.quantity_serves_per_day,
-                          expression: "menu_item.quantity_serves_per_day"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      class: {
-                        "is-invalid":
-                          _vm.formError &&
-                          _vm.$v.menu_item.quantity_serves_per_day.$error
-                      },
-                      attrs: { type: "text", placeholder: "Enter Number" },
-                      domProps: {
-                        value: _vm.menu_item.quantity_serves_per_day
-                      },
-                      on: {
-                        keyup: _vm.isNumber,
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.menu_item,
-                            "quantity_serves_per_day",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    }),
+            _c("div", { staticClass: "prc_det mar_btn_45" }, [
+              _vm._m(5),
+              _vm._v(" "),
+              _c("div", { staticClass: "flex_row row3 row_gap" }, [
+                _c("div", { staticClass: "cata" }, [
+                  _c("div", { staticClass: "fld fnt_15" }, [
+                    _c("p", [_vm._v("Item Price")]),
                     _vm._v(" "),
-                    _vm.formError &&
-                    !_vm.$v.menu_item.quantity_serves_per_day.required
-                      ? _c("span", { staticClass: "invalid-feedback" }, [
-                          _vm._v("Quantity Serves Per Day is required")
-                        ])
-                      : _vm._e()
+                    _c("div", { staticClass: "fld_inn" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "currency",
+                            rawName: "v-currency",
+                            value: { currency: "INR", locale: "en-IN" },
+                            expression: "{currency: 'INR', locale: 'en-IN'}"
+                          }
+                        ],
+                        ref: "price",
+                        staticClass: "form-control",
+                        class: {
+                          "is-invalid":
+                            _vm.formError && _vm.$v.menu_item.price.$error
+                        },
+                        attrs: { type: "text", placeholder: "Enter Amount" },
+                        on: {
+                          keypress: _vm.isNumber,
+                          change: function($event) {
+                            _vm.menu_item.price = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.formError && !_vm.$v.menu_item.price.required
+                        ? _c("span", { staticClass: "invalid-feedback" }, [
+                            _vm._v("Price is required")
+                          ])
+                        : _vm._e()
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "fld fnt_15" }, [
+                    _c("p", [_vm._v("Service Charge")]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "fld_inn small_slct" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "selct_bxx small_slct",
+                          class: {
+                            invalid:
+                              _vm.formError && _vm.$v.menu_item.gst.$error
+                          }
+                        },
+                        [
+                          _c("multiselect", {
+                            attrs: {
+                              "deselect-label": "",
+                              "select-label": "",
+                              placeholder: "Select one",
+                              options: _vm.gsts.map(function(type) {
+                                return type.value
+                              }),
+                              searchable: false,
+                              "allow-empty": false,
+                              "custom-label": function(opt) {
+                                return _vm.gsts.find(function(x) {
+                                  return x.value == opt
+                                }).name
+                              }
+                            },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "singleLabel",
+                                fn: function(ref) {
+                                  var option = ref.option
+                                  return [
+                                    _c("strong", [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm.gsts.find(function(x) {
+                                            return x.value == option
+                                          }).name
+                                        )
+                                      )
+                                    ])
+                                  ]
+                                }
+                              }
+                            ]),
+                            model: {
+                              value: _vm.menu_item.gst,
+                              callback: function($$v) {
+                                _vm.$set(_vm.menu_item, "gst", $$v)
+                              },
+                              expression: "menu_item.gst"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value:
+                                    _vm.formError &&
+                                    !_vm.$v.menu_item.gst.required,
+                                  expression:
+                                    "formError && !$v.menu_item.gst.required"
+                                }
+                              ],
+                              staticClass: "invalid-feedback"
+                            },
+                            [_vm._v("Must have at least one value")]
+                          )
+                        ],
+                        1
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "fld fnt_15" }, [
+                    _c("p", [_vm._v("Delivery Charge")]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "fld_inn" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "currency",
+                            rawName: "v-currency",
+                            value: { currency: "INR", locale: "en-IN" },
+                            expression: "{currency: 'INR', locale: 'en-IN'}"
+                          }
+                        ],
+                        ref: "delivery_charge",
+                        staticClass: "form-control",
+                        class: {
+                          "is-invalid":
+                            _vm.formError &&
+                            _vm.$v.menu_item.delivery_charge.$error
+                        },
+                        attrs: { type: "text", placeholder: "Delivery Charge" },
+                        on: {
+                          keypress: _vm.isNumber,
+                          change: function($event) {
+                            _vm.menu_item.delivery_charge = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.formError &&
+                      !_vm.$v.menu_item.delivery_charge.required
+                        ? _c("span", { staticClass: "invalid-feedback" }, [
+                            _vm._v("Delivery Charge is required")
+                          ])
+                        : _vm._e()
+                    ])
                   ])
                 ]),
                 _vm._v(" "),
-                _vm._m(7)
+                _c("div", { staticClass: "wi280" }, [
+                  _c("div", { staticClass: "fld fnt_15 text-center" }, [
+                    _c("p", [_vm._v("Total (Price + GST + Delivery)")]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "fld_inn" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "currency",
+                            rawName: "v-currency",
+                            value: { currency: "INR", locale: "en-IN" },
+                            expression: "{currency: 'INR', locale: 'en-IN'}"
+                          }
+                        ],
+                        ref: "total",
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          placeholder: "Total",
+                          disabled: ""
+                        },
+                        domProps: { value: _vm.menu_item_total }
+                      })
+                    ])
+                  ])
+                ])
               ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "oth_det row4" }, [
-            _c("div", { staticClass: "oth_det_inn" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary btn-block",
-                  attrs: { type: "submit", disabled: _vm.submitted }
-                },
-                [
-                  _vm._v("\n            Create\n            "),
-                  _c("span", {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.submitted,
-                        expression: "submitted"
-                      }
-                    ],
-                    staticClass: "fa fa-circle-o-notch fa-spin",
-                    attrs: { role: "status", "aria-hidden": "true" }
-                  })
-                ]
-              )
             ]),
             _vm._v(" "),
-            _vm._m(8)
+            _c("div", { staticClass: "oth_det mar_btn_45" }, [
+              _vm._m(6),
+              _vm._v(" "),
+              _c("div", { staticClass: "flex_row row4 row_gap" }, [
+                _c("div", { staticClass: "oth_innr" }, [
+                  _c("div", { staticClass: "fld fnt_15 lff" }, [
+                    _c("p", [_vm._v("Quantity Serve Per day")]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "fld_inn" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.menu_item.quantity_serves_per_day,
+                            expression: "menu_item.quantity_serves_per_day"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        class: {
+                          "is-invalid":
+                            _vm.formError &&
+                            _vm.$v.menu_item.quantity_serves_per_day.$error
+                        },
+                        attrs: { type: "text", placeholder: "Enter Number" },
+                        domProps: {
+                          value: _vm.menu_item.quantity_serves_per_day
+                        },
+                        on: {
+                          keyup: _vm.isNumber,
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.menu_item,
+                              "quantity_serves_per_day",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.formError &&
+                      !_vm.$v.menu_item.quantity_serves_per_day.required
+                        ? _c("span", { staticClass: "invalid-feedback" }, [
+                            _vm._v("Quantity Serves Per Day is required")
+                          ])
+                        : _vm._e()
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(7)
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "oth_det row4 w-100" }, [
+              _c("div", { staticClass: "oth_det_inn" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary btn-block",
+                    attrs: { type: "submit", disabled: _vm.submitted }
+                  },
+                  [
+                    _vm._v("\n            Create\n            "),
+                    _c("span", {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.submitted,
+                          expression: "submitted"
+                        }
+                      ],
+                      staticClass: "fa fa-circle-o-notch fa-spin",
+                      attrs: { role: "status", "aria-hidden": "true" }
+                    })
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _vm._m(8)
+            ])
           ])
-        ])
-      ]
-    )
-  ])
+        ]
+      )
+    ]
+  )
 }
 var staticRenderFns = [
   function() {

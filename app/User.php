@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -94,5 +95,35 @@ class User extends Authenticatable
     public function menu()
     {
         return $this->hasOne('App\Menu');
+    }
+
+    public function orders()
+    {
+        return $this->hasMany('App\Order');
+    }
+
+    public function pastOrders()
+    {
+        return $this->orders()->whereDate('created_at', '<', Carbon::today())->orderBy('created_at', 'desc')->get();
+    }
+
+    public function todaysOrders()
+    {
+        return $this->orders()->whereDate('created_at', Carbon::today())->orderBy('created_at', 'desc')->get();
+    }
+
+    public function subscriptions()
+    {
+        return $this->hasMany('App\Subscription');
+    }
+
+    public function pastSubscriptions()
+    {
+        return $this->subscriptions()->whereDate('expired_at', '<', Carbon::today())->orderBy('created_at', 'desc')->get();
+    }
+
+    public function todaysSubscriptions()
+    {
+        return $this->subscriptions()->whereDate('started_at', '<=', Carbon::today())->whereDate('expired_at', '>=', Carbon::today())->orderBy('created_at', 'desc')->get();
     }
 }

@@ -17,16 +17,18 @@ class CreateSubscriptionsTable extends Migration
             $table->id();
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->bigInteger('restaurant_id')->unsigned();
+            $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
             $table->bigInteger('address_id')->unsigned();
             $table->foreign('address_id')->references('id')->on('addresses');
             $table->float('subtotal');
             $table->float('delivery_charge');
             $table->float('tax');
-            $table->float('discount');
+            $table->float('discount')->nullable();
             $table->float('total');
             $table->enum('type', ['lunch', 'dinner', 'both'])->nullable();
-            $table->timestamp('started_at')->nullable();
-            $table->timestamp('expired_at')->nullable();
+            $table->date('started_at')->nullable();
+            $table->date('expired_at')->nullable();
             $table->timestamps();
         });
     }

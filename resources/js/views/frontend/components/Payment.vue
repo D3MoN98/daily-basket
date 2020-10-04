@@ -3,7 +3,7 @@
     <h4>Pay Now</h4>
     <form id="paymentForm" @submit.prevent="payAndOrder">
       <div class="modal_chkbox">
-        <div class="chk_inn">
+        <!-- <div class="chk_inn">
           <div class="form-check custom_chkbx">
             <input class="form-check-input" type="radio" name="gridRadios" value="Customer" checked />
             <span class="checkmark"></span>
@@ -19,7 +19,7 @@
             <span class="checkmark"></span>
             <label class="form-check-label">COD</label>
           </div>
-        </div>
+        </div> -->
       </div>
       <div class="card_field">
         <div
@@ -84,7 +84,7 @@
         </div>
         <div class="pay_fld">
           <button type="submit" class="pay_btnn subc_btn" :disabled="submitted">
-            Pay & Order
+            Pay {{order.subtotal}} & Order
             <span
               class="fa fa-circle-o-notch fa-spin"
               role="status"
@@ -122,13 +122,15 @@ export default {
         card_exp_years: null,
         card_cvv: null,
         address_id: this.deleveyAddress.id,
-        subtotal: this.subTotalAmount
+        subtotal: this.subTotalAmount,
+        subscription: this.subscribeDetails
       }
     };
   },
   props: {
     deleveyAddress: null,
     subTotalAmount: null,
+    subscribeDetails: null,
   },
   mounted () {
     $('.card-js').CardJs();

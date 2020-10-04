@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Order extends Model
 {
@@ -31,6 +32,10 @@ class Order extends Model
         return $this->morphOne('App\Payment', 'paymentable');
     }
 
+    public function restaurant()
+    {
+        return $this->belongsTo('App\Restaurant');
+    }
 
     public function address()
     {
@@ -47,5 +52,10 @@ class Order extends Model
     public function delevery_boy()
     {
         return $this->belongsTo('App\User', 'delivery_assigned_to');
+    }
+
+    public function order_items()
+    {
+        return $this->belongsToMany('App\MenuItem', 'order_items')->withPivot('quantity', 'subtotal');
     }
 }

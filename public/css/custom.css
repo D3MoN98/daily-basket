@@ -1782,14 +1782,14 @@ color: #fff;
 	justify-content: space-between;
 	flex-grow: 1;
 }
-.food_details h5{
+.food_details h5,.order_dess h5{
     font-size: 16px;
     line-height: 1;
     color: #030303;
     font-family: "Averta_Semibold";
     margin-bottom: 6px
 }
-.food_details p{
+.food_details p,.order_dess p{
     font-size: 14px;
     line-height: 20px;
     color: #a0a2a7;
@@ -2699,7 +2699,7 @@ input:checked + .sliderr:before {
 }
 
 /************/
-.dash_hd_cmn h3 {
+.dash_hd_cmn h3,.innr_hdr h3 {
 	font-size: 20px;
 	color: #0c0b0b;
 	line-height: 1;
@@ -3244,7 +3244,7 @@ table.dataTable thead .sorting {
     color:#203b72;
 }
 
-.hd_20 h3,.prfl_lft ul li a{
+.hd_20 h3,.prfl_lft ul li a,.order_tab_otr .resp-tabs-list li{
     color:#090909;
     font-family: "Averta_Semibold";
     line-height: 1;
@@ -3410,7 +3410,385 @@ table.dataTable thead .sorting {
     padding: 0px 25px;
 }
 .prf_subscrip > .row > div:first-child{
-    border-right: 1px solid #eaeaec;
+    border-right: 1px solid #dbdbdb;
 }
 
 /****************/
+
+
+
+/*Strt*/
+.subc_rggt .hd_20 h3{
+    margin-bottom: 0;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #949191;
+}
+
+
+
+/*Parent Tab*/
+.order_mang > .produce-tab-outer > .resp-tabs-list{
+    display: flex;
+}
+.order_mang > .produce-tab-outer > .resp-tabs-list > li{
+    font-size: 18px;
+    font-family: "Averta_Semibold";
+    line-height: 1;
+    cursor: pointer;
+}
+.tab_child > .resp-tabs-list{
+    font-size: 19px;
+    font-family: "Averta_Semibold";
+    line-height: 1;
+    cursor: pointer;
+}
+
+.order_mang > .produce-tab-outer > .resp-tabs-list > li {
+	width: 50%;
+	color: #6883b9;
+	padding: 19px 10px;
+	border: 1px solid #cdced1;
+    border-right: 0;
+    
+}
+.order_mang > .produce-tab-outer > .resp-tabs-list > li:last-child{
+    border-right: 1px solid #cdced1;
+}
+.order_mang > .produce-tab-outer > .resp-tabs-list > li.resp-tab-active {
+    background: #6883b9;
+    border-color: #cdced1!important;
+    margin-bottom: 0!important;
+}
+
+.tab_child > .resp-tabs-list {
+	display: flex;
+	align-items: center;
+	margin: 30px 0px 20px 5px;
+}
+.tab_child > .resp-tabs-list > li{
+    color: #090909;
+    margin-right: 60px;
+    position: relative;
+    padding: 0px 5px 7px 5px;
+}
+.tab_child > .resp-tabs-list > li::after{
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 2px;
+    width: 0%;
+    background:#6883b9;
+    transition: all 0.4s;
+    content: "";
+    bottom: 0;
+}
+.tab_child > .resp-tabs-list > li.resp-tab-active::after{
+    width: 100%;
+}
+.tab_child > .resp-tabs-list > li:last-child{
+    margin-right: 0px;
+}
+.tab_child > .resp-tabs-list > li.resp-tab-active{
+    background-color: transparent;
+    border-color: transparent!important;
+    margin-bottom: 0!important;
+    color: #090909!important;
+}
+
+/**/
+.order_tab_otr ul.resp-tabs-list{
+    display: flex;
+    align-items: center;
+    
+}
+.order_tab_otr ul.resp-tabs-list li {
+	cursor: pointer;
+	padding-bottom: 10px;
+    position: relative;
+}
+.order_tab_otr ul.resp-tabs-list li::after{
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background: #6883b9;
+    height: 3px;
+    width: 0;
+    content: "";
+    bottom: 0;
+    transition: all 0.4s;
+}
+.order_tab_otr ul.resp-tabs-list li.resp-tab-active::after{
+    width: 100%;
+}
+.order_tab_otr ul.resp-tabs-list li:first-child{
+    margin-right: 80px;
+}
+
+.order_tab_otr .resp-tab-active {
+	background: transparent;
+	color: #090909 !important;
+	border-color: transparent !important;
+}
+.order_tab_otr .resp-tabs-container {
+	margin-top: 45px;
+}
+
+.profile_related .order_con_inn .hd_20 h3{
+    margin-bottom: 25px;
+}
+
+.eachh_order_innr {
+	padding: 20px;
+	border: 1px solid #dbdbdb;
+	border-radius: 7px;
+	display: flex;
+	align-items: center;
+}
+.order_otr > ul > li{
+    position: relative;
+}
+.order_otr > ul > li{
+    margin-bottom: 12px;
+}
+.order_otr > ul > li:last-child{
+    margin-bottom: 0;
+}
+.order_datee {
+	position: absolute;
+	top: 0;
+	right: 0;
+	background: #6883b9;
+	padding: 6px 12px;
+}
+.order_datee ul{
+    display: flex;
+    align-items: center;
+}
+.order_datee ul li:first-child{
+    margin-right: 6px;
+    padding-right: 6px;
+    border-right: 1px solid #fff;
+}
+.order_datee ul li{
+    font-family: "Averta";
+    font-size: 15px;
+    line-height: 1;
+    color: #fff;
+}
+
+.order_picc{
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.order_rgtt_prt {
+	padding-left: 15px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-grow: 1;
+}
+.order_statuss p span {
+	margin-right: 10px;
+	border-radius: 100%;
+	transition: all 0.4s;
+	display: inline-block;
+	font-size: 19px;
+	text-align: center;
+	color: #48c479;
+	vertical-align: unset;
+}
+.order_statuss p{
+    font-family: "Averta_Semibold";
+    font-size: 15px;
+    line-height: 1;
+    color: #030303;
+    padding-right: 10px;
+    padding-top: 10px;
+    text-transform: capitalize;
+}
+.upcoming p{
+    color: #f2aa3f;
+}
+.upcoming p span{
+    display: none;
+}
+
+.order_picc {
+	width: 85px;
+	height: 72px;
+	border-radius: 5px;
+	overflow: hidden;
+	transition: all 0.4s;
+	border: 1px solid transparent;
+}
+.order_dess {
+	width: 55%;
+}
+
+.crnt_status_bar{
+    margin-top: 20px;
+}
+.crnt_status_bar ul{
+    display: flex;
+    align-items: center;
+}
+
+.crnt_status_bar ul li {
+	font-size: 14px;
+	color: #a3a5aa;
+	line-height: 1;
+	margin-right: 10px;
+	padding-right: 60px;
+	position: relative;
+	display: flex;
+	align-items: center;
+}
+.crnt_status_bar ul li span {
+	font-size: 17px;
+    margin-right: 5px;
+    
+}
+.crnt_status_bar ul li:after{
+    height: 2px;
+    background: #a3a5aa;
+    width: 50px;
+    top:50%;
+    transform: translateY(-50%);
+    position: absolute;
+    content: "";
+    right: 0;
+    transition: all 0.4s;
+}
+.tab_orderr{
+    margin-bottom: 50px;
+}
+
+.crnt_status_bar ul li.active_part span {
+	color: #48c479;
+}
+.crnt_status_bar ul li.active_part {
+	color: #48c479;
+}
+.crnt_status_bar ul li.active_part::after {
+	background: #48c479;
+}
+.crnt_status_bar ul li:last-child{
+    padding-right: 0;
+    margin-right: 0;
+}
+.crnt_status_bar ul li:last-child:after{
+    display: none;
+}
+
+/*1366 Screen*/
+.order_con_inn {
+	padding-right: 55px;
+	/*height: 500px;*/
+    height: 780px;
+	overflow-y: auto;
+}
+@media (max-width: 1366px) {
+    .order_con_inn {
+    height: 500px;
+}
+}
+
+
+.kitchen_otr{
+    padding: 25px;
+    border:1px solid #e5dcdc;
+}
+.innr_hdr {
+	display: flex;
+	justify-content: space-between;
+}
+.hdr_mul_sel {
+	display: flex;
+	align-items: center;
+}
+.hdr_mul_sel > div{
+    margin-right: 10px;
+}
+.hdr_mul_sel > div:last-child{
+    margin-bottom: 0px;
+}
+
+.innr_hdr_in {
+	width: 100%;
+	border-bottom: 1px solid #dde3e8;
+	margin-right: 25px;
+}
+
+.kitchen_order > ul{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: -11px -12px;
+}
+.kitchen_order > ul > li{
+    padding: 11px 12px;
+    width: 33.33%;
+    
+}
+.kit_ord_inn{
+    padding: 20px 10px;
+    background: #fff;
+    border-radius: 7px;
+    box-shadow: 0 0px 10px 0px rgba(0,0,0,0.20);
+}
+
+.kit_ord_inn h5{
+    color:#030303;
+    font-size: 15px;
+    line-height: 1;
+    font-family: "Averta_Semibold";
+    padding-bottom:10px;
+}
+.kit_ord_inn h6{
+    color:#030303;
+    font-size: 15px;
+    line-height: 1;
+    font-family: "Averta_Semibold";
+    padding-bottom: 5px;
+}
+.kit_ord_inn h6 span{
+    font-family: "Averta";
+}
+.kit_btnn{
+    margin-top: 12px;
+}
+
+.kit_btnn ul{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0px -5px;
+}
+.kit_btnn ul li{
+    padding: 0px 5px;
+    width: 33.33%;
+}
+.kit_btnn a {
+	border: 1px solid #b5c3ce;
+	background-color: transparent;
+	transition: all 0.4s;
+	color: #030303;
+	font-family: "Averta";
+	font-size: 13px;
+	line-height: 1;
+	text-align: center;
+	width: 100%;
+	display: inline-block;
+	padding: 12px 0px;
+}
+.kit_btnn a.ktc_act{
+    border-color: #f2aa3f;
+    color: #fff;
+    background: #f2aa3f;
+}
+.kitchen_order {
+	margin-top: 35px;
+}
