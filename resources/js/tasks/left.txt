@@ -1,14 +1,15 @@
 # features
-    # input search location
-    # coupon
-    # search restaurant and dish
-    # customer feedback
+    # input search location - done
+    # search restaurant and dish - done
+
+    # payment tab on profile?
+    # restaurant filter
     # subscription daily delivery
     # subscription box
-    # payment tab on profile?
+    # customer feedback
     # restaurant list based on location
-    # restaurant filter
     # landing page with searching location
+    # coupon
 
     # admin
         # customers
@@ -17,9 +18,9 @@
         # chart
 
     # seller
+        # menu listing and editing
         # chart
         # monthly revinue
-        # menu listing and editing
         # time picker change
         # adding delivery boy
 

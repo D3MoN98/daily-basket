@@ -92,10 +92,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
-    user: 'auth/user'
+    user: "auth/user"
   }))
 });
 
@@ -309,7 +316,24 @@ var render = function() {
                     [_c("a", [_vm._v("Subscriptions")])]
                   ),
                   _vm._v(" "),
-                  _vm._m(0),
+                  _c(
+                    "li",
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          attrs: {
+                            tag: "li",
+                            "active-class": "actvv",
+                            to: "/profile/payment",
+                            exact: ""
+                          }
+                        },
+                        [_c("a", [_vm._v("Payments")])]
+                      )
+                    ],
+                    1
+                  ),
                   _vm._v(" "),
                   _c(
                     "router-link",
@@ -347,16 +371,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("a", { attrs: { href: "profile_payment.html" } }, [_vm._v("Payments")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

@@ -136,7 +136,6 @@ class AuthController extends Controller
                 'confirm_password' => 'min:6',
                 'house_no' => 'required',
                 'address' => 'required',
-                'address_type' => 'required'
             ]);
 
             if ($validator->fails()) {

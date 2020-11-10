@@ -218,10 +218,20 @@ export default {
 
       // map set style
       map.setOptions({ styles: styles.hide });
-      this.reCenter(map);
+        if (this.$store.getters["auth/currentLocation"] === null) {
+            this.reCenter(map);
+        } else {
+            this.setLocation(this.$store.getters["auth/currentLocation"]);
+        }
     });
   },
   methods: {
+    setLocation({ lat, lng }) {
+        this.currentPos = {
+            lat,
+            lng
+        };
+    },
     reCenter () {
       this.$refs.mapRefAlt.$mapPromise.then((map) => {
         if (navigator.geolocation) {

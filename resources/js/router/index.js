@@ -6,6 +6,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import adminMiddleware from "./middleware/adminMiddleware";
 import authMiddleware from "./middleware/authMiddleware";
+import deliveryboyMiddleware from "./middleware/deliveryboyMiddleware";
+import kitchenstaffMiddleware from "./middleware/kitchenstaffMiddleware";
 import sellerMiddleware from "./middleware/sellerMiddleware";
 import middlewarePipeline from "./middlewarePipeline";
 
@@ -91,6 +93,18 @@ const routes = [
             import(
                 /* webpackChunkName: "restaurant-details" */ "@/views/frontend/RestaurantDetails"
             ),
+        meta: {
+            // @ts-ignore
+            layout: DefaultLayout
+        }
+    },
+
+    {
+        name: "search",
+        path: "/search",
+        // @ts-ignore
+        component: () =>
+            import(/* webpackChunkName: "search" */ "@/views/frontend/Search"),
         meta: {
             // @ts-ignore
             layout: DefaultLayout
@@ -282,6 +296,60 @@ const routes = [
         }
     },
 
+    // kitchen-staff routes
+    {
+        name: "kitchen-staff.dashboard",
+        path: "/kitchen-staff",
+        // @ts-ignore
+        component: () =>
+            import(
+                /* webpackChunkName: "kitchen-staff-dashboard" */ "@/views/kitchen-staff/Dashboard"
+            ),
+        meta: {
+            // @ts-ignore
+            layout: () =>
+                import(
+                    /* webpackChunkName: "kitchen-staff-default-layout" */ "@/views/kitchen-staff/layouts/DefaultLayout"
+                ),
+            middleware: [kitchenstaffMiddleware]
+        }
+    },
+    {
+        name: "kitchen-staff.dashboard",
+        path: "/kitchen-staff/orders",
+        // @ts-ignore
+        component: () =>
+            import(
+                /* webpackChunkName: "kitchen-staff-orders" */ "@/views/kitchen-staff/Orders"
+            ),
+        meta: {
+            // @ts-ignore
+            layout: () =>
+                import(
+                    /* webpackChunkName: "kitchen-staff-default-layout" */ "@/views/kitchen-staff/layouts/DefaultLayout"
+                ),
+            middleware: [kitchenstaffMiddleware]
+        }
+    },
+
+    // delivery-boy routes
+    {
+        name: "delivery-boy.dashboard",
+        path: "/delivery-boy",
+        // @ts-ignore
+        component: () =>
+            import(
+                /* webpackChunkName: "delivery-boy-dashboard" */ "@/views/delivery-boy/Dashboard"
+            ),
+        meta: {
+            // @ts-ignore
+            layout: () =>
+                import(
+                    /* webpackChunkName: "delivery-boy-default-layout" */ "@/views/delivery-boy/layouts/DefaultLayout"
+                ),
+            middleware: [deliveryboyMiddleware]
+        }
+    },
     {
         path: "*",
         // @ts-ignore

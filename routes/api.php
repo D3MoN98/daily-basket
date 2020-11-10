@@ -24,6 +24,8 @@ Route::get('restaurants/trending', 'RestaurantController@trending');
 Route::get('restaurants/new', 'RestaurantController@new');
 Route::get('restaurants/premium', 'RestaurantController@premium');
 Route::get('restaurant/{slug}', 'RestaurantController@show');
+Route::post('search', 'RestaurantController@search');
+
 
 //menu
 Route::get('menu/{id}/{veg?}', 'MenuController@show');
