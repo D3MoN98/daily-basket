@@ -272,6 +272,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -758,24 +781,36 @@ var render = function() {
           1
         ),
         _vm._v(" "),
-        _c("li", [
-          _c(
-            "a",
-            { attrs: { href: "javascript:void()", "aria-expanded": "false" } },
-            [
-              _c("i", { staticClass: "kithen_image" }, [
-                _c("img", {
-                  attrs: {
-                    src: "/images/custom_image/kitchen_blue.png",
-                    alt: "Pic-not-found"
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("span", { staticClass: "nav-text" }, [_vm._v("Kitchen")])
-            ]
-          )
-        ]),
+        _c(
+          "li",
+          [
+            _c(
+              "router-link",
+              {
+                attrs: {
+                  to: "/seller/kitchen",
+                  "aria-expanded": "false",
+                  "active-class": "select_link"
+                }
+              },
+              [
+                _c("i", { staticClass: "kithen_image" }, [
+                  _c("img", {
+                    attrs: {
+                      src: "/images/custom_image/kitchen_blue.png",
+                      alt: "Pic-not-found"
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("span", { staticClass: "nav-text" }, [
+                  _vm._v("Kitchen Staff")
+                ])
+              ]
+            )
+          ],
+          1
+        ),
         _vm._v(" "),
         _c(
           "li",

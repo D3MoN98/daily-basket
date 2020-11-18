@@ -1,6 +1,9 @@
 <template>
     <div id="delivery_add" class="sidenav delivery_sidebar">
-        <a href="javascript:void(0)" class="closebtn" @click.prevent="closeAddress()"
+        <a
+            href="javascript:void(0)"
+            class="closebtn"
+            @click.prevent="closeAddress()"
             >&times;</a
         >
         <div class="address_bar">
@@ -108,10 +111,8 @@
 
 <script>
 import { mapGetters } from "vuex";
-import VueGoogleAutocomplete from "vue-google-autocomplete";
 
 export default {
-    components: { VueGoogleAutocomplete },
     data() {
         return {
             map: null,
@@ -162,7 +163,6 @@ export default {
                 this.setLocation(this.$store.getters["auth/currentLocation"]);
             }
         });
-
     },
     computed: {
         ...mapGetters({
@@ -240,15 +240,12 @@ export default {
 
         saveLocation() {
             this.rePositioned = false;
-            this.$store.dispatch(
-                "auth/setCurrentLocation",
-                this.currentPos
-            );
+            this.$store.dispatch("auth/setCurrentLocation", this.currentPos);
 
             this.closeAddress();
 
-            toastr.success('Address saved', '', {
-                positionClass: 'toast-bottom-center',
+            toastr.success("Address saved", "", {
+                positionClass: "toast-bottom-center",
                 timeOut: 1500,
                 closeButton: !0,
                 debug: !1,
@@ -256,14 +253,14 @@ export default {
                 progressBar: !0,
                 preventDuplicates: !0,
                 onclick: null,
-                showDuration: '300',
-                hideDuration: '1000',
-                extendedTimeOut: '1000',
-                showEasing: 'swing',
-                hideEasing: 'linear',
-                showMethod: 'fadeIn',
-                hideMethod: 'fadeOut',
-                tapToDismiss: !1,
+                showDuration: "300",
+                hideDuration: "1000",
+                extendedTimeOut: "1000",
+                showEasing: "swing",
+                hideEasing: "linear",
+                showMethod: "fadeIn",
+                hideMethod: "fadeOut",
+                tapToDismiss: !1
             });
         },
 
@@ -273,7 +270,7 @@ export default {
                 lng: location.latLng.lng()
             };
             this.reverseGeocode(this.currentPos, result => {
-                $('.pac-target-input').val(result);
+                $(".pac-target-input").val(result);
                 this.currentPos.formatted_address = result;
             });
 
@@ -286,7 +283,7 @@ export default {
             });
         },
 
-        getAddressData: function(address) {
+        getAddressData(address) {
             console.log(address);
             this.currentPos = {
                 formatted_address: address.formatted_address,
@@ -301,12 +298,12 @@ export default {
             //     this.currentPos
             // );
         },
-        closeAddress () {
-            document.getElementById('delivery_add').style.width = '0';
-            const mn_wrapper = document.getElementById('main-wrapper');
-            mn_wrapper.classList.remove('full_body_opacity');
-            mn_wrapper.parentElement.classList.remove('no_scroll');
-        },
+        closeAddress() {
+            document.getElementById("delivery_add").style.width = "0";
+            const mn_wrapper = document.getElementById("main-wrapper");
+            mn_wrapper.classList.remove("full_body_opacity");
+            mn_wrapper.parentElement.classList.remove("no_scroll");
+        }
     }
 };
 </script>

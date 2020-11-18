@@ -126,4 +126,9 @@ class User extends Authenticatable
     {
         return $this->subscriptions()->whereDate('started_at', '<=', Carbon::today())->whereDate('expired_at', '>=', Carbon::today())->orderBy('created_at', 'desc')->get();
     }
+
+    public function kitchen_staffs()
+    {
+        return $this->belongsToMany('App\User', 'kitchen_staff', 'added_by', 'user_id')->withPivot('id', 'restaurant_id', 'is_active');
+    }
 }

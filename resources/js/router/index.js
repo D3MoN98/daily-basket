@@ -212,8 +212,23 @@ const routes = [
         path: "/seller/menu",
         // @ts-ignore
         component: () =>
+            import(/* webpackChunkName: "seller-menu" */ "@/views/seller/Menu"),
+        meta: {
+            // @ts-ignore
+            layout: () =>
+                import(
+                    /* webpackChunkName: "seller-default-layout" */ "@/views/seller/layouts/DefaultLayout"
+                ),
+            middleware: [sellerMiddleware]
+        }
+    },
+    {
+        name: "seller.kitchen",
+        path: "/seller/kitchen",
+        // @ts-ignore
+        component: () =>
             import(
-                /* webpackChunkName: "seller-dashboard" */ "@/views/seller/Menu"
+                /* webpackChunkName: "seller-kitchen" */ "@/views/seller/Kitchen"
             ),
         meta: {
             // @ts-ignore

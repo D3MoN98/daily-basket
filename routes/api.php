@@ -67,6 +67,10 @@ Route::middleware(['auth:sanctum', 'checkrole:seller'])->namespace('Seller')->pr
     Route::get('cuisines', 'RestaurantController@cuisines');
     Route::get('menu_categories', 'RestaurantController@menu_categories');
     Route::get('menu_sub_categories', 'RestaurantController@menu_sub_categories');
+
+    Route::post('kitchen-staff/sign-up', 'KitchenController@store');
+    Route::get('kitchen-staff', 'KitchenController@index');
+    Route::get('kitchen-staff/change-active/{id}', 'KitchenController@changeActive');
 });
 
 

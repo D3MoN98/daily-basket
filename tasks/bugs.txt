@@ -1,0 +1,4 @@
+# need fixing cart total ammount (it will take time so need some brilliant mind) - Done
+# clicking subscription button when cart is empty
+# after applying subscription there's no way to save that after refresh
+# past orders and subscribers lists status should be delevered

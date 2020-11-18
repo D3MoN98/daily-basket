@@ -153,6 +153,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -162,28 +175,28 @@ __webpack_require__.r(__webpack_exports__);
     return {
       isLoaded: false,
       columns: [{
-        name: 'id',
-        label: 'Order ID',
+        name: "id",
+        label: "Order ID",
         orderAble: true
       }, {
-        name: 'user.name',
-        label: 'Customer Name',
+        name: "user.name",
+        label: "Customer Name",
         orderAble: false
       }, {
-        name: 'user.contact_no',
-        label: 'Contact No',
+        name: "user.contact_no",
+        label: "Contact No",
         orderAble: false
       }, {
-        name: 'total',
-        label: 'Total Amount',
+        name: "total",
+        label: "Total Amount",
         orderAble: false
       }, {
-        name: 'status',
-        label: 'Status',
+        name: "status",
+        label: "Status",
         orderAble: false
       }, {
-        name: 'created_at',
-        label: 'Order At',
+        name: "created_at",
+        label: "Order At",
         orderAble: true
       }]
     };
@@ -657,9 +670,31 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("Datatable", {
-    attrs: { columns: _vm.columns, url: "/api/seller/order/current" }
-  })
+  return _c(
+    "Datatable",
+    {
+      attrs: {
+        columns: _vm.columns,
+        customRow: true,
+        url: "/api/seller/order/current"
+      }
+    },
+    [
+      _c("tr", [
+        _c("td"),
+        _vm._v(" "),
+        _c("td"),
+        _vm._v(" "),
+        _c("td"),
+        _vm._v(" "),
+        _c("td"),
+        _vm._v(" "),
+        _c("td"),
+        _vm._v(" "),
+        _c("td")
+      ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

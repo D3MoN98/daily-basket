@@ -9,7 +9,6 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_autosuggest__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-autosuggest */ "./node_modules/vue-autosuggest/dist/vue-autosuggest.esm.js");
 //
 //
 //
@@ -76,11 +75,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    VueAutosuggest: vue_autosuggest__WEBPACK_IMPORTED_MODULE_0__["VueAutosuggest"]
-  },
   data: function data() {
     return {
       keyword: null,

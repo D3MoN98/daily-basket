@@ -323,6 +323,66 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -334,40 +394,34 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   created: function created() {
     var _this = this;
 
-    if (this.$store.getters['auth/check']) {
-      this.$store.dispatch('auth/userAddresses').then(function () {
+    if (this.$store.getters["auth/check"]) {
+      this.$store.dispatch("auth/userAddresses").then(function () {
         _this.isLoaded = _this.userAddresses.length > 0;
       });
     }
   },
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
-    cart_items: 'cart/getCartItems',
-    isCartEmpty: 'cart/isCartEmpty',
-    isSubscribeApplied: 'cart/isSubscribeApplied',
-    getSubscribe: 'cart/getSubscribe',
-    getSubscribeDateDiff: 'cart/getSubscribeDateDiff',
-    userAddresses: 'auth/userAddresses',
-    currentLocation: 'auth/currentLocation',
-    deleveyAddress: 'auth/deleveyAddress'
+    cart_items: "cart/getCartItems",
+    isCartEmpty: "cart/isCartEmpty",
+    isSubscribeApplied: "cart/isSubscribeApplied",
+    getSubscribe: "cart/getSubscribe",
+    getSubscribeDateDiff: "cart/getSubscribeDateDiff",
+    userAddresses: "auth/userAddresses",
+    currentLocation: "auth/currentLocation",
+    deleveyAddress: "auth/deleveyAddress",
+    subTotal: "cart/getSubTotal"
   })), {}, {
-    subTotal: function subTotal() {
-      var subtotal = this.cart_items.reduce(function (acc, value) {
-        return acc + Math.floor(value.subtotal);
-      }, 0);
-      var subscriptionMultiply = this.isSubscribeApplied ? this.getSubscribeDateDiff : 1;
-      return subtotal * subscriptionMultiply;
-    },
     getSubscribeDateInFormate: function getSubscribeDateInFormate() {
       var start = new Date(this.getSubscribe.start);
-      var formatter = new Intl.DateTimeFormat('fr', {
-        month: 'short'
+      var formatter = new Intl.DateTimeFormat("fr", {
+        month: "short"
       });
       start = {
         day: start.getDate(),
         month: start.getMonth(),
         month_short_name: formatter.format(new Date(start)),
         year: start.getFullYear(),
-        ordinal: start.getDate() + (start.getDate() > 0 ? ['th', 'st', 'nd', 'rd'][start.getDate() > 3 && start.getDate() < 21 || start.getDate() % 10 > 3 ? 0 : start.getDate() % 10] : '')
+        ordinal: start.getDate() + (start.getDate() > 0 ? ["th", "st", "nd", "rd"][start.getDate() > 3 && start.getDate() < 21 || start.getDate() % 10 > 3 ? 0 : start.getDate() % 10] : "")
       };
       var end = new Date(this.getSubscribe.end);
       end = {
@@ -375,7 +429,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         month: end.getMonth(),
         month_short_name: formatter.format(new Date(end)),
         year: end.getFullYear(),
-        ordinal: end.getDate() + (end.getDate() > 0 ? ['th', 'st', 'nd', 'rd'][end.getDate() > 3 && end.getDate() < 21 || end.getDate() % 10 > 3 ? 0 : end.getDate() % 10] : '')
+        ordinal: end.getDate() + (end.getDate() > 0 ? ["th", "st", "nd", "rd"][end.getDate() > 3 && end.getDate() < 21 || end.getDate() % 10 > 3 ? 0 : end.getDate() % 10] : "")
       };
       return {
         start: start,
@@ -384,27 +438,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   mounted: function mounted() {
-    if (this.$store.getters['auth/check']) {
-      this.$store.dispatch('cart/getCartItems');
+    if (this.$store.getters["auth/check"]) {
+      this.$store.dispatch("cart/getCartItems");
     }
   },
   methods: {
     openSaveAddress: function openSaveAddress() {
-      document.getElementById('delivery_address_add').style.width = '37%';
-      var mn_wrapper = document.getElementById('main-wrapper');
-      mn_wrapper.classList.add('full_body_opacity');
-      mn_wrapper.parentElement.classList.add('no_scroll');
+      document.getElementById("delivery_address_add").style.width = "37%";
+      var mn_wrapper = document.getElementById("main-wrapper");
+      mn_wrapper.classList.add("full_body_opacity");
+      mn_wrapper.parentElement.classList.add("no_scroll");
     },
     openChangeAddress: function openChangeAddress() {
-      document.getElementById('change_address').style.width = '37%';
-      var mn_wrapper = document.getElementById('main-wrapper');
-      mn_wrapper.classList.add('full_body_opacity');
-      mn_wrapper.parentElement.classList.add('no_scroll');
+      document.getElementById("change_address").style.width = "37%";
+      var mn_wrapper = document.getElementById("main-wrapper");
+      mn_wrapper.classList.add("full_body_opacity");
+      mn_wrapper.parentElement.classList.add("no_scroll");
     },
     removeSubscription: function removeSubscription() {
-      this.$store.dispatch('cart/removeSubscribe').then(function () {
-        toastr.success('Subscribe removed', '', {
-          positionClass: 'toast-bottom-center',
+      this.$store.dispatch("cart/removeSubscribe").then(function () {
+        toastr.success("Subscribe removed", "", {
+          positionClass: "toast-bottom-center",
           timeOut: 1500,
           closeButton: !0,
           debug: !1,
@@ -412,13 +466,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           progressBar: !0,
           preventDuplicates: !0,
           onclick: null,
-          showDuration: '300',
-          hideDuration: '1000',
-          extendedTimeOut: '1000',
-          showEasing: 'swing',
-          hideEasing: 'linear',
-          showMethod: 'fadeIn',
-          hideMethod: 'fadeOut',
+          showDuration: "300",
+          hideDuration: "1000",
+          extendedTimeOut: "1000",
+          showEasing: "swing",
+          hideEasing: "linear",
+          showMethod: "fadeIn",
+          hideMethod: "fadeOut",
           tapToDismiss: !1
         });
       });
@@ -713,6 +767,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var card_validator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! card-validator */ "./node_modules/card-validator/dist/index.js");
 /* harmony import */ var card_validator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(card_validator__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -842,23 +908,25 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: {
     deleveyAddress: null,
-    subTotalAmount: null,
     subscribeDetails: null
   },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])({
+    subTotalAmount: "cart/getSubTotal"
+  })),
   mounted: function mounted() {
-    $('.card-js').CardJs();
+    $(".card-js").CardJs();
   },
   methods: {
     payAndOrder: function payAndOrder() {
       var _this = this;
 
       this.submitted = true;
-      var myCard = $('.card-js');
-      var numberValidation = card_validator__WEBPACK_IMPORTED_MODULE_1___default.a.number(myCard.CardJs('cardNumber'));
-      var cvvValidation = card_validator__WEBPACK_IMPORTED_MODULE_1___default.a.cvv(myCard.CardJs('cvc'));
-      var expiryMonthValidation = card_validator__WEBPACK_IMPORTED_MODULE_1___default.a.expirationMonth(myCard.CardJs('expiryMonth'));
-      var expiryYearValidation = card_validator__WEBPACK_IMPORTED_MODULE_1___default.a.expirationYear(myCard.CardJs('expiryYear'));
-      var nameValidation = $('#name').val().length !== 0;
+      var myCard = $(".card-js");
+      var numberValidation = card_validator__WEBPACK_IMPORTED_MODULE_1___default.a.number(myCard.CardJs("cardNumber"));
+      var cvvValidation = card_validator__WEBPACK_IMPORTED_MODULE_1___default.a.cvv(myCard.CardJs("cvc"));
+      var expiryMonthValidation = card_validator__WEBPACK_IMPORTED_MODULE_1___default.a.expirationMonth(myCard.CardJs("expiryMonth"));
+      var expiryYearValidation = card_validator__WEBPACK_IMPORTED_MODULE_1___default.a.expirationYear(myCard.CardJs("expiryYear"));
+      var nameValidation = $("#name").val().length !== 0;
       this.numberValidation = !numberValidation.isValid;
       this.cvvValidation = !cvvValidation.isValid;
       this.expiryMonthValidation = !expiryMonthValidation.isValid;
@@ -872,10 +940,11 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       this.isInValid = false;
-      this.order.card_exp_month = myCard.CardJs('expiryMonth');
-      this.order.card_exp_years = myCard.CardJs('expiryYear');
-      this.order.card_number = myCard.CardJs('cardNumber');
-      this.$store.dispatch('checkout/placeOrder', this.order).then(function () {
+      this.order.card_exp_month = myCard.CardJs("expiryMonth");
+      this.order.card_exp_years = myCard.CardJs("expiryYear");
+      this.order.card_number = myCard.CardJs("cardNumber");
+      this.order.subtotal = this.subTotalAmount;
+      this.$store.dispatch("checkout/placeOrder", this.order).then(function () {
         _this.submitted = false;
       });
     }
@@ -944,6 +1013,13 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -991,9 +1067,59 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     restaurant: null
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
+    isSubscribeApplied: "cart/isSubscribeApplied",
+    subscribe: "cart/getSubscribe",
+    cartRestaurantId: "cart/getRestaurantId",
+    isCartEmpty: "cart/isCartEmpty"
+  })),
+  methods: {
+    removeSubscription: function removeSubscription() {
+      this.$store.dispatch("cart/removeSubscribe").then(function () {
+        toastr.success("Subscribe removed", "", {
+          positionClass: "toast-bottom-center",
+          timeOut: 1500,
+          closeButton: !0,
+          debug: !1,
+          newestOnTop: !0,
+          progressBar: !0,
+          preventDuplicates: !0,
+          onclick: null,
+          showDuration: "300",
+          hideDuration: "1000",
+          extendedTimeOut: "1000",
+          showEasing: "swing",
+          hideEasing: "linear",
+          showMethod: "fadeIn",
+          hideMethod: "fadeOut",
+          tapToDismiss: !1
+        });
+      });
+    }
   }
 });
 
@@ -1100,6 +1226,25 @@ exports.push([module.i, "/* width */\n[data-v-a26d16ca]::-webkit-scrollbar {\n  
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/frontend/components/RestaurantDetailsSidebar.vue?vue&type=style&index=0&id=e15c3c5c&lang=scss&scoped=true&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/frontend/components/RestaurantDetailsSidebar.vue?vue&type=style&index=0&id=e15c3c5c&lang=scss&scoped=true& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".subscribed[data-v-e15c3c5c] {\n  background: transparent;\n  color: #48c479;\n  border-color: #48c479;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/frontend/components/Cart.vue?vue&type=style&index=0&id=a26d16ca&lang=scss&scoped=true&":
 /*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/frontend/components/Cart.vue?vue&type=style&index=0&id=a26d16ca&lang=scss&scoped=true& ***!
@@ -1109,6 +1254,36 @@ exports.push([module.i, "/* width */\n[data-v-a26d16ca]::-webkit-scrollbar {\n  
 
 
 var content = __webpack_require__(/*! !../../../../../node_modules/css-loader!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Cart.vue?vue&type=style&index=0&id=a26d16ca&lang=scss&scoped=true& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/frontend/components/Cart.vue?vue&type=style&index=0&id=a26d16ca&lang=scss&scoped=true&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/frontend/components/RestaurantDetailsSidebar.vue?vue&type=style&index=0&id=e15c3c5c&lang=scss&scoped=true&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/frontend/components/RestaurantDetailsSidebar.vue?vue&type=style&index=0&id=e15c3c5c&lang=scss&scoped=true& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../node_modules/css-loader!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./RestaurantDetailsSidebar.vue?vue&type=style&index=0&id=e15c3c5c&lang=scss&scoped=true& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/frontend/components/RestaurantDetailsSidebar.vue?vue&type=style&index=0&id=e15c3c5c&lang=scss&scoped=true&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -1307,27 +1482,29 @@ var render = function() {
                       _c("p", [
                         _vm._m(1),
                         _vm._v(
-                          "\n          " +
+                          "\n                    " +
                             _vm._s(_vm.getSubscribeDateDiff) +
-                            " days\n        "
+                            " days\n                "
                         )
                       ]),
                       _vm._v(" "),
                       _c("h5", [
                         _vm._v(
-                          _vm._s(
-                            _vm.getSubscribeDateInFormate.start.ordinal +
-                              " " +
-                              _vm.getSubscribeDateInFormate.start
-                                .month_short_name
-                          ) +
-                            " - " +
+                          "\n                    " +
+                            _vm._s(
+                              _vm.getSubscribeDateInFormate.start.ordinal +
+                                " " +
+                                _vm.getSubscribeDateInFormate.start
+                                  .month_short_name
+                            ) +
+                            "\n                    -\n                    " +
                             _vm._s(
                               _vm.getSubscribeDateInFormate.end.ordinal +
                                 " " +
                                 _vm.getSubscribeDateInFormate.end
                                   .month_short_name
-                            )
+                            ) +
+                            "\n                "
                         )
                       ])
                     ]),
@@ -1494,7 +1671,7 @@ var render = function() {
               _c("Payment", {
                 attrs: {
                   deleveyAddress: _vm.deleveyAddress,
-                  subTotalAmount: _vm.subTotal,
+                  "sub-total-amount": _vm.subTotal,
                   subscribeDetails: _vm.getSubscribe
                 }
               })
@@ -2212,10 +2389,12 @@ var render = function() {
                 attrs: { type: "submit", disabled: _vm.submitted }
               },
               [
+                _vm._v("\n                    Pay\n                    "),
+                _c("i", { staticClass: "fas fa-rupee-sign" }),
                 _vm._v(
-                  "\n          Pay " +
-                    _vm._s(_vm.order.subtotal) +
-                    " & Order\n          "
+                  "\n                    " +
+                    _vm._s(_vm.subTotalAmount) +
+                    " & Order\n                    "
                 ),
                 _c("span", {
                   directives: [
@@ -2354,10 +2533,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/frontend/components/RestaurantDetailsSidebar.vue?vue&type=template&id=e15c3c5c&":
-/*!******************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/frontend/components/RestaurantDetailsSidebar.vue?vue&type=template&id=e15c3c5c& ***!
-  \******************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/frontend/components/RestaurantDetailsSidebar.vue?vue&type=template&id=e15c3c5c&scoped=true&":
+/*!******************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/frontend/components/RestaurantDetailsSidebar.vue?vue&type=template&id=e15c3c5c&scoped=true& ***!
+  \******************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2381,15 +2560,92 @@ var render = function() {
         _c("address", [_vm._v(_vm._s(_vm.restaurant.address.address))])
       ]),
       _vm._v(" "),
-      _vm._m(0),
+      _c("div", { staticClass: "subc_btn_otr" }, [
+        _c(
+          "a",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value:
+                  !_vm.isSubscribeApplied &&
+                  _vm.cartRestaurantId === _vm.restaurant.id,
+                expression:
+                  "\n                    !isSubscribeApplied &&\n                        cartRestaurantId === restaurant.id\n                "
+              }
+            ],
+            staticClass: "subc_btn",
+            attrs: {
+              href: "#",
+              role: "button",
+              "data-toggle": "modal",
+              "data-dismiss": "modal",
+              "data-target": "#subscribeModal"
+            }
+          },
+          [_vm._v("Subscribe")]
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value:
+                  !_vm.isCartEmpty &&
+                  _vm.cartRestaurantId !== _vm.restaurant.id,
+                expression: "!isCartEmpty && cartRestaurantId !== restaurant.id"
+              }
+            ],
+            staticClass: "subc_btn",
+            attrs: { href: "#", role: "button" }
+          },
+          [_vm._v("Subscribe")]
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value:
+                  _vm.isSubscribeApplied &&
+                  _vm.subscribe.restaurant_id === _vm.restaurant.id,
+                expression:
+                  "\n                    isSubscribeApplied &&\n                        subscribe.restaurant_id === restaurant.id\n                "
+              }
+            ],
+            staticClass: "subc_btn subscribed",
+            attrs: { href: "javascript:void(0);" },
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                return _vm.removeSubscription()
+              }
+            }
+          },
+          [_vm._v("\n                Subscribed\n            ")]
+        )
+      ]),
       _vm._v(" "),
-      _vm._m(1)
+      _c("div", { staticClass: "we_offer" }, [
+        _c("p", [_vm._v("We Offer " + _vm._s(_vm.cartRestaurantId))]),
+        _vm._v(" "),
+        _vm._m(0)
+      ])
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "call_last" }, [
       _c("a", { attrs: { href: "tel:+" } }, [
-        _vm._m(2),
-        _vm._v("\n      " + _vm._s(_vm.restaurant.contact_no) + "\n    ")
+        _vm._m(1),
+        _vm._v(
+          "\n            " + _vm._s(_vm.restaurant.contact_no) + "\n        "
+        )
       ])
     ])
   ])
@@ -2399,40 +2655,15 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "subc_btn_otr" }, [
-      _c(
-        "a",
-        {
-          staticClass: "subc_btn",
-          attrs: {
-            href: "#",
-            role: "button",
-            "data-toggle": "modal",
-            "data-dismiss": "modal",
-            "data-target": "#subscribeModal"
-          }
-        },
-        [_vm._v("Subscribe")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "we_offer" }, [
-      _c("p", [_vm._v("We Offer")]),
+    return _c("ul", [
+      _c("li", [
+        _c("span", [_c("i", { staticClass: "fas fa-check-circle" })]),
+        _vm._v("Lunch\n                ")
+      ]),
       _vm._v(" "),
-      _c("ul", [
-        _c("li", [
-          _c("span", [_c("i", { staticClass: "fas fa-check-circle" })]),
-          _vm._v("Lunch\n        ")
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("span", [_c("i", { staticClass: "fas fa-check-circle" })]),
-          _vm._v("Dinner\n        ")
-        ])
+      _c("li", [
+        _c("span", [_c("i", { staticClass: "fas fa-check-circle" })]),
+        _vm._v("Dinner\n                ")
       ])
     ])
   },
@@ -3188,9 +3419,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _RestaurantDetailsSidebar_vue_vue_type_template_id_e15c3c5c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RestaurantDetailsSidebar.vue?vue&type=template&id=e15c3c5c& */ "./resources/js/views/frontend/components/RestaurantDetailsSidebar.vue?vue&type=template&id=e15c3c5c&");
+/* harmony import */ var _RestaurantDetailsSidebar_vue_vue_type_template_id_e15c3c5c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RestaurantDetailsSidebar.vue?vue&type=template&id=e15c3c5c&scoped=true& */ "./resources/js/views/frontend/components/RestaurantDetailsSidebar.vue?vue&type=template&id=e15c3c5c&scoped=true&");
 /* harmony import */ var _RestaurantDetailsSidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RestaurantDetailsSidebar.vue?vue&type=script&lang=js& */ "./resources/js/views/frontend/components/RestaurantDetailsSidebar.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _RestaurantDetailsSidebar_vue_vue_type_style_index_0_id_e15c3c5c_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./RestaurantDetailsSidebar.vue?vue&type=style&index=0&id=e15c3c5c&lang=scss&scoped=true& */ "./resources/js/views/frontend/components/RestaurantDetailsSidebar.vue?vue&type=style&index=0&id=e15c3c5c&lang=scss&scoped=true&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -3198,13 +3431,13 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _RestaurantDetailsSidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _RestaurantDetailsSidebar_vue_vue_type_template_id_e15c3c5c___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _RestaurantDetailsSidebar_vue_vue_type_template_id_e15c3c5c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _RestaurantDetailsSidebar_vue_vue_type_template_id_e15c3c5c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _RestaurantDetailsSidebar_vue_vue_type_template_id_e15c3c5c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  null,
+  "e15c3c5c",
   null
   
 )
@@ -3230,19 +3463,35 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/views/frontend/components/RestaurantDetailsSidebar.vue?vue&type=template&id=e15c3c5c&":
-/*!************************************************************************************************************!*\
-  !*** ./resources/js/views/frontend/components/RestaurantDetailsSidebar.vue?vue&type=template&id=e15c3c5c& ***!
-  \************************************************************************************************************/
+/***/ "./resources/js/views/frontend/components/RestaurantDetailsSidebar.vue?vue&type=style&index=0&id=e15c3c5c&lang=scss&scoped=true&":
+/*!***************************************************************************************************************************************!*\
+  !*** ./resources/js/views/frontend/components/RestaurantDetailsSidebar.vue?vue&type=style&index=0&id=e15c3c5c&lang=scss&scoped=true& ***!
+  \***************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_RestaurantDetailsSidebar_vue_vue_type_style_index_0_id_e15c3c5c_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./RestaurantDetailsSidebar.vue?vue&type=style&index=0&id=e15c3c5c&lang=scss&scoped=true& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/frontend/components/RestaurantDetailsSidebar.vue?vue&type=style&index=0&id=e15c3c5c&lang=scss&scoped=true&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_RestaurantDetailsSidebar_vue_vue_type_style_index_0_id_e15c3c5c_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_RestaurantDetailsSidebar_vue_vue_type_style_index_0_id_e15c3c5c_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_RestaurantDetailsSidebar_vue_vue_type_style_index_0_id_e15c3c5c_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_RestaurantDetailsSidebar_vue_vue_type_style_index_0_id_e15c3c5c_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_RestaurantDetailsSidebar_vue_vue_type_style_index_0_id_e15c3c5c_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/views/frontend/components/RestaurantDetailsSidebar.vue?vue&type=template&id=e15c3c5c&scoped=true&":
+/*!************************************************************************************************************************!*\
+  !*** ./resources/js/views/frontend/components/RestaurantDetailsSidebar.vue?vue&type=template&id=e15c3c5c&scoped=true& ***!
+  \************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RestaurantDetailsSidebar_vue_vue_type_template_id_e15c3c5c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./RestaurantDetailsSidebar.vue?vue&type=template&id=e15c3c5c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/frontend/components/RestaurantDetailsSidebar.vue?vue&type=template&id=e15c3c5c&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RestaurantDetailsSidebar_vue_vue_type_template_id_e15c3c5c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RestaurantDetailsSidebar_vue_vue_type_template_id_e15c3c5c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./RestaurantDetailsSidebar.vue?vue&type=template&id=e15c3c5c&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/frontend/components/RestaurantDetailsSidebar.vue?vue&type=template&id=e15c3c5c&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RestaurantDetailsSidebar_vue_vue_type_template_id_e15c3c5c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RestaurantDetailsSidebar_vue_vue_type_template_id_e15c3c5c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RestaurantDetailsSidebar_vue_vue_type_template_id_e15c3c5c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

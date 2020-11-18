@@ -65,12 +65,7 @@
 </template>
 
 <script>
-import { VueAutosuggest } from "vue-autosuggest";
-
 export default {
-    components: {
-        VueAutosuggest
-    },
     data() {
         return {
             keyword: null,

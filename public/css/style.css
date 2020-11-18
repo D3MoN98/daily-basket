@@ -20,7 +20,7 @@ Table of Contents
     3.3. widget-timeline
     3.4. widget-social
 
-4. ICO 
+4. ICO
     4.1. ico-countdown
     4.2. ico-exchange
     4.3. ico-timeline
@@ -13273,3 +13273,6 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="overlay"] .content-body {
   background: #7367F0; }
 
 /*# sourceMappingURL=style.css.map */
+.cursor-pointer{
+    cursor: pointer;
+}

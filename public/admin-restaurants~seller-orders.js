@@ -117,6 +117,53 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     columns: null,
@@ -127,8 +174,9 @@ __webpack_require__.r(__webpack_exports__);
     return {
       rows: [],
       draw: 10,
-      orderByColumn: 'created_at',
+      orderByColumn: "created_at",
       orderBy: "desc",
+      isOrdered: false,
       links: {
         first: null,
         last: null,
@@ -221,6 +269,7 @@ __webpack_require__.r(__webpack_exports__);
         _this2.meta = res.meta;
         _this2.orderBy = orderBy;
         _this2.orderByColumn = orderByColumn;
+        _this2.isOrdered = true;
       });
     },
     search: function search($e) {
@@ -417,16 +466,20 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\n              " +
+                      "\n                            " +
                         _vm._s(column.label) +
-                        "\n              "
+                        "\n                            "
                     ),
                     column.name === _vm.orderByColumn && _vm.orderBy == "asc"
-                      ? _c("i", { staticClass: "fas fa-angle-down" })
+                      ? _c("i", { staticClass: "fas fa-sort-down" })
                       : _vm._e(),
                     _vm._v(" "),
                     column.name === _vm.orderByColumn && _vm.orderBy == "desc"
-                      ? _c("i", { staticClass: "fas fa-angle-up" })
+                      ? _c("i", { staticClass: "fas fa-sort-up" })
+                      : _vm._e(),
+                    _vm._v(" "),
+                    column.orderAble && _vm.orderByColumn != column.name
+                      ? _c("i", { staticClass: "fas fa-sort" })
                       : _vm._e()
                   ]
                 )
@@ -446,7 +499,11 @@ var render = function() {
                       { key: row.id },
                       _vm._l(_vm.columns, function(column) {
                         return _c("td", { key: column.name }, [
-                          _vm._v(_vm._s(_vm._.get(row, column.name)))
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(_vm._.get(row, column.name)) +
+                              "\n                        "
+                          )
                         ])
                       }),
                       0
@@ -473,7 +530,7 @@ var render = function() {
           _vm._v(
             "Showing " +
               _vm._s(_vm.rows.length === 0 ? 0 : 1) +
-              " to " +
+              " to\n                " +
               _vm._s(_vm.rows.length) +
               " of tatal " +
               _vm._s(_vm.meta.total)

@@ -44,8 +44,6 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
-        // return response()->json($request->all());
-
         $validator = Validator::make($request->all(), [
             'card_number' => 'required',
             'card_exp_month' => 'required',
@@ -62,7 +60,7 @@ class CheckoutController extends Controller
         try {
 
             $stripe = new Stripe();
-            $stripe = Stripe::make(env('STRIPE_SECRET'));
+            $stripe = Stripe::make(env('STRIPE_API_KEY'));
 
             $token = $stripe->tokens()->create([
                 'card' => [
