@@ -318,13 +318,13 @@ const routes = [
         // @ts-ignore
         component: () =>
             import(
-                /* webpackChunkName: "kitchen-staff-dashboard" */ "@/views/kitchen-staff/Dashboard"
+                /* webpackChunkName: "kitchen-staff-dashboard" */ "@/views/kitchen/Dashboard"
             ),
         meta: {
             // @ts-ignore
             layout: () =>
                 import(
-                    /* webpackChunkName: "kitchen-staff-default-layout" */ "@/views/kitchen-staff/layouts/DefaultLayout"
+                    /* webpackChunkName: "kitchen-staff-default-layout" */ "@/views/kitchen/layouts/DefaultLayout"
                 ),
             middleware: [kitchenstaffMiddleware]
         }
@@ -335,13 +335,13 @@ const routes = [
         // @ts-ignore
         component: () =>
             import(
-                /* webpackChunkName: "kitchen-staff-orders" */ "@/views/kitchen-staff/Orders"
+                /* webpackChunkName: "kitchen-staff-orders" */ "@/views/kitchen/Orders"
             ),
         meta: {
             // @ts-ignore
             layout: () =>
                 import(
-                    /* webpackChunkName: "kitchen-staff-default-layout" */ "@/views/kitchen-staff/layouts/DefaultLayout"
+                    /* webpackChunkName: "kitchen-staff-default-layout" */ "@/views/kitchen/layouts/DefaultLayout"
                 ),
             middleware: [kitchenstaffMiddleware]
         }
@@ -354,13 +354,13 @@ const routes = [
         // @ts-ignore
         component: () =>
             import(
-                /* webpackChunkName: "delivery-boy-dashboard" */ "@/views/delivery-boy/Dashboard"
+                /* webpackChunkName: "delivery-boy-dashboard" */ "@/views/delivery/Dashboard"
             ),
         meta: {
             // @ts-ignore
             layout: () =>
                 import(
-                    /* webpackChunkName: "delivery-boy-default-layout" */ "@/views/delivery-boy/layouts/DefaultLayout"
+                    /* webpackChunkName: "delivery-boy-default-layout" */ "@/views/delivery/layouts/DefaultLayout"
                 ),
             middleware: [deliveryboyMiddleware]
         }
