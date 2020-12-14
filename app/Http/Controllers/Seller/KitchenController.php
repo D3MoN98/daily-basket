@@ -23,9 +23,18 @@ class KitchenController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $kitchen_staffs = Auth::user()->kitchen_staffs;
+        // $kitchen_staffs = Auth::user()->kitchen_staffs;
+        // return ResourcesUser::collection($kitchen_staffs);
+
+        $keyword = $request->get('keyword');
+        $orderByColumn = $request->get('order_by_column') ?? 'name';
+        $orderBy = $request->get('order_by') ?? 'asc';
+        $draw = $request->get('draw') ?? 10;
+        $kitchen_staffs = Auth::user()->kitchen_staffs()->orderBy($orderByColumn, $orderBy)->when(strlen($keyword) >= 3, function ($q) use ($keyword) {
+            return $q->where('name', 'like', "%$keyword%");
+        })->paginate($draw);
         return ResourcesUser::collection($kitchen_staffs);
     }
 
@@ -47,9 +56,6 @@ class KitchenController extends Controller
      */
     public function store(Request $request)
     {
-        $kitchen_staffs = Auth::user()->kitchen_staffs;
-        return response()->json(['success' => $kitchen_staffs]);
-
         try {
             $validator = Validator::make($request->all(), [
                 'name' => 'required',

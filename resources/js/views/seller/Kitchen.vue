@@ -15,44 +15,34 @@
                 </button>
             </div>
             <div class="sub_tab_table order_mang">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Contact No</th>
-                            <th>Active</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr
-                            v-for="kitchen_staff in kitchen_staffs"
-                            :key="kitchen_staff.id"
-                        >
-                            <td scope="row">{{ kitchen_staff.name }}</td>
-                            <td>{{ kitchen_staff.contact_no }}</td>
-                            <td style="width: 25%">
-                                <span
-                                    class="badge cursor-pointer"
-                                    :class="{
-                                        'badge-success':
-                                            kitchen_staff.pivot.is_active == 1,
-                                        'badge-danger':
-                                            kitchen_staff.pivot.is_active == 0
-                                    }"
-                                    role="button"
-                                    @click.prevent="
-                                        changeActive(kitchen_staff.pivot.id)
-                                    "
-                                    >{{
-                                        kitchen_staff.pivot.is_active == 1
-                                            ? "Active"
-                                            : "Not Active"
-                                    }}
-                                </span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <Datatable
+                    :columns="columns"
+                    customRow="true"
+                    :url="url"
+                    #default="rows"
+                    ref="datatable"
+                >
+                    <tr v-for="row in rows.data" :key="row.id">
+                        <td>{{ row.name }}</td>
+                        <td>{{ row.contact_no }}</td>
+                        <td style="width: 25%">
+                            <span
+                                class="badge cursor-pointer"
+                                :class="{
+                                    'badge-success': row.pivot.is_active == 1,
+                                    'badge-danger': row.pivot.is_active == 0
+                                }"
+                                role="button"
+                                @click.prevent="updateActive(row.pivot.id)"
+                                >{{
+                                    row.pivot.is_active == 1
+                                        ? "Active"
+                                        : "Not Active"
+                                }}
+                            </span>
+                        </td>
+                    </tr>
+                </Datatable>
             </div>
             <div class="custom_footer">
                 <p>
@@ -70,31 +60,41 @@
 <script>
 import { mapGetters } from "vuex";
 import KithcenStaffModal from "./components/KitchenStaffModal";
+import Datatable from "@/views/components/Datatable";
 
 export default {
     data() {
         return {
             isLoaded: false,
-            isActiveChanged: false
+            url: "/api/seller/kitchen-staff",
+            columns: [
+                {
+                    name: "name",
+                    label: "Name"
+                },
+                {
+                    name: "contact_no",
+                    label: "Contact No"
+                },
+                {
+                    name: "pivot.is_active",
+                    label: "Active"
+                }
+            ]
         };
     },
     components: {
-        KithcenStaffModal
-    },
-    mounted() {
-        this.$store.dispatch("sellerKitchen/kitchenStaffs").then(() => {
-            this.isLoaded = true;
-        });
-    },
-    computed: {
-        ...mapGetters({
-            kitchen_staffs: "sellerKitchen/getKitchenStaff"
-        })
+        KithcenStaffModal,
+        Datatable
     },
     methods: {
-        changeActive(id) {
-            this.isActiveChanged = true;
-            this.$store.dispatch("sellerKitchen/changeActive", id);
+        updateActive(id) {
+            axios
+                .post(`/api/seller/kitchen-staff/change-active/${id}`)
+                .then(res => res.data)
+                .then(res => {
+                    this.$refs.datatable.fetch(this.url);
+                });
         }
     }
 };

@@ -26,7 +26,7 @@ class CreateOrdersTable extends Migration
             $table->float('tax')->nullable();
             $table->float('discount')->nullable();
             $table->float('total');
-            $table->enum('status', ['accepted', 'processing', 'delivered'])->default('processing')->nullable();
+            $table->enum('status', ['accepted', 'processing', 'in_progress', 'prepared', 'delivered'])->default('processing')->nullable();
             $table->bigInteger('delivery_assigned_to')->unsigned()->nullable();
             $table->foreign('delivery_assigned_to')->references('id')->on('users');
             $table->timestamps();

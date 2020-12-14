@@ -19,9 +19,20 @@ class RestaurantController extends Controller
         $keyword = $request->get('keyword');
         $orderByColumn = $request->get('order_by_column') ?? 'name';
         $orderBy = $request->get('order_by') ?? 'asc';
-        $draw = $request->get('draw') ?? 1;
-        $restaurant = Restaurant::orderBy($orderByColumn, $orderBy)->where('name', 'like', "%$keyword%")->paginate($draw);
+        $draw = $request->get('draw') ?? 10;
+        $restaurant = Restaurant::orderBy($orderByColumn, $orderBy)->when(strlen($keyword) >= 3, function ($q) use ($keyword) {
+            return $q->where('name', 'like', "%$keyword%");
+        })->paginate($draw);
         return ResourcesRestaurant::collection($restaurant);
+    }
+
+    public function update_verification($id)
+    {
+        $restaurant = Restaurant::find($id);
+        $restaurant->update([
+            'is_verified' => $restaurant->is_verified == '1' ? '0' : '1'
+        ]);
+        return response()->json(['success' => 'restaurant verification changed']);
     }
 
     /**

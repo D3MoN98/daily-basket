@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class Order extends JsonResource
 {
@@ -20,10 +21,10 @@ class Order extends JsonResource
         $order['created_at_timestamp'] = strtotime($this->created_at);
         $order['created_at_human'] = $this->created_at->diffForHumans();
         $order['user'] = $this->user;
-        $order['restaurant'] = $this->restaurant;
+        $order['restaurant'] = $this->when(Auth::check() && Auth::user()->hasAnyRoles(['customer', 'kitchen-staff', 'admin', 'seller']), $this->restaurant);
         $order['address'] = $this->address;
         $order['delevery_boy'] = $this->delevery_boy;
-        $order['order_items'] = $this->order_items;
+        $order['order_items'] = $this->when(Auth::check() && Auth::user()->hasAnyRoles(['customer', 'kitchen-staff', 'seller']), $this->order_items);
         return $order;
     }
 }

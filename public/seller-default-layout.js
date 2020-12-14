@@ -186,10 +186,63 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
     logout: function logout() {
-      this.$store.dispatch('auth/logout');
+      this.$store.dispatch("auth/logout");
     }
   }
 });
@@ -205,6 +258,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
 //
 //
 //
@@ -430,14 +487,14 @@ var render = function() {
                           _vm._v(" "),
                           _c("span", { staticClass: "nav_txt" }, [
                             _vm._v(
-                              "\n                    " +
+                              "\n                                        " +
                                 _vm._s(
                                   _vm._.split(
                                     this.$store.getters["auth/user"].name,
                                     " "
                                   )[0]
                                 ) +
-                                "\n                  "
+                                "\n                                    "
                             )
                           ])
                         ]
@@ -447,13 +504,14 @@ var render = function() {
                         "div",
                         { staticClass: "dropdown-menu dropdown-menu-right" },
                         [
-                          _vm._m(4),
-                          _vm._v(" "),
-                          _vm._m(5),
-                          _vm._v(" "),
-                          _vm._m(6),
-                          _vm._v(" "),
-                          _vm._m(7),
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "dropdown-item",
+                              attrs: { to: "/seller/profile" }
+                            },
+                            [_c("span", [_vm._v("My profile")])]
+                          ),
                           _vm._v(" "),
                           _c(
                             "a",
@@ -468,12 +526,13 @@ var render = function() {
                             },
                             [_c("span", [_vm._v("Logout")])]
                           )
-                        ]
+                        ],
+                        1
                       )
                     ]
                   ),
                   _vm._v(" "),
-                  _vm._m(8)
+                  _vm._m(4)
                 ])
               ]
             )
@@ -565,38 +624,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "dropdown-item", attrs: { href: "#!" } }, [
-      _c("span", [_vm._v("My profile")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "dropdown-item", attrs: { href: "#!" } }, [
-      _c("span", [_vm._v("Calender")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "dropdown-item", attrs: { href: "#!" } }, [
-      _c("span", [_vm._v("Inbox")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "dropdown-item", attrs: { href: "#!" } }, [
-      _c("span", [_vm._v("Settings")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c(
       "li",
       { staticClass: "nav-item dropdown notification_dropdown" },
@@ -622,7 +649,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("div", { staticClass: "dropdown-menu dropdown-menu-right" }, [
           _c("h5", { staticClass: "notification_title" }, [
-            _vm._v("Notifications")
+            _vm._v(
+              "\n                                        Notifications\n                                    "
+            )
           ]),
           _vm._v(" "),
           _c("ul", { staticClass: "list-unstyled" }, [
@@ -638,7 +667,11 @@ var staticRenderFns = [
                     _c("h5", [_vm._v("Mr John")])
                   ]),
                   _vm._v(" "),
-                  _c("p", { staticClass: "m-0" }, [_vm._v("signed nup now")])
+                  _c("p", { staticClass: "m-0" }, [
+                    _vm._v(
+                      "\n                                                        signed nup now\n                                                    "
+                    )
+                  ])
                 ])
               ])
             ]),
@@ -655,7 +688,11 @@ var staticRenderFns = [
                     _c("h5", [_vm._v("Lisa Heiden")])
                   ]),
                   _vm._v(" "),
-                  _c("p", { staticClass: "m-0" }, [_vm._v("Reset password")])
+                  _c("p", { staticClass: "m-0" }, [
+                    _vm._v(
+                      "\n                                                        Reset password\n                                                    "
+                    )
+                  ])
                 ])
               ])
             ]),
@@ -672,7 +709,11 @@ var staticRenderFns = [
                     _c("h5", [_vm._v("Mr khan")])
                   ]),
                   _vm._v(" "),
-                  _c("p", { staticClass: "m-0" }, [_vm._v("Email sent")])
+                  _c("p", { staticClass: "m-0" }, [
+                    _vm._v(
+                      "\n                                                        Email sent\n                                                    "
+                    )
+                  ])
                 ])
               ])
             ])
@@ -836,7 +877,29 @@ var render = function() {
         _vm._v(" "),
         _vm._m(1),
         _vm._v(" "),
-        _vm._m(2)
+        _c(
+          "li",
+          [
+            _c(
+              "router-link",
+              {
+                attrs: {
+                  to: "/seller/feedback",
+                  "aria-expanded": "false",
+                  "active-class": "select_link"
+                }
+              },
+              [
+                _c("i", { staticClass: "fas fa-comment-dots" }),
+                _vm._v(" "),
+                _c("span", { staticClass: "nav-text" }, [
+                  _vm._v("Customer Feedback")
+                ])
+              ]
+            )
+          ],
+          1
+        )
       ])
     ])
   ])
@@ -874,22 +937,6 @@ var staticRenderFns = [
           _c("i", { staticClass: "far fa-chart-bar" }),
           _vm._v(" "),
           _c("span", { staticClass: "nav-text" }, [_vm._v("Finance")])
-        ]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c(
-        "a",
-        { attrs: { href: "javascript:void()", "aria-expanded": "false" } },
-        [
-          _c("i", { staticClass: "fas fa-comment-dots" }),
-          _vm._v(" "),
-          _c("span", { staticClass: "nav-text" }, [_vm._v("Customer Feedback")])
         ]
       )
     ])

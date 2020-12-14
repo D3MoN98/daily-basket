@@ -42,6 +42,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -49,18 +84,33 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      url: "/api/admin/restaurant",
       isLoaded: false,
       columns: [{
-        name: 'name',
-        label: 'Name'
+        name: "name",
+        label: "Name"
       }, {
-        name: 'contact_no',
-        label: 'Contact No'
+        name: "contact_no",
+        label: "Contact No"
       }, {
-        name: 'address.address',
-        label: 'Order Status'
+        name: "address.address",
+        label: "Address"
+      }, {
+        name: "is_verified",
+        label: "Verified"
       }]
     };
+  },
+  methods: {
+    updateVerification: function updateVerification(id) {
+      var _this = this;
+
+      axios.post("api/admin/restaurant/update/verification/".concat(id)).then(function (res) {
+        return res.data;
+      }).then(function (res) {
+        _this.$refs.datatable.fetch(_this.url);
+      });
+    }
   }
 });
 
@@ -90,7 +140,82 @@ var render = function() {
         { staticClass: "cmn_table adress_size" },
         [
           _c("Datatable", {
-            attrs: { columns: _vm.columns, url: "/api/admin/restaurant" }
+            ref: "datatable",
+            attrs: { columns: _vm.columns, customRow: "true", url: _vm.url },
+            scopedSlots: _vm._u([
+              {
+                key: "default",
+                fn: function(rows) {
+                  return _vm._l(rows.data, function(row) {
+                    return _c(
+                      "tr",
+                      { key: row.id, class: { "table-primary": row.new } },
+                      [
+                        _c(
+                          "td",
+                          [
+                            _vm._v(
+                              "\n                        " +
+                                _vm._s(row.name) +
+                                "\n                        "
+                            ),
+                            _c(
+                              "router-link",
+                              {
+                                attrs: {
+                                  to: { path: "/restaurant/" + row.slug },
+                                  target: "_blank"
+                                }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "fa fa-external-link",
+                                  attrs: { "aria-hidden": "true" }
+                                })
+                              ]
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(row.contact_no))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(row.address.address))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "span",
+                            {
+                              staticClass: "badge cursor-pointer",
+                              class: {
+                                "badge-success": row.is_verified == 1,
+                                "badge-danger": row.is_verified == 0
+                              },
+                              attrs: { role: "button" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.updateVerification(row.id)
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  row.is_verified == 1
+                                    ? "Verified"
+                                    : "Not Verified"
+                                ) + "\n                        "
+                              )
+                            ]
+                          )
+                        ])
+                      ]
+                    )
+                  })
+                }
+              }
+            ])
           })
         ],
         1
@@ -107,7 +232,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "dash_hd_cmn" }, [
       _c("h3", [
-        _vm._v("\n        Restaurants\n        "),
+        _vm._v("\n                Restaurants\n                "),
         _c("span", {}, [_vm._v("Datatable")])
       ])
     ])
@@ -118,7 +243,9 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "custom_footer" }, [
       _c("p", [
-        _vm._v("\n        Copyright © Designed & Developed by\n        "),
+        _vm._v(
+          "\n                Copyright © Designed & Developed by\n                "
+        ),
         _c("a", { attrs: { href: "", target: "_blank" } }, [
           _vm._v("Sutanu & Sudipta")
         ])

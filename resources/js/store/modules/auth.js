@@ -29,9 +29,9 @@ const mutations = {
 
         if (response.user.role === "seller") {
             window.location.href = "/seller";
-        } else if (response.user.role === "kitchen staff") {
+        } else if (response.user.role === "kitchen-staff") {
             window.location.href = "/kitchen-staff";
-        } else if (response.user.role === "delivery boy") {
+        } else if (response.user.role === "delivery-boy") {
             window.location.href = "/delivery-boy";
         } else if (response.user.role === "customer") {
             window.location.reload();

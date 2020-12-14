@@ -2,6 +2,7 @@
 
 use App\Cuisine;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -16,7 +17,7 @@ class UserSeeder extends Seeder
 
             $admin = App\User::create([
                 'name' => 'admin',
-                'email' => 'sjgalaxy98@gmail.com',
+                'email' => 'admin@gmail.com',
                 'contact_no' => '6291839827',
                 'password' => Hash::make('password')
             ]);

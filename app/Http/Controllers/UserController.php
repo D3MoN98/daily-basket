@@ -33,7 +33,7 @@ class UserController extends Controller
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'email' => ['required', 'email', Rule::unique('users', 'email')->ignore($id)],
-                'contact_no' => 'required',
+                'contact_no' => ['required', Rule::unique('users', 'contact_no')],
             ], [
                 'name.required' => 'Name field is required.',
                 'email.required' => 'Email field is required.',
@@ -48,7 +48,10 @@ class UserController extends Controller
 
             User::findOrFail($id)->update($request->all());
 
-            return new ResourcesUser(Auth::user()->fresh());
+            $user = Auth::user()->fresh();
+            $user->role = $user->roles()->first()->name;
+
+            return new ResourcesUser($user);
         } catch (Exception $e) {
             return response()->json(['error' => $e], 500);
         }

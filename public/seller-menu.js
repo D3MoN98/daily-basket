@@ -440,6 +440,144 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -466,23 +604,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         delivery_charge: 0
       },
       types: [{
-        name: 'Veg',
-        value: 'veg'
+        name: "Veg",
+        value: "veg"
       }, {
-        name: 'Non Veg',
-        value: 'non-veg'
+        name: "Non Veg",
+        value: "non-veg"
       }],
       gsts: [{
-        name: '5%',
+        name: "5%",
         value: 5
       }, {
-        name: '10%',
+        name: "10%",
         value: 10
       }, {
-        name: '15%',
+        name: "15%",
         value: 15
       }, {
-        name: '20%',
+        name: "20%",
         value: 20
       }],
       formError: false,
@@ -517,15 +655,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   created: function created() {
-    this.$store.dispatch('sellerRestaurant/menu_categories');
-    this.$store.dispatch('sellerRestaurant/menu_sub_categories');
+    this.$store.dispatch("sellerRestaurant/menu_categories");
+    this.$store.dispatch("sellerRestaurant/menu_sub_categories");
   },
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])({
-    menu_categories: 'sellerRestaurant/getMenuCategories',
-    menu_sub_categories: 'sellerRestaurant/getMenuSubCategories'
+    menu_categories: "sellerRestaurant/getMenuCategories",
+    menu_sub_categories: "sellerRestaurant/getMenuSubCategories"
   })), {}, {
     menu_item_total: function menu_item_total() {
-      return parseInt(this.menu_item.price) + parseInt(this.menu_item.delivery_charge);
+      return parseInt(this.menu_item.price) + parseInt(this.menu_item.price * this.menu_item.gst / 100) + parseInt(this.menu_item.delivery_charge);
     }
   }),
   methods: {
@@ -543,17 +681,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       var data = new FormData();
-      data.append('image', this.image);
+      data.append("image", this.image);
 
       _.each(this.menu_item, function (value, key) {
         data.append(key, value);
       });
 
-      this.$store.dispatch('sellerMenu/createMenu', data).then(function () {
+      this.$store.dispatch("sellerMenu/createMenu", data).then(function () {
         _this.formError = false;
         _this.submitted = false;
-        toastr.success('Item Added Succefully', '', {
-          positionClass: 'toast-bottom-center',
+        toastr.success("Item Added Succefully", "", {
+          positionClass: "toast-bottom-center",
           timeOut: 1500,
           closeButton: !0,
           debug: !1,
@@ -561,13 +699,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           progressBar: !0,
           preventDuplicates: !0,
           onclick: null,
-          showDuration: '300',
-          hideDuration: '1000',
-          extendedTimeOut: '1000',
-          showEasing: 'swing',
-          hideEasing: 'linear',
-          showMethod: 'fadeIn',
-          hideMethod: 'fadeOut',
+          showDuration: "300",
+          hideDuration: "1000",
+          extendedTimeOut: "1000",
+          showEasing: "swing",
+          hideEasing: "linear",
+          showMethod: "fadeIn",
+          hideMethod: "fadeOut",
           tapToDismiss: !1
         });
 
@@ -612,14 +750,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _pencilpix_vue2_clock_picker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @pencilpix/vue2-clock-picker */ "./node_modules/@pencilpix/vue2-clock-picker/dist/vue2-clock-picker.es.js");
-/* harmony import */ var _pencilpix_vue2_clock_picker__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_pencilpix_vue2_clock_picker__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
-/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _pencilpix_vue2_clock_picker_dist_vue2_clock_picker_min_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @pencilpix/vue2-clock-picker/dist/vue2-clock-picker.min.css */ "./node_modules/@pencilpix/vue2-clock-picker/dist/vue2-clock-picker.min.css");
-/* harmony import */ var _pencilpix_vue2_clock_picker_dist_vue2_clock_picker_min_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_pencilpix_vue2_clock_picker_dist_vue2_clock_picker_min_css__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var vue_multiselect_dist_vue_multiselect_min_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-multiselect/dist/vue-multiselect.min.css */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.css");
-/* harmony import */ var vue_multiselect_dist_vue_multiselect_min_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect_dist_vue_multiselect_min_css__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_multiselect_dist_vue_multiselect_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-multiselect/dist/vue-multiselect.min.css */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.css");
+/* harmony import */ var vue_multiselect_dist_vue_multiselect_min_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect_dist_vue_multiselect_min_css__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue2_timepicker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue2-timepicker */ "./node_modules/vue2-timepicker/dist/VueTimepicker.common.js");
+/* harmony import */ var vue2_timepicker__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue2_timepicker__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue2_timepicker_dist_VueTimepicker_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue2-timepicker/dist/VueTimepicker.css */ "./node_modules/vue2-timepicker/dist/VueTimepicker.css");
+/* harmony import */ var vue2_timepicker_dist_VueTimepicker_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue2_timepicker_dist_VueTimepicker_css__WEBPACK_IMPORTED_MODULE_3__);
 //
 //
 //
@@ -742,14 +880,68 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+// import VueClockPicker from '@pencilpix/vue2-clock-picker';
+ // import '@pencilpix/vue2-clock-picker/dist/vue2-clock-picker.min.css';
 
+ // Main JS (in UMD format)
 
+ // CSS
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    VueClockPicker: _pencilpix_vue2_clock_picker__WEBPACK_IMPORTED_MODULE_0___default.a,
-    Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_1___default.a
+    // VueClockPicker,
+    VueTimepicker: vue2_timepicker__WEBPACK_IMPORTED_MODULE_2___default.a,
+    Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a
   },
   data: function data() {
     return {
@@ -768,9 +960,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     updateRestauramt: function updateRestauramt(restaurant) {
-      this.$store.dispatch('sellerRestaurant/updateRestaurant', restaurant).then(function () {
-        toastr.success('Details updated', '', {
-          positionClass: 'toast-bottom-center',
+      this.$store.dispatch("sellerRestaurant/updateRestaurant", restaurant).then(function () {
+        toastr.success("Details updated", "", {
+          positionClass: "toast-bottom-center",
           timeOut: 1500,
           closeButton: !0,
           debug: !1,
@@ -778,13 +970,13 @@ __webpack_require__.r(__webpack_exports__);
           progressBar: !0,
           preventDuplicates: !0,
           onclick: null,
-          showDuration: '300',
-          hideDuration: '1000',
-          extendedTimeOut: '1000',
-          showEasing: 'swing',
-          hideEasing: 'linear',
-          showMethod: 'fadeIn',
-          hideMethod: 'fadeOut',
+          showDuration: "300",
+          hideDuration: "1000",
+          extendedTimeOut: "1000",
+          showEasing: "swing",
+          hideEasing: "linear",
+          showMethod: "fadeIn",
+          hideMethod: "fadeOut",
           tapToDismiss: !1
         });
       });
@@ -793,11 +985,11 @@ __webpack_require__.r(__webpack_exports__);
       this.value = value;
 
       var cuisines = _.map(this.value, function (value) {
-        return _.pick(value, ['id']).id;
+        return _.pick(value, ["id"]).id;
       });
 
       this.updateRestauramt({
-        cuisines: _.join(cuisines, ',')
+        cuisines: _.join(cuisines, ",")
       });
     }
   }
@@ -836,7 +1028,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".clock-picker__canvas {\n  display: flex;\n  justify-content: center;\n}\n.clockpicker {\n  text-align: center;\n}", ""]);
+exports.push([module.i, "", ""]);
 
 // exports
 
@@ -1244,7 +1436,8 @@ var render = function() {
                                   $$v
                                 )
                               },
-                              expression: "menu_item.menu_sub_category_id"
+                              expression:
+                                "\n                                            menu_item.menu_sub_category_id\n                                        "
                             }
                           })
                         ],
@@ -1383,17 +1576,17 @@ var render = function() {
                         _vm._v(" "),
                         _c("span", { staticClass: "green_col" }, [
                           _vm._v(
-                            "\n                    Add Item\n                    Image\n                  "
+                            "\n                                        Add Item Image\n                                    "
                           )
                         ]),
                         _vm._v(
-                          "\n                  " +
+                          "\n                                    " +
                             _vm._s(
                               _vm.image_name !== null
                                 ? _vm._.truncate(_vm.image_name)
                                 : "(Size : Max 50x50 px)"
                             ) +
-                            "\n                "
+                            "\n                                "
                         )
                       ])
                     ])
@@ -1416,8 +1609,12 @@ var render = function() {
                           {
                             name: "currency",
                             rawName: "v-currency",
-                            value: { currency: "INR", locale: "en-IN" },
-                            expression: "{currency: 'INR', locale: 'en-IN'}"
+                            value: {
+                              currency: "INR",
+                              locale: "en-IN"
+                            },
+                            expression:
+                              "{\n                                        currency: 'INR',\n                                        locale: 'en-IN'\n                                    }"
                           }
                         ],
                         ref: "price",
@@ -1512,7 +1709,7 @@ var render = function() {
                                     _vm.formError &&
                                     !_vm.$v.menu_item.gst.required,
                                   expression:
-                                    "formError && !$v.menu_item.gst.required"
+                                    "\n                                            formError &&\n                                                !$v.menu_item.gst.required\n                                        "
                                 }
                               ],
                               staticClass: "invalid-feedback"
@@ -1534,8 +1731,12 @@ var render = function() {
                           {
                             name: "currency",
                             rawName: "v-currency",
-                            value: { currency: "INR", locale: "en-IN" },
-                            expression: "{currency: 'INR', locale: 'en-IN'}"
+                            value: {
+                              currency: "INR",
+                              locale: "en-IN"
+                            },
+                            expression:
+                              "{\n                                        currency: 'INR',\n                                        locale: 'en-IN'\n                                    }"
                           }
                         ],
                         ref: "delivery_charge",
@@ -1574,8 +1775,12 @@ var render = function() {
                           {
                             name: "currency",
                             rawName: "v-currency",
-                            value: { currency: "INR", locale: "en-IN" },
-                            expression: "{currency: 'INR', locale: 'en-IN'}"
+                            value: {
+                              currency: "INR",
+                              locale: "en-IN"
+                            },
+                            expression:
+                              "{\n                                        currency: 'INR',\n                                        locale: 'en-IN'\n                                    }"
                           }
                         ],
                         ref: "total",
@@ -1608,7 +1813,8 @@ var render = function() {
                             name: "model",
                             rawName: "v-model",
                             value: _vm.menu_item.quantity_serves_per_day,
-                            expression: "menu_item.quantity_serves_per_day"
+                            expression:
+                              "\n                                        menu_item.quantity_serves_per_day\n                                    "
                           }
                         ],
                         staticClass: "form-control",
@@ -1639,7 +1845,9 @@ var render = function() {
                       _vm.formError &&
                       !_vm.$v.menu_item.quantity_serves_per_day.required
                         ? _c("span", { staticClass: "invalid-feedback" }, [
-                            _vm._v("Quantity Serves Per Day is required")
+                            _vm._v(
+                              "Quantity Serves Per Day is\n                                    required"
+                            )
                           ])
                         : _vm._e()
                     ])
@@ -1659,7 +1867,9 @@ var render = function() {
                     attrs: { type: "submit", disabled: _vm.submitted }
                   },
                   [
-                    _vm._v("\n            Create\n            "),
+                    _vm._v(
+                      "\n                        Create\n                        "
+                    ),
                     _c("span", {
                       directives: [
                         {
@@ -1690,7 +1900,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("h3", [
-      _vm._v("\n          Basic Details\n          "),
+      _vm._v("\n                    Basic Details\n                    "),
       _c("span", { staticClass: "red_star" }, [_vm._v("*")])
     ])
   },
@@ -1699,7 +1909,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("p", [
-      _vm._v("\n                Item Name\n                "),
+      _vm._v(
+        "\n                                Item Name\n                                "
+      ),
       _c("span", { staticClass: "red_star" }, [_vm._v("*")])
     ])
   },
@@ -1708,7 +1920,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("p", [
-      _vm._v("\n                Category\n                "),
+      _vm._v(
+        "\n                                Category\n                                "
+      ),
       _c("span", { staticClass: "red_star" }, [_vm._v("*")])
     ])
   },
@@ -1717,7 +1931,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("p", [
-      _vm._v("\n                Sub-Category\n                "),
+      _vm._v(
+        "\n                                Sub-Category\n                                "
+      ),
       _c("span", { staticClass: "red_star" }, [_vm._v("*")])
     ])
   },
@@ -1726,7 +1942,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("p", [
-      _vm._v("\n                Type\n                "),
+      _vm._v(
+        "\n                                Type\n                                "
+      ),
       _c("span", { staticClass: "red_star" }, [_vm._v("*")])
     ])
   },
@@ -1735,7 +1953,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("h3", [
-      _vm._v("\n          Price Details\n          "),
+      _vm._v("\n                    Price Details\n                    "),
       _c("span", { staticClass: "red_star" }, [_vm._v("*")])
     ])
   },
@@ -1744,7 +1962,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("h3", [
-      _vm._v("\n          Other Details\n          "),
+      _vm._v("\n                    Other Details\n                    "),
       _c("span", { staticClass: "red_star" }, [_vm._v("*")])
     ])
   },
@@ -1893,14 +2111,18 @@ var render = function() {
                   "div",
                   { staticClass: "in_bxx" },
                   [
-                    _c("VueClockPicker", {
+                    _c("vue-timepicker", {
                       attrs: {
                         "input-class":
                           "form-control form_control_cus clockpicker",
-                        placeholder: "Enter Time"
+                        format: "hh:mm A",
+                        placeholder: "Enter Time",
+                        "close-on-complete": "",
+                        "hide-clear-button": "",
+                        "auto-scroll": ""
                       },
                       on: {
-                        timeset: function($event) {
+                        close: function($event) {
                           return _vm.updateRestauramt({
                             opening_time: _vm.res.opening_time
                           })
@@ -1926,14 +2148,18 @@ var render = function() {
                   "div",
                   { staticClass: "in_bxx" },
                   [
-                    _c("VueClockPicker", {
+                    _c("vue-timepicker", {
                       attrs: {
                         "input-class":
                           "form-control form_control_cus clockpicker",
-                        placeholder: "Enter Time"
+                        format: "hh:mm A",
+                        placeholder: "Enter Time",
+                        "close-on-complete": "",
+                        "hide-clear-button": "",
+                        "auto-scroll": ""
                       },
                       on: {
-                        timeset: function($event) {
+                        close: function($event) {
                           return _vm.updateRestauramt({
                             closing_time: _vm.res.closing_time
                           })
@@ -2052,7 +2278,9 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "subcc_switch" }, [
       _c("p", [
-        _vm._v("\n              Model :\n              "),
+        _vm._v(
+          "\n                            Model :\n                            "
+        ),
         _c("span", [_vm._v("Subscription")])
       ]),
       _vm._v(" "),

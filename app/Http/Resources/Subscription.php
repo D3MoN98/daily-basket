@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class Subscription extends JsonResource
@@ -23,6 +24,7 @@ class Subscription extends JsonResource
         $subscription['created_at_human'] = $this->created_at->diffForHumans();
         $subscription['created_at_formatted'] = date('jS M | h:i A', strtotime($this->created_at));
         $subscription['subscription_items'] = $this->subscription_items;
+        $subscription['subscription_delivery'] = $this->subscription_deliveries()->whereDate('created_at', Carbon::today())->first();
         $subscription['user'] = $this->user;
         $subscription['address'] = $this->address;
         $subscription['restaurant'] = $this->restaurant;

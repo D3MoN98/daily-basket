@@ -34,6 +34,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     restaurant: {}
@@ -153,7 +155,7 @@ var render = function() {
     [
       _c("div", { staticClass: "ech_res_innr" }, [
         _c("div", { staticClass: "res_pic" }, [
-          _c("img", { attrs: { src: _vm.restaurant.image, alt: "" } })
+          _c("img", { attrs: { src: "/images/download.jpeg", alt: "" } })
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "res_det" }, [
@@ -163,14 +165,11 @@ var render = function() {
             _c("div", { staticClass: "rtng" }, [
               _c("i", { staticClass: "fas fa-star" }),
               _vm._v(" "),
-              _c("p", [_vm._v("6.7")])
+              _c("p", [_vm._v(_vm._s(_vm.restaurant.rating))])
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "prc" }, [
-              _c("p", [
-                _c("span", [_vm._v("300")]),
-                _vm._v(" for two\n          ")
-              ])
+              _c("p", [_c("span", [_vm._v("300")]), _vm._v(" for two")])
             ])
           ])
         ])

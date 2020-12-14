@@ -4,7 +4,7 @@ export default function sellerMiddleware({ next, store }) {
             name: "home"
         });
     }
-    if (store.getters["auth/userRole"] !== "kitchen staff") {
+    if (store.getters["auth/userRole"] !== "kitchen-staff") {
         return next({
             name: "home"
         });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Menu;
 use App\Http\Resources\MenuItem as ResourcesMenuItem;
+use App\Restaurant;
 use Illuminate\Http\Request;
 
 class MenuController extends Controller
@@ -47,9 +48,9 @@ class MenuController extends Controller
      */
     public function show($id, $type = null)
     {
-        $menu = Menu::find($id);
-        $menu_items = $menu->menu_items;
-        if (!is_null($type) && in_array($type, ['veg', 'non-veg']))
+        $menu = Restaurant::find($id)->menus()->first();
+        $menu_items = $menu->menu_items ?? array();
+        if (!is_null($type) && in_array($type, ['veg', 'non-veg']) && !empty($menu_items))
             $menu_items = $menu->menu_items->filter(function ($value, $key) use ($type) {
                 return $value->type == $type;
             });

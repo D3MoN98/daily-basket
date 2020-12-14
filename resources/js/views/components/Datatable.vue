@@ -26,6 +26,7 @@
                         <input
                             type="text"
                             id="search"
+                            v-model="keyword"
                             class="form-control flex-grow-1 ml-sm-3"
                         />
                     </div>
@@ -74,7 +75,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <slot v-if="customRow"> </slot>
+                        <slot v-if="customRow" :data="rows"> </slot>
                         <tr v-else v-for="row in rows" :key="row.id">
                             <td v-for="column in columns" :key="column.name">
                                 {{ _.get(row, column.name) }}
@@ -167,6 +168,7 @@ export default {
             orderByColumn: "created_at",
             orderBy: "desc",
             isOrdered: false,
+            keyword: "",
             links: {
                 first: null,
                 last: null,
@@ -235,7 +237,8 @@ export default {
                     params: {
                         order_by_column: this.orderByColumn,
                         order_by: this.orderBy,
-                        draw: this.draw
+                        draw: this.draw,
+                        keyword: this.keyword
                     }
                 })
                 .then(res => res.data)
@@ -283,14 +286,13 @@ export default {
                 });
         },
         search($e) {
-            const keyword = $e.target.value;
             axios
                 .get(this.url, {
                     params: {
                         order_by_column: this.orderByColumn,
                         order_by: this.orderBy,
                         draw: this.draw,
-                        keyword: keyword
+                        keyword: this.keyword
                     }
                 })
                 .then(res => res.data)

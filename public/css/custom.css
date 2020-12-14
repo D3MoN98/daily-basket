@@ -2199,17 +2199,17 @@ body {
     line-height: 1;
 }
 
-.open_time ul {
+.open_time > ul {
     display: flex;
     align-items: center;
 }
 
-.open_time ul li {
+.open_time > ul li {
     display: flex;
     align-items: center;
     padding-right: 25px;
 }
-.open_time ul li:last-child {
+.open_time > ul li:last-child {
     padding-right: 0px;
 }
 .form_control_cus,
@@ -2721,7 +2721,8 @@ input:checked + .sliderr:before {
     width: 100%;
     background: #6883b9;
 }
-
+/* sudipta jana */
+/*
 .table thead th,
 table.dataTable thead th {
     border-bottom-width: 1px;
@@ -2769,7 +2770,9 @@ table.dataTable tbody td {
     line-height: 19px;
     font-family: "Averta";
     vertical-align: top;
-}
+} */
+/* sudipta jana */
+
 .dash_hd_rgt,
 .delivry_by_add {
     display: flex;
@@ -3702,13 +3705,13 @@ table.dataTable thead .sorting {
     margin-right: 25px;
 }
 
-.kitchen_order > ul {
+.kitchen_order ul {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     margin: -11px -12px;
 }
-.kitchen_order > ul > li {
+.kitchen_order ul li {
     padding: 11px 12px;
     width: 33.33%;
 }

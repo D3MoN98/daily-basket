@@ -9,7 +9,7 @@
                         >Dimond Hourver Road Khanti Park</span
                     >
                 </h3>
-                <div class="selct_bxx small_slct">
+                <!-- <div class="selct_bxx small_slct">
                     <select id="mounth">
                         <option value="hide">-- All --</option>
                         <option value="a" rel="icon-temperature"
@@ -18,7 +18,7 @@
                         <option value="b">Unsubcribes</option>
                         <option value="c">subcribes</option>
                     </select>
-                </div>
+                </div> -->
             </div>
             <div class="kitchen_otr">
                 <div class="innr_hdr">
@@ -26,295 +26,47 @@
                         <h3>Kitchen Service for today</h3>
                     </div>
                     <div class="hdr_mul_sel">
-                        <div class="selct_bxx small_slct">
-                            <div class="select">
-                                <select
-                                    id="ktichen_status"
-                                    class="select-hidden"
-                                >
-                                    <option value="hide">-- All --</option>
-                                    <option value="a" rel="icon-temperature"
-                                        >Individuals</option
-                                    >
-                                    <option value="b">Unsubcribes</option>
-                                    <option value="c">subcribes</option>
-                                </select>
-                                <div class="select-styled">-- All --</div>
-                                <ul class="select-options">
-                                    <li rel="hide">-- All --</li>
-                                    <li rel="a">Individuals</li>
-                                    <li rel="b">Unsubcribes</li>
-                                    <li rel="c">subcribes</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="selct_bxx small_slct">
-                            <div class="select">
-                                <select id="kitchen_time" class="select-hidden">
-                                    <option value="hide">-- All --</option>
-                                    <option value="a" rel="icon-temperature"
-                                        >Individuals</option
-                                    >
-                                    <option value="b">Unsubcribes</option>
-                                    <option value="c">subcribes</option>
-                                </select>
-                                <div class="select-styled">-- All --</div>
-                                <ul class="select-options">
-                                    <li rel="hide">-- All --</li>
-                                    <li rel="a">Individuals</li>
-                                    <li rel="b">Unsubcribes</li>
-                                    <li rel="c">subcribes</li>
-                                </ul>
-                            </div>
-                        </div>
+                        <select
+                            id="mounth"
+                            class="form-control form-control-sm"
+                            v-model="sortBy"
+                        >
+                            <option value="all">All</option>
+                            <option value="orders">Individuals</option>
+                            <option value="subcribes">subcribes</option>
+                        </select>
                     </div>
                 </div>
                 <div class="kitchen_order">
-                    <ul>
-                        <li>
-                            <div class="kit_ord_inn">
-                                <h5>Rice Combo Meal</h5>
-                                <h6>Order ID : <span>OD12345</span></h6>
-                                <div class="kit_btnn">
-                                    <ul>
-                                        <li>
-                                            <a
-                                                href="javascript:void(0)"
-                                                class="ktc_act"
-                                                >In Progress</a
-                                            >
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)"
-                                                >Completed</a
-                                            >
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)"
-                                                >In queue</a
-                                            >
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="kit_ord_inn">
-                                <h5>Rice Combo Meal</h5>
-                                <h6>Order ID : <span>OD12345</span></h6>
-                                <div class="kit_btnn">
-                                    <ul>
-                                        <li>
-                                            <a
-                                                href="javascript:void(0)"
-                                                class="ktc_act"
-                                                >In Progress</a
-                                            >
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)"
-                                                >Completed</a
-                                            >
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)"
-                                                >In queue</a
-                                            >
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="kit_ord_inn">
-                                <h5>Rice Combo Meal</h5>
-                                <h6>Order ID : <span>OD12345</span></h6>
-                                <div class="kit_btnn">
-                                    <ul>
-                                        <li>
-                                            <a
-                                                href="javascript:void(0)"
-                                                class="ktc_act"
-                                                >In Progress</a
-                                            >
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)"
-                                                >Completed</a
-                                            >
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)"
-                                                >In queue</a
-                                            >
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="kit_ord_inn">
-                                <h5>Rice Combo Meal</h5>
-                                <h6>Order ID : <span>OD12345</span></h6>
-                                <div class="kit_btnn">
-                                    <ul>
-                                        <li>
-                                            <a
-                                                href="javascript:void(0)"
-                                                class="ktc_act"
-                                                >In Progress</a
-                                            >
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)"
-                                                >Completed</a
-                                            >
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)"
-                                                >In queue</a
-                                            >
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="kit_ord_inn">
-                                <h5>Rice Combo Meal</h5>
-                                <h6>Order ID : <span>OD12345</span></h6>
-                                <div class="kit_btnn">
-                                    <ul>
-                                        <li>
-                                            <a
-                                                href="javascript:void(0)"
-                                                class="ktc_act"
-                                                >In Progress</a
-                                            >
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)"
-                                                >Completed</a
-                                            >
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)"
-                                                >In queue</a
-                                            >
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="kit_ord_inn">
-                                <h5>Rice Combo Meal</h5>
-                                <h6>Order ID : <span>OD12345</span></h6>
-                                <div class="kit_btnn">
-                                    <ul>
-                                        <li>
-                                            <a
-                                                href="javascript:void(0)"
-                                                class="ktc_act"
-                                                >In Progress</a
-                                            >
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)"
-                                                >Completed</a
-                                            >
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)"
-                                                >In queue</a
-                                            >
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="kit_ord_inn">
-                                <h5>Rice Combo Meal</h5>
-                                <h6>Order ID : <span>OD12345</span></h6>
-                                <div class="kit_btnn">
-                                    <ul>
-                                        <li>
-                                            <a
-                                                href="javascript:void(0)"
-                                                class="ktc_act"
-                                                >In Progress</a
-                                            >
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)"
-                                                >Completed</a
-                                            >
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)"
-                                                >In queue</a
-                                            >
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="kit_ord_inn">
-                                <h5>Rice Combo Meal</h5>
-                                <h6>Order ID : <span>OD12345</span></h6>
-                                <div class="kit_btnn">
-                                    <ul>
-                                        <li>
-                                            <a
-                                                href="javascript:void(0)"
-                                                class="ktc_act"
-                                                >In Progress</a
-                                            >
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)"
-                                                >Completed</a
-                                            >
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)"
-                                                >In queue</a
-                                            >
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="kit_ord_inn">
-                                <h5>Rice Combo Meal</h5>
-                                <h6>Order ID : <span>OD12345</span></h6>
-                                <div class="kit_btnn">
-                                    <ul>
-                                        <li>
-                                            <a
-                                                href="javascript:void(0)"
-                                                class="ktc_act"
-                                                >In Progress</a
-                                            >
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)"
-                                                >Completed</a
-                                            >
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)"
-                                                >In queue</a
-                                            >
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+                    <div
+                        v-if="
+                            isLoaded &&
+                                (sortBy == 'all' || sortBy == 'subcribes')
+                        "
+                    >
+                        <SubscriptionAccordionItem
+                            v-for="subscription in subscriptions"
+                            :key="subscription.id"
+                            :subscription="subscription"
+                        />
+                        <div v-if="subscriptions.length === 0">
+                            No Subscribed Orders Yet
+                        </div>
+                    </div>
+                    <div
+                        v-if="
+                            isLoaded && (sortBy == 'all' || sortBy == 'orders')
+                        "
+                    >
+                        <OrderAccordionItem
+                            v-for="order in orders"
+                            :key="order.id"
+                            :order="order"
+                        />
+                        <div v-if="orders.length === 0">
+                            No Orders Yet
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="custom_footer">
@@ -328,7 +80,33 @@
 </template>
 
 <script>
-export default {};
-</script>
+import { mapGetters } from "vuex";
+import SubscriptionAccordionItem from "./components/SubscriptionAccordionItem";
+import OrderAccordionItem from "./components/OrderAccordionItem";
 
-<style></style>
+export default {
+    components: {
+        SubscriptionAccordionItem,
+        OrderAccordionItem
+    },
+    data() {
+        return {
+            isLoaded: false,
+            sortBy: "all"
+        };
+    },
+    mounted() {
+        this.$store.dispatch("kitchenSubscription/subscriptions").then(() => {
+            this.$store.dispatch("kitchenOrder/orders").then(() => {
+                this.isLoaded = true;
+            });
+        });
+    },
+    computed: {
+        ...mapGetters({
+            orders: "kitchenOrder/getOrders",
+            subscriptions: "kitchenSubscription/getSubscriptions"
+        })
+    }
+};
+</script>

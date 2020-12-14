@@ -2,7 +2,8 @@
     <div class="side_bar_blue">
         <div class="blue_side_otr">
             <div class="res_image">
-                <img :src="restaurant.image" />
+                <!-- <img :src="restaurant.image" /> -->
+                <img :src="'/images/download.jpeg'" />
             </div>
             <div class="res_details">
                 <h3>{{ restaurant.name }}</h3>

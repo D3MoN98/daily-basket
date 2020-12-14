@@ -4,6 +4,7 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -19,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'contact_no'
+        'name', 'email', 'password', 'contact_no', 'last_login_at', 'last_login_ip',
     ];
 
     /**
@@ -130,5 +131,20 @@ class User extends Authenticatable
     public function kitchen_staffs()
     {
         return $this->belongsToMany('App\User', 'kitchen_staff', 'added_by', 'user_id')->withPivot('id', 'restaurant_id', 'is_active');
+    }
+
+    public function kitchen_staff()
+    {
+        return $this->hasOne('App\KitchenStaff');
+    }
+
+    public function delivery_boy()
+    {
+        return $this->hasOne('App\DeliveryBoy');
+    }
+
+    public function feedbacks()
+    {
+        return $this->hasMany('App\Feedback');
     }
 }

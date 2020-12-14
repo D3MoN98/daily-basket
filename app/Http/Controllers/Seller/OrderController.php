@@ -12,8 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
 use Carbon\Carbon;
-
-
+use Exception;
 
 class OrderController extends Controller
 {
@@ -65,14 +64,14 @@ class OrderController extends Controller
         $user = Auth::user();
         $restaurant = $user->restaurant;
 
-        $current_orders = $restaurant->orders()->with('user')
+        $past_orders = $restaurant->orders()->whereDate('created_at', '>', Carbon::today())->with('user')
             ->whereHas('user', function (Builder $query) use ($keyword) {
                 $query->where('name', 'like', "%$keyword%");
                 $query->orWhere('contact_no', 'like', "%$keyword%");
             })->orderBy($orderByColumn, $orderBy)->paginate($draw);
 
 
-        return ResourcesOrder::collection($current_orders);
+        return ResourcesOrder::collection($past_orders);
     }
 
     public function assignOrder(Request $request, $id)
@@ -160,5 +159,15 @@ class OrderController extends Controller
     public function show($id)
     {
         //
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        try {
+            Order::find($id)->update(['status' => $request->status]);
+            return response()->json(['success' => 'status changed']);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 }

@@ -180,13 +180,39 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
-    this.$store.dispatch('order/currentOrders');
+    this.$store.dispatch("order/currentOrders");
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
-    current_orders: 'order/getCurrentOrders'
+    current_orders: "order/getCurrentOrders"
   }))
 });
 
@@ -530,11 +556,11 @@ var render = function() {
                         _vm._l(order.order_items, function(order_item) {
                           return _c("p", { key: order_item.id }, [
                             _vm._v(
-                              "\n                " +
+                              "\n                                " +
                                 _vm._s(order_item.name) +
-                                " X " +
+                                " X\n                                " +
                                 _vm._s(order_item.pivot.quantity) +
-                                "\n              "
+                                "\n                            "
                             )
                           ])
                         })
@@ -558,12 +584,15 @@ var render = function() {
                         class: {
                           active_part:
                             _vm._.indexOf(
-                              ["accepted", "processing"],
+                              ["accepted", "in_progress", "delivered"],
                               order.status
                             ) !== -1
                         }
                       },
-                      [_vm._m(1, true), _vm._v("Accepted\n            ")]
+                      [
+                        _vm._m(1, true),
+                        _vm._v("Accepted\n                        ")
+                      ]
                     ),
                     _vm._v(" "),
                     _c(
@@ -572,12 +601,15 @@ var render = function() {
                         class: {
                           active_part:
                             _vm._.indexOf(
-                              ["processing", "out for delivery"],
+                              ["in_progress", "prepared", "delivered"],
                               order.status
                             ) !== -1
                         }
                       },
-                      [_vm._m(2, true), _vm._v("In Progress\n            ")]
+                      [
+                        _vm._m(2, true),
+                        _vm._v("In Progress\n                        ")
+                      ]
                     ),
                     _vm._v(" "),
                     _c(
@@ -586,21 +618,28 @@ var render = function() {
                         class: {
                           active_part:
                             _vm._.indexOf(
-                              ["delivered", "out for delivery"],
+                              ["delivered", "prepared"],
                               order.status
                             ) !== -1
                         }
                       },
                       [
                         _vm._m(3, true),
-                        _vm._v("Out for\n              delivery\n            ")
+                        _vm._v("Out for delivery\n                        ")
                       ]
                     ),
                     _vm._v(" "),
                     _c(
                       "li",
-                      { class: { active_part: order.status == "delivered" } },
-                      [_vm._m(4, true), _vm._v("Delivered\n            ")]
+                      {
+                        class: {
+                          active_part: order.status == "delivered"
+                        }
+                      },
+                      [
+                        _vm._m(4, true),
+                        _vm._v("Delivered\n                        ")
+                      ]
                     )
                   ])
                 ])

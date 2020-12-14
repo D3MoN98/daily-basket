@@ -172,6 +172,10 @@ class CartController extends Controller
     {
         $user = Auth::user();
         Cart::restore($user->id);
+
+        if (Cart::count() === 0)
+            return false;
+
         $menu_id = Cart::content()->first()->id;
         $menu_item = MenuItem::find($menu_id);
         return $menu_item->menu->restaurant->id;

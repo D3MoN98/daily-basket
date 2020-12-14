@@ -47,6 +47,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('order/past/', 'OrderController@pastOrders');
     Route::get('subscription/current/', 'SubscriptionController@currentSubscriptions');
     Route::get('subscription/past/', 'SubscriptionController@pastSubscriptions');
+
+    Route::get('feedback/check/', 'FeedbackController@check');
+    Route::resource('feedback', 'FeedbackController');
 });
 
 
@@ -54,26 +57,48 @@ Route::middleware(['auth:sanctum', 'checkrole:seller'])->namespace('Seller')->pr
     Route::get('order/today/{type?}', 'OrderController@todaysOrder');
     Route::get('order/past/{type?}', 'OrderController@pastOrder');
     Route::get('order/current/{type?}', 'OrderController@currentOrder');
+
     Route::get('subscription/current/{type?}', 'OrderController@currentSubscription');
     Route::get('subscription/past/{type?}', 'OrderController@pastSubscription');
     Route::get('delivery_boy', 'OrderController@getDeleveryBoys');
     Route::put('order/assign/{id}', 'OrderController@assignOrder');
     Route::put('order/delivered/{id}', 'OrderController@orderDelivered');
 
+    Route::put('order/status/update/{id}', 'OrderController@updateStatus');
+
+
     Route::resource('menu', 'MenuController');
     Route::get('menu/change-availablility/{id}', 'MenuController@change_item_available');
     Route::get('restaurant', 'RestaurantController@show');
     Route::post('restaurant', 'RestaurantController@update');
+    Route::post('restaurant/image', 'RestaurantController@update_image');
     Route::get('cuisines', 'RestaurantController@cuisines');
     Route::get('menu_categories', 'RestaurantController@menu_categories');
     Route::get('menu_sub_categories', 'RestaurantController@menu_sub_categories');
 
     Route::post('kitchen-staff/sign-up', 'KitchenController@store');
     Route::get('kitchen-staff', 'KitchenController@index');
-    Route::get('kitchen-staff/change-active/{id}', 'KitchenController@changeActive');
+    Route::post('kitchen-staff/change-active/{id}', 'KitchenController@changeActive');
+
+    Route::post('delivery-boy/sign-up', 'DeliveryBOyController@store');
+
+    Route::get('feedback', 'FeedbackController@index');
 });
 
 
+Route::middleware(['auth:sanctum', 'checkrole:kitchen-staff'])->namespace('Kitchen')->prefix('kitchen-staff/')->group(function () {
+    Route::get('order', 'OrderController@index');
+    Route::get('subscription', 'SubscriptionController@index');
+    Route::put('order_item/status/update/{id}', 'OrderController@updateStatus');
+    Route::put('subscription_item/status/update/{id}', 'SubscriptionController@updateStatus');
+});
+
+Route::middleware(['auth:sanctum', 'checkrole:delivery-boy'])->namespace('Delivery')->prefix('delivery-boy/')->group(function () {
+    Route::get('order', 'OrderController@index');
+    Route::put('order/{id}', 'OrderController@update');
+});
+
 Route::middleware(['auth:sanctum', 'checkrole:admin'])->namespace('Admin')->prefix('admin/')->group(function () {
     Route::get('restaurant', 'RestaurantController@index');
+    Route::post('restaurant/update/verification/{id}', 'RestaurantController@update_verification');
 });

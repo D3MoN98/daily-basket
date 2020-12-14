@@ -10,6 +10,7 @@ use App\Restaurant;
 use App\Role;
 use App\RoleUser;
 use App\User;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -194,8 +195,16 @@ class AuthController extends Controller
 
             if ($user && Auth::attempt(['email' => $request->email, 'password' => $request->password], true)) {
 
+                // // update last login details
+                $user->update([
+                    'last_login_at' => Carbon::now()->toDateTimeString(),
+                    'last_login_ip' => $request->getClientIp()
+                ]);
+
                 $user->role = $user->roles()->first()->name;
                 $tokenResult = $user->createToken('auth_token')->plainTextToken;
+
+
 
                 return response()->json([
                     'auth_token' => $tokenResult,
@@ -207,7 +216,7 @@ class AuthController extends Controller
                 return response()->json(['error' => 'credentials not matched', 'email' => $request->email], 400);
             }
         } catch (Exception $e) {
-            return response()->json(['error' => $e], 500);
+            return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 

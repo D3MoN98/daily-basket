@@ -208,6 +208,23 @@ const routes = [
         }
     },
     {
+        name: "seller.profile",
+        path: "/seller/profile",
+        // @ts-ignore
+        component: () =>
+            import(
+                /* webpackChunkName: "seller-profile" */ "@/views/seller/Profile"
+            ),
+        meta: {
+            // @ts-ignore
+            layout: () =>
+                import(
+                    /* webpackChunkName: "seller-default-layout" */ "@/views/seller/layouts/DefaultLayout"
+                ),
+            middleware: [sellerMiddleware]
+        }
+    },
+    {
         name: "seller.menu",
         path: "/seller/menu",
         // @ts-ignore
@@ -263,6 +280,23 @@ const routes = [
         component: () =>
             import(
                 /* webpackChunkName: "seller-orders" */ "@/views/seller/Orders"
+            ),
+        meta: {
+            // @ts-ignore
+            layout: () =>
+                import(
+                    /* webpackChunkName: "seller-default-layout" */ "@/views/seller/layouts/DefaultLayout"
+                ),
+            middleware: [sellerMiddleware]
+        }
+    },
+    {
+        name: "seller.feedback",
+        path: "/seller/feedback",
+        // @ts-ignore
+        component: () =>
+            import(
+                /* webpackChunkName: "seller-feedback" */ "@/views/seller/Feedback"
             ),
         meta: {
             // @ts-ignore
@@ -365,6 +399,25 @@ const routes = [
             middleware: [deliveryboyMiddleware]
         }
     },
+
+    {
+        name: "delivery-boy.orders",
+        path: "/delivery-boy/orders",
+        // @ts-ignore
+        component: () =>
+            import(
+                /* webpackChunkName: "delivery-boy-order" */ "@/views/delivery/Orders"
+            ),
+        meta: {
+            // @ts-ignore
+            layout: () =>
+                import(
+                    /* webpackChunkName: "delivery-boy-default-layout" */ "@/views/delivery/layouts/DefaultLayout"
+                ),
+            middleware: [deliveryboyMiddleware]
+        }
+    },
+
     {
         path: "*",
         // @ts-ignore

@@ -175,6 +175,7 @@
                                         class="form-control"
                                         placeholder="Contact No."
                                         @keypress="isNumber"
+                                        maxlength="10"
                                     />
                                     <span
                                         v-if="
@@ -340,12 +341,12 @@ export default {
             this.isUniqueContact = true;
             this.formError = false;
 
-            // this.$v.$touch();
-            // if (this.$v.$invalid) {
-            //     this.formError = true;
-            //     this.submitted = false;
-            //     return;
-            // }
+            this.$v.$touch();
+            if (this.$v.$invalid) {
+                this.formError = true;
+                this.submitted = false;
+                return;
+            }
 
             this.$store
                 .dispatch("sellerKitchen/kitchenStaffRegister", this.kitchen)

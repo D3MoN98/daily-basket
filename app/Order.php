@@ -56,6 +56,11 @@ class Order extends Model
 
     public function order_items()
     {
-        return $this->belongsToMany('App\MenuItem', 'order_items')->withPivot('quantity', 'subtotal');
+        return $this->belongsToMany('App\MenuItem', 'order_items')->withPivot('id', 'quantity', 'subtotal', 'cooking_status');
+    }
+
+    public function feedback()
+    {
+        return $this->hasOne('App\Feedback');
     }
 }

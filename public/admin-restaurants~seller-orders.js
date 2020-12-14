@@ -164,6 +164,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     columns: null,
@@ -177,6 +178,7 @@ __webpack_require__.r(__webpack_exports__);
       orderByColumn: "created_at",
       orderBy: "desc",
       isOrdered: false,
+      keyword: "",
       links: {
         first: null,
         last: null,
@@ -227,7 +229,8 @@ __webpack_require__.r(__webpack_exports__);
         params: {
           order_by_column: this.orderByColumn,
           order_by: this.orderBy,
-          draw: this.draw
+          draw: this.draw,
+          keyword: this.keyword
         }
       }).then(function (res) {
         return res.data;
@@ -275,13 +278,12 @@ __webpack_require__.r(__webpack_exports__);
     search: function search($e) {
       var _this3 = this;
 
-      var keyword = $e.target.value;
       axios.get(this.url, {
         params: {
           order_by_column: this.orderByColumn,
           order_by: this.orderBy,
           draw: this.draw,
-          keyword: keyword
+          keyword: this.keyword
         }
       }).then(function (res) {
         return res.data;
@@ -438,7 +440,39 @@ var render = function() {
           staticClass: "col-md-4 offset-4 text-right",
           on: { keyup: _vm.search }
         },
-        [_vm._m(0)]
+        [
+          _c("form", { staticClass: "form-inline" }, [
+            _c("div", { staticClass: "form-group w-100" }, [
+              _c(
+                "label",
+                { staticClass: "control-label", attrs: { for: "search" } },
+                [_vm._v("Search")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.keyword,
+                    expression: "keyword"
+                  }
+                ],
+                staticClass: "form-control flex-grow-1 ml-sm-3",
+                attrs: { type: "text", id: "search" },
+                domProps: { value: _vm.keyword },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.keyword = $event.target.value
+                  }
+                }
+              })
+            ])
+          ])
+        ]
       )
     ]),
     _vm._v(" "),
@@ -492,7 +526,7 @@ var render = function() {
             "tbody",
             [
               _vm.customRow
-                ? _vm._t("default")
+                ? _vm._t("default", null, { data: _vm.rows })
                 : _vm._l(_vm.rows, function(row) {
                     return _c(
                       "tr",
@@ -635,27 +669,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("form", { staticClass: "form-inline" }, [
-      _c("div", { staticClass: "form-group w-100" }, [
-        _c(
-          "label",
-          { staticClass: "control-label", attrs: { for: "search" } },
-          [_vm._v("Search")]
-        ),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control flex-grow-1 ml-sm-3",
-          attrs: { type: "text", id: "search" }
-        })
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

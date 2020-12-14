@@ -78,10 +78,14 @@
                     </a>
                 </li>
                 <li>
-                    <a href="javascript:void()" aria-expanded="false">
+                    <router-link
+                        to="/seller/feedback"
+                        aria-expanded="false"
+                        active-class="select_link"
+                    >
                         <i class="fas fa-comment-dots"></i>
                         <span class="nav-text">Customer Feedback</span>
-                    </a>
+                    </router-link>
                 </li>
             </ul>
         </div>

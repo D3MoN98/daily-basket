@@ -1,17 +1,15 @@
 # features
-    # input search location - done
-    # search restaurant and dish - done
-
-    # subscription box
     # subscription daily delivery
     # coupon
-    # customer feedback
+    # customer feedback - half complete
     # restaurant filter
     # restaurant list based on location
     # landing page with searching location
+    # landing page with login
     # payment tab on profile?
+    # small cart system
 
-    # admin
+    # admin - saturday full
         # customers
         # restaurants
         # monthly revinue
@@ -21,19 +19,14 @@
         # menu listing and editing
         # chart
         # monthly revinue
-        # time picker change
-        # adding delivery boy
-        # adding kitchen staff
 
     # kitchen
-        # kitchen staff member will maanage order
 
     # delivery
-        # delivery related features
+*        # delivery map integration
 
 # small works
     # subscription type dinner/lunch
     # we offer on subscription box
-    # remove button on subscription box - done
     # tell on res details page
     # edit add address issues

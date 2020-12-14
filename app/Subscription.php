@@ -22,6 +22,7 @@ class Subscription extends Model
         'discount',
         'total',
         'type',
+        'status',
         'started_at',
         'expired_at',
     ];
@@ -50,6 +51,11 @@ class Subscription extends Model
 
     public function subscription_items()
     {
-        return $this->belongsToMany('App\MenuItem', 'subscription_items')->withPivot('quantity', 'subtotal');
+        return $this->belongsToMany('App\MenuItem', 'subscription_items')->withPivot('id', 'quantity', 'subtotal', 'cooking_status');
+    }
+
+    public function subscription_deliveries()
+    {
+        return $this->hasMany('App\SubscriptionDelivery');
     }
 }

@@ -11,107 +11,99 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _components_KitchenStaffModal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/KitchenStaffModal */ "./resources/js/views/seller/components/KitchenStaffModal.vue");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+/* harmony import */ var _views_components_Datatable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/views/components/Datatable */ "./resources/js/views/components/Datatable.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       isLoaded: false,
-      isActiveChanged: false
+      url: "/api/seller/kitchen-staff",
+      columns: [{
+        name: "name",
+        label: "Name"
+      }, {
+        name: "contact_no",
+        label: "Contact No"
+      }, {
+        name: "pivot.is_active",
+        label: "Active"
+      }]
     };
   },
   components: {
-    KithcenStaffModal: _components_KitchenStaffModal__WEBPACK_IMPORTED_MODULE_1__["default"]
+    KithcenStaffModal: _components_KitchenStaffModal__WEBPACK_IMPORTED_MODULE_1__["default"],
+    Datatable: _views_components_Datatable__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  mounted: function mounted() {
-    var _this = this;
-
-    this.$store.dispatch("sellerKitchen/kitchenStaffs").then(function () {
-      _this.isLoaded = true;
-    });
-  },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
-    kitchen_staffs: "sellerKitchen/getKitchenStaff"
-  })),
   methods: {
-    changeActive: function changeActive(id) {
-      this.isActiveChanged = true;
-      this.$store.dispatch("sellerKitchen/changeActive", id);
+    updateActive: function updateActive(id) {
+      var _this = this;
+
+      axios.post("/api/seller/kitchen-staff/change-active/".concat(id)).then(function (res) {
+        return res.data;
+      }).then(function (res) {
+        _this.$refs.datatable.fetch(_this.url);
+      });
     }
   }
 });
@@ -129,6 +121,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
+//
 //
 //
 //
@@ -469,12 +462,14 @@ __webpack_require__.r(__webpack_exports__);
       this.submitted = true;
       this.isUnique = true;
       this.isUniqueContact = true;
-      this.formError = false; // this.$v.$touch();
-      // if (this.$v.$invalid) {
-      //     this.formError = true;
-      //     this.submitted = false;
-      //     return;
-      // }
+      this.formError = false;
+      this.$v.$touch();
+
+      if (this.$v.$invalid) {
+        this.formError = true;
+        this.submitted = false;
+        return;
+      }
 
       this.$store.dispatch("sellerKitchen/kitchenStaffRegister", this.kitchen).then(function (response) {
         $("#kithcenStaffModal").modal("hide");
@@ -553,56 +548,62 @@ var render = function() {
       _c("div", { staticClass: "container" }, [
         _vm._m(0),
         _vm._v(" "),
-        _c("div", { staticClass: "sub_tab_table order_mang" }, [
-          _c("table", { staticClass: "table" }, [
-            _vm._m(1),
-            _vm._v(" "),
-            _c(
-              "tbody",
-              _vm._l(_vm.kitchen_staffs, function(kitchen_staff) {
-                return _c("tr", { key: kitchen_staff.id }, [
-                  _c("td", { attrs: { scope: "row" } }, [
-                    _vm._v(_vm._s(kitchen_staff.name))
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(kitchen_staff.contact_no))]),
-                  _vm._v(" "),
-                  _c("td", { staticStyle: { width: "25%" } }, [
-                    _c(
-                      "span",
-                      {
-                        staticClass: "badge cursor-pointer",
-                        class: {
-                          "badge-success": kitchen_staff.pivot.is_active == 1,
-                          "badge-danger": kitchen_staff.pivot.is_active == 0
-                        },
-                        attrs: { role: "button" },
-                        on: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            return _vm.changeActive(kitchen_staff.pivot.id)
-                          }
-                        }
-                      },
-                      [
-                        _vm._v(
-                          _vm._s(
-                            kitchen_staff.pivot.is_active == 1
-                              ? "Active"
-                              : "Not Active"
-                          ) + "\n                            "
-                        )
-                      ]
-                    )
-                  ])
-                ])
-              }),
-              0
-            )
-          ])
-        ]),
+        _c(
+          "div",
+          { staticClass: "sub_tab_table order_mang" },
+          [
+            _c("Datatable", {
+              ref: "datatable",
+              attrs: { columns: _vm.columns, customRow: "true", url: _vm.url },
+              scopedSlots: _vm._u([
+                {
+                  key: "default",
+                  fn: function(rows) {
+                    return _vm._l(rows.data, function(row) {
+                      return _c("tr", { key: row.id }, [
+                        _c("td", [_vm._v(_vm._s(row.name))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(row.contact_no))]),
+                        _vm._v(" "),
+                        _c("td", { staticStyle: { width: "25%" } }, [
+                          _c(
+                            "span",
+                            {
+                              staticClass: "badge cursor-pointer",
+                              class: {
+                                "badge-success": row.pivot.is_active == 1,
+                                "badge-danger": row.pivot.is_active == 0
+                              },
+                              attrs: { role: "button" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.updateActive(row.pivot.id)
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  row.pivot.is_active == 1
+                                    ? "Active"
+                                    : "Not Active"
+                                ) + "\n                        "
+                              )
+                            ]
+                          )
+                        ])
+                      ])
+                    })
+                  }
+                }
+              ])
+            })
+          ],
+          1
+        ),
         _vm._v(" "),
-        _vm._m(2)
+        _vm._m(1)
       ]),
       _vm._v(" "),
       _c("KithcenStaffModal")
@@ -630,20 +631,6 @@ var staticRenderFns = [
         },
         [_vm._v("\n                Add Staff\n            ")]
       )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("Name")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Contact No")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Active")])
-      ])
     ])
   },
   function() {
@@ -962,7 +949,11 @@ var render = function() {
                             "is-invalid":
                               _vm.formError && _vm.$v.kitchen.contact_no.$error
                           },
-                          attrs: { type: "tel", placeholder: "Contact No." },
+                          attrs: {
+                            type: "tel",
+                            placeholder: "Contact No.",
+                            maxlength: "10"
+                          },
                           domProps: { value: _vm.kitchen.contact_no },
                           on: {
                             keypress: _vm.isNumber,

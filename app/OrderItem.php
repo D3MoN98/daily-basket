@@ -18,4 +18,10 @@ class OrderItem extends Model
         'subtotal',
         'cooking_status',
     ];
+
+
+    public function order()
+    {
+        return $this->belongsTo('App\Order');
+    }
 }

@@ -563,6 +563,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -625,13 +632,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     menu_item: null
   },
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
-    cart_items: 'cart/getCartItems'
+    cart_items: "cart/getCartItems"
   })), {}, {
     cart_item: function cart_item() {
       var _this = this;
@@ -645,17 +665,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     addToCart: function addToCart(id, qty) {
       var rowId = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 
-      if (!this.$store.getters['auth/check']) {
-        $('#log_in_modal').modal('show');
+      if (!this.$store.getters["auth/check"]) {
+        $("#log_in_modal").modal("show");
         return false;
       }
 
       var newQty = this.cart_item === undefined ? qty : this.cart_item.qty + qty;
 
       if (newQty <= 0) {
-        this.$store.dispatch('cart/removeFormCart', rowId);
+        this.$store.dispatch("cart/removeFormCart", rowId);
       } else if (newQty > 0) {
-        this.$store.dispatch('cart/addToCart', {
+        this.$store.dispatch("cart/addToCart", {
           id: id,
           qty: qty,
           rowId: rowId
@@ -986,6 +1006,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1020,6 +1049,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -1885,6 +1915,27 @@ var render = function() {
               })
             }),
             _vm._v(" "),
+            _vm.menu_items.length === 0
+              ? _c(
+                  "li",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.isMenuItemLoaded,
+                        expression: "isMenuItemLoaded"
+                      }
+                    ]
+                  },
+                  [
+                    _vm._v(
+                      "\n                No Menu items available\n            "
+                    )
+                  ]
+                )
+              : _vm._e(),
+            _vm._v(" "),
             _vm._l(6, function(index) {
               return _c("MenuItemPlaceholder", {
                 directives: [
@@ -1929,7 +1980,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("li", [
     _c("div", { staticClass: "food_image" }, [
-      _c("img", { attrs: { src: _vm.menu_item.image, alt: "" } })
+      _c("img", { attrs: { src: "/images/download.jpeg", alt: "" } })
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "food_details" }, [
@@ -1953,7 +2004,7 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v("Add")]
+              [_vm._v("\n                Add\n            ")]
             )
           : _c(
               "div",
@@ -2506,6 +2557,27 @@ var render = function() {
               })
             }),
             _vm._v(" "),
+            _vm.recommended_menu_items.length === 0
+              ? _c(
+                  "li",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.isRecommendedMenuItemLoaded,
+                        expression: "isRecommendedMenuItemLoaded"
+                      }
+                    ]
+                  },
+                  [
+                    _vm._v(
+                      "\n                No Menu items available\n            "
+                    )
+                  ]
+                )
+              : _vm._e(),
+            _vm._v(" "),
             _vm._l(6, function(index) {
               return _c("MenuItemPlaceholder", {
                 directives: [
@@ -2551,7 +2623,7 @@ var render = function() {
   return _c("div", { staticClass: "side_bar_blue" }, [
     _c("div", { staticClass: "blue_side_otr" }, [
       _c("div", { staticClass: "res_image" }, [
-        _c("img", { attrs: { src: _vm.restaurant.image } })
+        _c("img", { attrs: { src: "/images/download.jpeg" } })
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "res_details" }, [

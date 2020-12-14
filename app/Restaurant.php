@@ -13,7 +13,7 @@ class Restaurant extends Model
     use Sluggable, SluggableScopeHelpers;
 
     protected $fillable = [
-        'user_id', 'name', 'slug', 'description', 'contact_no', 'image', 'gstin_no', 'fssai_license_no', 'opening_time', 'closing_time', 'subscription', 'cuisines'
+        'user_id', 'name', 'slug', 'description', 'contact_no', 'image', 'gstin_no', 'fssai_license_no', 'opening_time', 'closing_time', 'subscription', 'cuisines', 'is_verified'
     ];
 
     /**
@@ -77,5 +77,25 @@ class Restaurant extends Model
     public function address()
     {
         return $this->user()->addresses()->first();
+    }
+
+    public function feedbacks()
+    {
+        return $this->hasManyThrough('App\Feedback', 'App\Order');
+    }
+
+    public function avgRating()
+    {
+        $feedbacks = $this->feedbacks;
+
+        if ($feedbacks->count() === 0) {
+            return 0;
+        }
+
+        $rating = 0;
+        foreach ($feedbacks as $key) {
+            $rating += $key->rating;
+        }
+        return ceil($rating / $feedbacks->count());
     }
 }
