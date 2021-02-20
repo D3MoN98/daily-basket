@@ -3774,3 +3774,394 @@ table.dataTable thead .sorting {
 .kitchen_order {
     margin-top: 35px;
 }
+
+/**/
+.site_dett > div {
+    padding: 10px 13px;
+
+    width: calc((100% / 5) - 10px);
+}
+.tpline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    min-height: 35px;
+}
+.blue_radius {
+    border: 1px solid #4a97d2;
+    border-radius: 7px;
+}
+.count_det h5 {
+    font-size: 25px;
+    line-height: 1;
+    color: #000000;
+    font-family: "Averta_Semibold";
+}
+.site_dett > div > h6 {
+    font-size: 16px;
+    color: #000;
+    line-height: 1;
+    font-family: "Averta";
+}
+.site_dett {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.act_imgg {
+    margin: auto 0 auto auto;
+}
+.act_imgg img {
+    width: 100%;
+}
+
+.ttl_ordr .act_imgg {
+    width: 30px;
+}
+.ordr_prg .act_imgg {
+    width: 29px;
+}
+.del_ordr .act_imgg {
+    width: 24px;
+}
+.cnsl_or .act_imgg {
+    width: 26px;
+}
+.mbrs .act_imgg {
+    width: 46px;
+}
+
+.act_dwn_arr {
+    margin-top: 35px;
+}
+
+.act_box_hd h3 {
+    color: #000000;
+    line-height: 1;
+    font-family: "Averta_Semibold";
+    font-size: 18px;
+    margin-bottom: 6px;
+}
+.act_box_hd p {
+    color: #000000;
+    line-height: 1;
+    font-family: "Averta_Semibold";
+    font-size: 14px;
+}
+.col_innrr {
+    border: 1px solid #d1d1d1;
+    border-radius: 4px;
+    padding: 15px 20px;
+    height: 100%;
+}
+
+.act_dwn_hd {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.chart_otr,
+.order_itm_loop {
+    margin-top: 30px;
+}
+
+.order_itm_loop ul li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0px;
+    border-top: 1px solid #e3d9d9;
+}
+.order_itm_loop ul li p {
+    color: #030303;
+    line-height: 1;
+    font-family: "Averta";
+    font-size: 14px;
+}
+.order_itm_loop ul li h6 {
+    font-size: 17px;
+    color: #6883b9;
+    line-height: 1;
+    font-family: "Averta_Semibold";
+}
+.act_dwn_arr > .row {
+    margin: 0px -15px;
+}
+.act_dwn_arr > .row > div {
+    padding: 0px 15px;
+}
+
+/*New Update*/
+.finance_top {
+    background: #eaffe8;
+    border: 1px solid #53d24a;
+    padding: 12px 15px;
+    margin-bottom: 25px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.finance_top h3 {
+    color: #53aa4c;
+    font-family: "Averta_Semibold";
+    line-height: 1;
+    font-size: 18px;
+}
+
+.finance_top h4 {
+    font-size: 15px;
+    line-height: 1;
+    font-family: "Averta";
+    color: #181a18;
+}
+.finance_top h4 a {
+    font-family: "Averta_Semibold";
+    color: #53d24a;
+    margin-left: 3px;
+}
+.finance_top h4 span {
+    display: inline-block;
+    margin-right: 4px;
+}
+.finance_inn {
+    padding: 40px 30px;
+    border: 1px solid #4a97d2;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.finance_conte h3 {
+    font-size: 25px;
+    line-height: 1;
+    font-family: "Averta_Semibold";
+    color: #000;
+    margin-bottom: 10px;
+}
+.finance_conte h3 span {
+    display: inline-block;
+    width: 15px;
+    margin-right: 5px;
+}
+.finance_conte h3 span img {
+    width: 100%;
+}
+.finance_conte p {
+    font-size: 18px;
+    line-height: 1;
+    font-family: "Averta";
+    color: #000;
+}
+.finance_otr .row {
+    margin: -15px -12px;
+}
+.finance_otr .row > div[class^="col-"] {
+    padding: 15px 12px;
+}
+.finance_otr {
+    width: 95%;
+}
+
+.rate_innr {
+    margin-top: 10px;
+}
+.rt_hd h5 {
+    color: #090909;
+    font-family: "Averta";
+    line-height: 1;
+    font-size: 24px;
+}
+.rt_hd p {
+    color: #9c9b9b;
+    font-family: "Averta_Semibold";
+    line-height: 22px;
+    font-size: 16px;
+    width: 85%;
+    margin: 16px auto auto auto;
+}
+.rting_star {
+    margin: 15px 0px 24px;
+}
+.rting_star ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px -9px;
+}
+.rting_star ul a {
+    margin: 0px 9px;
+    font-size: 36px;
+    line-height: 1;
+    color: #dbdbdb !important;
+    cursor: pointer;
+}
+
+.rting_star ul a.active_star {
+    color: #ffc107 !important;
+}
+.rtng_prps {
+    margin-bottom: 20px;
+}
+.rtng_textar textarea::placeholder,
+.rtng_textar textarea {
+    color: #9c9b9b;
+    font-size: 16px;
+    line-height: 22px;
+    font-family: "Averta";
+}
+.rtng_textar textarea {
+    width: 100%;
+    border: 0;
+    border-radius: 5px;
+    padding: 10px 12px;
+    border: 1px solid #c8c8c8;
+}
+
+.rtng_prps input {
+    display: none;
+}
+
+.rtng_prps {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.rtng_prps > label {
+    width: 24%;
+    display: block;
+    transition: all 0.4s;
+    cursor: pointer;
+    margin-bottom: 0;
+}
+
+.trng_op_otr {
+    transition: all 0.4s;
+    cursor: pointer;
+    min-height: 67px;
+    background-color: #f9f9f9;
+    border: 1px solid #d0d5d5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rtng_prps > label h3 {
+    text-align: center;
+    margin-top: 8px;
+    color: #9c9b9b;
+    font-size: 12px;
+    font-family: "Averta-Semibold";
+    transition: all 0.4s;
+}
+
+.rtng_prps input:checked + label h3 {
+    color: #6883b9;
+}
+.rtng_prps input:checked + label span {
+    border-color: #6883b9;
+}
+.rtng_prps span img {
+    filter: grayscale(100);
+}
+.rtng_prps input:checked + label span img {
+    filter: grayscale(0);
+}
+/*Landing Page Css*/
+.landing_sec {
+    height: 100vh;
+    width: 80%;
+    margin: auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.top_btn {
+    top: 10%;
+    position: absolute;
+    right: 0;
+    display: flex;
+    align-items: center;
+}
+.top_btn a {
+    font-size: 16px;
+    color: #000;
+    font-family: "Averta-Semibold";
+}
+.top_btn a:first-child:hover {
+    color: #00b1bb;
+}
+.top_btn a:last-child {
+    background-color: #00b1bb;
+    padding: 12px 25px;
+    color: #fff;
+    margin-left: 25px;
+    border: 1px solid transparent;
+}
+.top_btn a:last-child:hover {
+    border-color: #00b1bb;
+    color: #00b1bb;
+    background-color: transparent;
+}
+.sctr_img {
+    margin-bottom: 20px;
+}
+@import url("https://fonts.googleapis.com/css2?family=Courgette&display=swap");
+.cntr_conn h1 {
+    font-family: "Courgette", cursive;
+    font-size: 40px;
+    color: #00b1bb;
+    margin-bottom: 20px;
+}
+.cntr_conn p {
+    font-family: "Averta-Semibold";
+    font-size: 18px;
+    color: #000;
+    margin-bottom: 20px;
+}
+.cntr_conn form {
+    position: relative;
+    max-width: 520px;
+    margin: auto;
+}
+.cntr_conn input,
+.cntr_conn input::placeholder {
+    color: #000;
+    font-size: 16px;
+    font-family: Averta;
+}
+.cntr_conn input {
+    width: 100%;
+    height: 58px;
+    border: 1px solid #d7d7d7;
+    background-color: #fff;
+    padding: 5px 240px 5px 15px;
+    text-overflow: ellipsis;
+}
+.cntr_conn button[type="submit"] {
+    position: absolute;
+    right: 0;
+    height: 58px;
+    font-size: 15px;
+    background-color: #02b0b9;
+    color: #fff;
+    font-family: "Averta-Semibold";
+    width: 120px;
+    padding: 0;
+}
+.cntr_conn form > span:not(.fa) {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 140px;
+    color: #00b1bb;
+}
+.cntr_conn form > span a {
+    font-size: 14px;
+    color: #00b1bb;
+    font-family: "Averta-Semibold";
+}

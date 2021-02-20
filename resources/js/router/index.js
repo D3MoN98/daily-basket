@@ -8,6 +8,7 @@ import adminMiddleware from "./middleware/adminMiddleware";
 import authMiddleware from "./middleware/authMiddleware";
 import deliveryboyMiddleware from "./middleware/deliveryboyMiddleware";
 import kitchenstaffMiddleware from "./middleware/kitchenstaffMiddleware";
+import locationSetMidddleware from "./middleware/locationSetMidddleware";
 import sellerMiddleware from "./middleware/sellerMiddleware";
 import middlewarePipeline from "./middlewarePipeline";
 
@@ -17,15 +18,13 @@ const routes = [
     {
         name: "home",
         path: "/",
-        redirect: "/restaurants/trending",
         // @ts-ignore
         component: () =>
             import(
-                /* webpackChunkName: "restaurants" */ "@/views/frontend/Restaurants"
+                /* webpackChunkName: "landing" */ "@/views/frontend/Landing"
             ),
         meta: {
-            // @ts-ignore
-            layout: DefaultLayout
+            middleware: [locationSetMidddleware]
         }
     },
 
@@ -197,6 +196,23 @@ const routes = [
         component: () =>
             import(
                 /* webpackChunkName: "seller-dashboard" */ "@/views/seller/Dashboard"
+            ),
+        meta: {
+            // @ts-ignore
+            layout: () =>
+                import(
+                    /* webpackChunkName: "seller-default-layout" */ "@/views/seller/layouts/DefaultLayout"
+                ),
+            middleware: [sellerMiddleware]
+        }
+    },
+    {
+        name: "seller.customers",
+        path: "/seller/customers",
+        // @ts-ignore
+        component: () =>
+            import(
+                /* webpackChunkName: "seller-customers" */ "@/views/seller/Customers"
             ),
         meta: {
             // @ts-ignore

@@ -5,6 +5,7 @@ import auth from "./modules/auth";
 import cart from "./modules/cart";
 import checkout from "./modules/checkout";
 import deliveryOrder from "./modules/delivery/order";
+import feedback from "./modules/feedback";
 import kitchenOrder from "./modules/kitchen/order";
 import kitchenSubscription from "./modules/kitchen/subscription";
 import order from "./modules/order";
@@ -28,6 +29,7 @@ export default new Vuex.Store({
         restaurant,
         cart,
         checkout,
+        feedback,
         sellerRestaurant,
         sellerOrder,
         sellerMenu,

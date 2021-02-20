@@ -83,6 +83,8 @@ Route::middleware(['auth:sanctum', 'checkrole:seller'])->namespace('Seller')->pr
     Route::post('delivery-boy/sign-up', 'DeliveryBOyController@store');
 
     Route::get('feedback', 'FeedbackController@index');
+
+    Route::get('customer', 'UserController@index');
 });
 
 

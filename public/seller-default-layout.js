@@ -352,6 +352,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -771,7 +776,32 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _vm._m(0)
+            _c("ul", { attrs: { "aria-expanded": "false" } }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "li",
+                [
+                  _c(
+                    "router-link",
+                    {
+                      attrs: {
+                        to: "/seller/customers",
+                        "active-class": "select_link"
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Customers\n                        "
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm._m(1)
+            ])
           ],
           1
         ),
@@ -875,7 +905,7 @@ var render = function() {
           1
         ),
         _vm._v(" "),
-        _vm._m(1),
+        _vm._m(2),
         _vm._v(" "),
         _c(
           "li",
@@ -909,20 +939,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("ul", { attrs: { "aria-expanded": "false" } }, [
-      _c("li", [
-        _c("a", { attrs: { href: "javascript:void()" } }, [_vm._v("Activity")])
-      ]),
-      _vm._v(" "),
-      _c("li", [
-        _c("a", { attrs: { href: "javascript:void()" } }, [_vm._v("Customers")])
-      ]),
-      _vm._v(" "),
-      _c("li", [
-        _c("a", { attrs: { href: "javascript:void()" } }, [
-          _vm._v("Collections")
-        ])
-      ])
+    return _c("li", [
+      _c("a", { attrs: { href: "javascript:void()" } }, [_vm._v("Activity")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c("a", { attrs: { href: "javascript:void()" } }, [_vm._v("Collections")])
     ])
   },
   function() {

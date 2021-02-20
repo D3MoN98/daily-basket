@@ -17,7 +17,12 @@
                             <a href="javascript:void()">Activity</a>
                         </li>
                         <li>
-                            <a href="javascript:void()">Customers</a>
+                            <router-link
+                                to="/seller/customers"
+                                active-class="select_link"
+                            >
+                                Customers
+                            </router-link>
                         </li>
                         <li>
                             <a href="javascript:void()">Collections</a>

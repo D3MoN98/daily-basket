@@ -22,7 +22,7 @@
 
         <SubscribeModal />
 
-        <FeedBackModal />
+        <FeedBackModal v-if="showFeedback" />
 
         <vue-progress-bar></vue-progress-bar>
     </div>
@@ -56,8 +56,18 @@ export default {
             editAddress: {
                 show: false,
                 id: null
-            }
+            },
+            showFeedback: false
         };
+    },
+    mounted() {
+        if (this.$store.getters["auth/check"]) {
+            this.$store.dispatch("feedback/getOrderId").then(() => {
+                if (this.$store.getters["feedback/order_id"] !== null) {
+                    this.showFeedback = true;
+                }
+            });
+        }
     },
     computed: {
         isRestaurantSidebar() {

@@ -1,11 +1,8 @@
 # features
     # subscription daily delivery
     # coupon
-    # customer feedback - half complete
     # restaurant filter
     # restaurant list based on location
-    # landing page with searching location
-    # landing page with login
     # payment tab on profile?
     # small cart system
 

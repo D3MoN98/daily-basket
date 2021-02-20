@@ -98,4 +98,9 @@ class Restaurant extends Model
         }
         return ceil($rating / $feedbacks->count());
     }
+
+    public function customers()
+    {
+        return $this->belongsToMany('App\User', 'orders', 'restaurant_id', 'user_id')->groupBy('id');
+    }
 }

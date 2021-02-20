@@ -64,10 +64,10 @@
                                         role="button"
                                         data-toggle="modal"
                                         data-dismiss="modal"
-                                        data-target="#sign_up_modal"
+                                        data-target="#log_in_modal"
                                     >
                                         <i class="far fa-user-circle"></i>
-                                        <span class="nav_txt">Sign-Up</span>
+                                        <span class="nav_txt">Login</span>
                                     </a>
                                 </li>
 
@@ -120,17 +120,27 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a
-                                        class="nav-link"
-                                        href="#"
-                                        role="button"
-                                        data-dismiss="modal"
-                                        data-toggle="modal"
-                                        data-target="#log_in_modal"
-                                    >
-                                        <i class="fas fa-shopping-cart"></i>
-                                        <span class="nav_txt">Cart</span>
-                                    </a>
+                                    <div class="dropdown cart-dropdown">
+                                        <a
+                                            class="nav-link dropdown-toggle"
+                                            type="button"
+                                            id="dropdownMenuButton"
+                                            data-toggle="dropdown"
+                                            aria-haspopup="true"
+                                            aria-expanded="false"
+                                        >
+                                            <i class="fas fa-cart-plus"></i>
+                                            <span class="nav_txt">Cart</span>
+                                        </a>
+                                        <div
+                                            class="dropdown-menu dropdown-menu-right shadow"
+                                            aria-labelledby="dropdownMenuButton"
+                                        >
+                                            <div class="cart-content">
+                                                <h2>Cart is empty</h2>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
@@ -158,8 +168,26 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .hdr_add {
     text-overflow: ellipsis;
+}
+.cart-dropdown .dropdown-menu {
+    min-width: 25rem;
+    height: 200px;
+    border: none;
+    margin: 1.35rem 0 0;
+    .cart-content {
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        display: flex;
+    }
+    h2 {
+        margin: auto;
+    }
+    .dropdown-toggle::after {
+        content: none !important;
+    }
 }
 </style>

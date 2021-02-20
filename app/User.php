@@ -103,6 +103,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Order');
     }
 
+    public function deliveredOrders()
+    {
+        return $this->orders()->where('status', 'delivered')->orderBy('created_at', 'asc')->get();
+    }
+
     public function pastOrders()
     {
         return $this->orders()->whereDate('created_at', '<', Carbon::today())->orderBy('created_at', 'desc')->get();

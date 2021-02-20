@@ -40,7 +40,7 @@ class FeedbackController extends Controller
     {
         try {
             $user = Auth::user();
-            $orders = $user->todaysOrders();
+            $orders = $user->deliveredOrders();
             $no_feedback_orders = [];
             foreach ($orders as $key) {
                 if ($key->feedback == null) {
@@ -48,7 +48,11 @@ class FeedbackController extends Controller
                 }
             }
 
-            return response()->json(['order_ids' => $no_feedback_orders]);
+            if (empty($no_feedback_orders)) {
+                return response()->json(['order_id' => null]);
+            }
+
+            return response()->json(['order_id' => $no_feedback_orders[0]]);
         } catch (Exception $e) {
             return response()->json(['error' => $e], 500);
         }
@@ -77,7 +81,8 @@ class FeedbackController extends Controller
                 'user_id' => Auth::user()->id,
                 'order_id' => $request->order_id,
                 'rating' => $request->rating,
-                'review' => $request->review
+                'review' => $request->review,
+                'improve_in' => $request->improve_in
             ]);
 
             return new ResourcesFeedback($feedback);
