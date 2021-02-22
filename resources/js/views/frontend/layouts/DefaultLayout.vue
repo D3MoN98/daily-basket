@@ -16,7 +16,14 @@
             @edit-hide-address="hideEditAddress"
         />
 
-        <LoginModal />
+        <LoginModal v-if="!this.$store.getters['auth/check']" />
+
+        <ForgetPassword v-if="!this.$store.getters['auth/check']" />
+
+        <ResetPassword
+            v-if="reset_password.token != null"
+            :reset_password="reset_password"
+        />
 
         <SignupModal v-if="!this.$store.getters['auth/check']" />
 
@@ -38,6 +45,8 @@ import SignupModal from "@/views/frontend/components/SignupModal";
 import LoginModal from "@/views/frontend/components/LoginModal";
 import SubscribeModal from "@/views/frontend/components/SubscribeModal";
 import FeedBackModal from "@/views/frontend/components/FeedBackModal";
+import ForgetPassword from "@/views/frontend/components/ForgetPassword";
+import ResetPassword from "@/views/frontend/components/ResetPassword";
 
 export default {
     components: {
@@ -49,7 +58,9 @@ export default {
         SignupModal,
         LoginModal,
         SubscribeModal,
-        FeedBackModal
+        FeedBackModal,
+        ForgetPassword,
+        ResetPassword
     },
     data() {
         return {
@@ -57,7 +68,11 @@ export default {
                 show: false,
                 id: null
             },
-            showFeedback: false
+            showFeedback: false,
+            reset_password: {
+                email: null,
+                token: null
+            }
         };
     },
     mounted() {
@@ -68,24 +83,34 @@ export default {
                 }
             });
         }
+
+        if (this.$route.name == "reset.password") {
+            this.reset_password.token = this.$route.query.token;
+            this.reset_password.email = this.$route.query.email;
+
+            setTimeout(() => {
+                $("#reset_password_modal").modal("show");
+            }, 2000);
+        }
     },
     computed: {
-        isRestaurantSidebar() {
-            if (
-                _.indexOf(
-                    [
-                        "restaurants",
-                        "restaurants.new",
-                        "restaurants.trending",
-                        "restaurants.premium"
-                    ],
-                    this.$route.name
-                ) !== -1
-            ) {
-                return true;
-            }
-            return false;
-        },
+        // isRestaurantSidebar() {
+        //     if (
+        //         _.indexOf(
+        //             [
+        //                 "restaurants",
+        //                 "restaurants.new",
+        //                 "restaurants.trending",
+        //                 "restaurants.premium",
+        //                 "reset.password"
+        //             ],
+        //             this.$route.name
+        //         ) !== -1
+        //     ) {
+        //         return true;
+        //     }
+        //     return false;
+        // },
 
         uniqueClass() {
             if (
@@ -94,7 +119,8 @@ export default {
                         "restaurants",
                         "restaurants.new",
                         "restaurants.trending",
-                        "restaurants.premium"
+                        "restaurants.premium",
+                        "reset.password"
                     ],
                     this.$route.name
                 ) !== -1

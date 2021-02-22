@@ -42,18 +42,25 @@
                             </v-text-field>
                         </template>
                     </gmap-autocomplete>
+                    <span
+                        class="text-danger"
+                        v-if="formError && !$v.position.isEmpty.required"
+                        >Location rquired
+                    </span>
                     <!-- <input
                         type="scarch"
                         placeholder="Enter Your Delivery Location"
                     /> -->
                     <button class="btn" type="submit">
                         <span
-                            class="fa fa-circle-o-notch fa-spin"
+                            class="fa fa-circle-notch fa-spin"
                             role="status"
                             aria-hidden="true"
                             v-show="locating"
                         ></span>
-                        <span v-show="!locating">Order Food</span>
+                        <span v-show="!locating"
+                            >Order Food {{ $v.position.isEmpty.required }}</span
+                        >
                     </button>
                     <span
                         ><a href="" @click.prevent="locateMe"
@@ -73,6 +80,7 @@
 <script>
 import SignupModal from "@/views/frontend/components/SignupModal";
 import LoginModal from "@/views/frontend/components/LoginModal";
+import { required } from "vuelidate/lib/validators";
 
 export default {
     components: {
@@ -86,12 +94,23 @@ export default {
                 lat: 0,
                 lng: 0
             },
+            formError: false,
             autocompleteOptions: {
                 componentRestrictions: {
                     country: ["in"]
                 }
             }
         };
+    },
+
+    validations: {
+        position: {
+            isEmpty() {
+                return !(
+                    this.currentPos.lat === 0 && this.currentPos.lng === 0
+                );
+            }
+        }
     },
 
     methods: {
@@ -104,6 +123,16 @@ export default {
         },
 
         saveLocation() {
+            this.locating = true;
+            this.formError = false;
+
+            this.$v.$touch();
+            if (this.$v.$invalid) {
+                this.formError = true;
+                this.locating = false;
+                return;
+            }
+
             this.$store
                 .dispatch("auth/setCurrentLocation", this.currentPos)
                 .then(() => {
@@ -114,7 +143,7 @@ export default {
 
         // locate me to get current location
         locateMe() {
-            this.locating = true;
+            // this.locating = true;
 
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(

@@ -19,6 +19,10 @@ Route::post('seller/sign-up', 'AuthController@seller_signup');
 Route::post('delivery/sign-up', 'AuthController@delivery_boy_signup');
 Route::post('login', 'AuthController@login');
 
+Route::post('forgot-password', 'AuthController@forget_password')->middleware('guest')->name('password.email');
+Route::get('reset-password/{token}', 'AuthController@reset_password_token')->middleware('guest')->name('password.reset');
+Route::post('reset-password', 'AuthController@reset_password')->middleware('guest')->name('password.update');
+
 //restaurant
 Route::get('restaurants/trending', 'RestaurantController@trending');
 Route::get('restaurants/new', 'RestaurantController@new');

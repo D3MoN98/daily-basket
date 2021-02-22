@@ -170,6 +170,30 @@ const actions = {
     },
     async setDeleveryAddress(context, address) {
         context.commit("setDeleveryAddress", address);
+    },
+    forgetPassword({ commit, dispatch }, data) {
+        return new Promise((resolve, reject) => {
+            axios
+                .post("api/forgot-password", data)
+                .then(response => {
+                    resolve(response);
+                })
+                .catch(err => {
+                    reject(err);
+                });
+        });
+    },
+    resetPassword({ commit, dispatch }, data) {
+        return new Promise((resolve, reject) => {
+            axios
+                .post("api/reset-password", data)
+                .then(response => {
+                    resolve(response);
+                })
+                .catch(err => {
+                    reject(err);
+                });
+        });
     }
 };
 

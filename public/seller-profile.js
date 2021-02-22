@@ -962,7 +962,7 @@ var render = function() {
                           expression: "submitted"
                         }
                       ],
-                      staticClass: "fa fa-circle-o-notch fa-spin",
+                      staticClass: "fa fa-circle-notch fa-spin",
                       attrs: { role: "status", "aria-hidden": "true" }
                     })
                   ]
@@ -1296,7 +1296,7 @@ var render = function() {
                         expression: "restSubmitted"
                       }
                     ],
-                    staticClass: "fa fa-circle-o-notch fa-spin",
+                    staticClass: "fa fa-circle-notch fa-spin",
                     attrs: { role: "status", "aria-hidden": "true" }
                   })
                 ]

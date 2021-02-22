@@ -33,7 +33,10 @@
                         >+</span
                     >
                 </div>
-                <p>{{ parseFloat(menu_item.price).toFixed(2) }}</p>
+                <p>
+                    <i class="fas fa-rupee-sign    "></i>
+                    {{ parseFloat(menu_item.price).toFixed(2) }}
+                </p>
             </div>
         </div>
     </li>

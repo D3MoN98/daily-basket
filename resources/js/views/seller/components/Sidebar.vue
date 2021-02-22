@@ -77,10 +77,14 @@
                     </router-link>
                 </li>
                 <li>
-                    <a href="javascript:void()" aria-expanded="false">
+                    <router-link
+                        to="/seller/finance"
+                        aria-expanded="false"
+                        active-class="select_link"
+                    >
                         <i class="far fa-chart-bar"></i>
                         <span class="nav-text">Finance</span>
-                    </a>
+                    </router-link>
                 </li>
                 <li>
                     <router-link

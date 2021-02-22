@@ -12,12 +12,16 @@ use App\RoleUser;
 use App\User;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Spatie\Geocoder\Facades\Geocoder;
+use Illuminate\Support\Str;
+
 
 class AuthController extends Controller
 {
@@ -251,6 +255,60 @@ class AuthController extends Controller
             return new ResourcesRestaurant(Auth::user()->restaurant);
         } catch (Exception $e) {
             return response()->json(['error' => $e]);
+        }
+    }
+
+    public function forget_password(Request $request)
+    {
+
+        try {
+            $request->validate(['email' => 'required|email']);
+
+            $status = Password::sendResetLink(
+                $request->only('email')
+            );
+
+            return $status === Password::RESET_LINK_SENT
+                ? response()->json(['success' => __($status)])
+                : response()->json(['error' => __($status)], 422);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e], 500);
+        }
+    }
+
+    public function reset_password_token($token)
+    {
+        return response()->json(['token' => $token]);
+    }
+
+    public function reset_password(Request $request)
+    {
+
+        try {
+            $request->validate([
+                'token' => 'required',
+                'email' => 'required|email',
+                'password' => 'required|min:8|confirmed',
+            ]);
+
+            $status = Password::reset(
+                $request->only('email', 'password', 'password_confirmation', 'token'),
+                function ($user, $password) use ($request) {
+                    $user->forceFill([
+                        'password' => Hash::make($password)
+                    ])->save();
+
+                    $user->setRememberToken(Str::random(60));
+
+                    event(new PasswordReset($user));
+                }
+            );
+
+            return $status == Password::PASSWORD_RESET
+                ? response()->json(['success' => __($status)])
+                : response()->json(['error' => __($status)], 422);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e], 500);
         }
     }
 }

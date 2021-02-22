@@ -73,7 +73,11 @@
                 </div>
               </div>-->
                             <div class="forget_pass float-right">
-                                <a href="javaScript:void(0);"
+                                <a
+                                    href="javaScript:void(0);"
+                                    data-toggle="modal"
+                                    data-target="#foregt_password_modal"
+                                    data-dismiss="modal"
                                     >Forgot password?</a
                                 >
                             </div>
@@ -86,7 +90,7 @@
                             >
                                 Login
                                 <span
-                                    class="fa fa-circle-o-notch fa-spin"
+                                    class="fa fa-circle-notch fa-spin"
                                     role="status"
                                     aria-hidden="true"
                                     v-show="submitted"

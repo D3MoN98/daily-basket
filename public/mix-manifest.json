@@ -36,5 +36,6 @@
     "/vendors~restaurant-details.js": "/vendors~restaurant-details.js",
     "/vendors~seller-deleveries~seller-menu.js": "/vendors~seller-deleveries~seller-menu.js",
     "/vendors~seller-menu.js": "/vendors~seller-menu.js",
-    "/vendors~seller-profile.js": "/vendors~seller-profile.js"
+    "/vendors~seller-menu~seller-profile.js": "/vendors~seller-menu~seller-profile.js",
+    "/seller-finance.js": "/seller-finance.js"
 }

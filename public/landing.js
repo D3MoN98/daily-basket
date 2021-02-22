@@ -11,6 +11,8 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_frontend_components_SignupModal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/views/frontend/components/SignupModal */ "./resources/js/views/frontend/components/SignupModal.vue");
 /* harmony import */ var _views_frontend_components_LoginModal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/views/frontend/components/LoginModal */ "./resources/js/views/frontend/components/LoginModal.vue");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__);
 //
 //
 //
@@ -83,6 +85,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -97,12 +107,20 @@ __webpack_require__.r(__webpack_exports__);
         lat: 0,
         lng: 0
       },
+      formError: false,
       autocompleteOptions: {
         componentRestrictions: {
           country: ["in"]
         }
       }
     };
+  },
+  validations: {
+    position: {
+      isEmpty: function isEmpty() {
+        return !(this.currentPos.lat === 0 && this.currentPos.lng === 0);
+      }
+    }
   },
   methods: {
     getAddressData: function getAddressData(address) {
@@ -115,6 +133,16 @@ __webpack_require__.r(__webpack_exports__);
     saveLocation: function saveLocation() {
       var _this = this;
 
+      this.locating = true;
+      this.formError = false;
+      this.$v.$touch();
+
+      if (this.$v.$invalid) {
+        this.formError = true;
+        this.locating = false;
+        return;
+      }
+
       this.$store.dispatch("auth/setCurrentLocation", this.currentPos).then(function () {
         _this.locating = false;
 
@@ -125,8 +153,7 @@ __webpack_require__.r(__webpack_exports__);
     locateMe: function locateMe() {
       var _this2 = this;
 
-      this.locating = true;
-
+      // this.locating = true;
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
           _this2.currentPos = {
@@ -241,6 +268,12 @@ var render = function() {
                 ])
               }),
               _vm._v(" "),
+              _vm.formError && !_vm.$v.position.isEmpty.required
+                ? _c("span", { staticClass: "text-danger" }, [
+                    _vm._v("Location rquired\n                ")
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
               _c("button", { staticClass: "btn", attrs: { type: "submit" } }, [
                 _c("span", {
                   directives: [
@@ -251,7 +284,7 @@ var render = function() {
                       expression: "locating"
                     }
                   ],
-                  staticClass: "fa fa-circle-o-notch fa-spin",
+                  staticClass: "fa fa-circle-notch fa-spin",
                   attrs: { role: "status", "aria-hidden": "true" }
                 }),
                 _vm._v(" "),
@@ -267,7 +300,11 @@ var render = function() {
                       }
                     ]
                   },
-                  [_vm._v("Order Food")]
+                  [
+                    _vm._v(
+                      "Order Food " + _vm._s(_vm.$v.position.isEmpty.required)
+                    )
+                  ]
                 )
               ]),
               _vm._v(" "),

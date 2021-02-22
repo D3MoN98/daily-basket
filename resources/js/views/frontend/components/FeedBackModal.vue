@@ -169,7 +169,7 @@
                             >
                                 Submit
                                 <span
-                                    class="fa fa-circle-o-notch fa-spin"
+                                    class="fa fa-circle-notch fa-spin"
                                     role="status"
                                     aria-hidden="true"
                                     v-show="submitted"

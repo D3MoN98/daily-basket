@@ -120,7 +120,7 @@
                             <button type="submit" class="btn btn-primary">
                                 Update Profile
                                 <span
-                                    class="fa fa-circle-o-notch fa-spin"
+                                    class="fa fa-circle-notch fa-spin"
                                     role="status"
                                     aria-hidden="true"
                                     v-show="submitted"
@@ -344,7 +344,7 @@
                         <button type="submit" class="btn btn-primary">
                             Update Restaurant Details
                             <span
-                                class="fa fa-circle-o-notch fa-spin"
+                                class="fa fa-circle-notch fa-spin"
                                 role="status"
                                 aria-hidden="true"
                                 v-show="restSubmitted"

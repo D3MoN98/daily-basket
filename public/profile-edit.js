@@ -177,6 +177,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -209,12 +220,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   mounted: function mounted() {
     var _this = this;
 
-    this.$store.dispatch('user/getUser').then(function () {
+    this.$store.dispatch("user/getUser").then(function () {
       _this.user = _this.userdata;
     });
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({
-    userdata: 'user/user'
+    userdata: "user/user"
   })),
   methods: {
     updateProfile: function updateProfile() {
@@ -230,11 +241,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return;
       }
 
-      this.$store.dispatch('user/updateUser', this.user).then(function () {
+      this.$store.dispatch("user/updateUser", this.user).then(function () {
         _this2.submitted = false;
         _this2.formError = false;
-        toastr.success('Profile updated', '', {
-          positionClass: 'toast-bottom-center',
+        toastr.success("Profile updated", "", {
+          positionClass: "toast-bottom-center",
           timeOut: 1500,
           closeButton: !0,
           debug: !1,
@@ -242,13 +253,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           progressBar: !0,
           preventDuplicates: !0,
           onclick: null,
-          showDuration: '300',
-          hideDuration: '1000',
-          extendedTimeOut: '1000',
-          showEasing: 'swing',
-          hideEasing: 'linear',
-          showMethod: 'fadeIn',
-          hideMethod: 'fadeOut',
+          showDuration: "300",
+          hideDuration: "1000",
+          extendedTimeOut: "1000",
+          showEasing: "swing",
+          hideEasing: "linear",
+          showMethod: "fadeIn",
+          hideMethod: "fadeOut",
           tapToDismiss: !1
         });
       })["catch"](function (error) {
@@ -520,7 +531,9 @@ var render = function() {
               "button",
               { staticClass: "btn btn-primary", attrs: { type: "submit" } },
               [
-                _vm._v("\n          Update Profile\n          "),
+                _vm._v(
+                  "\n                    Update Profile\n                    "
+                ),
                 _c("span", {
                   directives: [
                     {
@@ -530,7 +543,7 @@ var render = function() {
                       expression: "submitted"
                     }
                   ],
-                  staticClass: "fa fa-circle-o-notch fa-spin",
+                  staticClass: "fa fa-circle-notch fa-spin",
                   attrs: { role: "status", "aria-hidden": "true" }
                 })
               ]

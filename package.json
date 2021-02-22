@@ -40,6 +40,7 @@
         "vue-axios": "^2.1.5",
         "vue-axios-interceptors": "^0.3.2",
         "vue-content-loader": "^0.2.3",
+        "vue-cool-lightbox": "^2.7.1",
         "vue-croppie": "^2.0.2",
         "vue-currency-input": "^1.22.2",
         "vue-google-autocomplete": "^1.1.0",

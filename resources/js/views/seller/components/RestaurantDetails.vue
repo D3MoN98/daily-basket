@@ -3,7 +3,13 @@
         <div class="menu_tp_lft">
             <div class="lef_inr_lft">
                 <div class="img_arr">
-                    <img :src="restaurant.image" alt />
+                    <img
+                        v-for="(image, imageIndex) in [restaurant.image]"
+                        :key="imageIndex"
+                        @click="index = imageIndex"
+                        :src="image"
+                        alt=""
+                    />
                     <div class="suc_msg">
                         <i class="fas fa-check"></i>
                     </div>
@@ -11,10 +17,26 @@
                 <div class="image_optn">
                     <ul>
                         <li>
-                            <a href>Preview</a>
+                            <a
+                                href="#"
+                                v-for="(image, imageIndex) in [
+                                    restaurant.image
+                                ]"
+                                :key="imageIndex"
+                                @click.prevent="index = imageIndex"
+                                :src="image"
+                                alt=""
+                                >Preview</a
+                            >
                         </li>
                         <li>
-                            <a href>Change</a>
+                            <a href="#" @click.prevent="changeFile"
+                                >Change
+                                <input
+                                    type="file"
+                                    id="changeFile"
+                                    @change="croppie"
+                            /></a>
                         </li>
                     </ul>
                 </div>
@@ -26,12 +48,6 @@
                     <p>Ph No. : {{ restaurant.contact_no }}</p>
                 </div>
                 <div class="selct_bxx">
-                    <!-- <select id="food_cat">
-            <option value="hide">-- Secect Cat --</option>
-            <option value="A" rel="icon-temperature">North Indian</option>
-            <option value="B">Chinese</option>
-            <option value="C">Moglai</option>
-          </select>-->
                     <multiselect
                         v-model="res.cuisines"
                         :options="cuisines"
@@ -59,6 +75,14 @@
                 </div>
             </div>
         </div>
+        <CoolLightBox
+            :items="[restaurant.image]"
+            :index="index"
+            :fullScreen="true"
+            @close="index = null"
+        >
+        </CoolLightBox>
+
         <div class="menu_tp_rgt">
             <form @submit.prevent="save">
                 <div class="open_time">
@@ -66,12 +90,6 @@
                         <li>
                             <p>Opening Time :</p>
                             <div class="in_bxx">
-                                <!-- <VueClockPicker
-                                :input-class="'form-control form_control_cus clockpicker'"
-                                v-model="res.opening_time"
-                                :placeholder="'Enter Time'"
-                                @timeset="updateRestauramt({opening_time: res.opening_time})"
-                                /> -->
                                 <vue-timepicker
                                     :input-class="
                                         'form-control form_control_cus clockpicker'
@@ -109,18 +127,6 @@
                                     hide-clear-button
                                     auto-scroll
                                 ></vue-timepicker>
-                                <!-- <VueClockPicker
-                                    :input-class="
-                                        'form-control form_control_cus clockpicker'
-                                    "
-                                    v-model="res.closing_time"
-                                    :placeholder="'Enter Time'"
-                                    @timeset="
-                                        updateRestauramt({
-                                            closing_time: res.closing_time
-                                        })
-                                    "
-                                /> -->
                             </div>
                         </li>
                     </ul>
@@ -166,6 +172,62 @@
                 </div>
             </form>
         </div>
+
+        <!-- Modal -->
+        <div
+            class="modal fade"
+            id="crop"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="modelTitleId"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <form @submit.prevent="crop">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Crop And Upload</h5>
+                            <button
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                            >
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <vue-croppie
+                                ref="croppieRef"
+                                :enableOrientation="true"
+                                :mouseWheelZoom="false"
+                                :boundary="{ width: 665, height: 505 }"
+                                :viewport="{
+                                    width: 640,
+                                    height: 480,
+                                    type: 'square'
+                                }"
+                            >
+                            </vue-croppie>
+                            <!-- the result -->
+                            <!-- <img :src="cropped" /> -->
+                        </div>
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-secondary"
+                                data-dismiss="modal"
+                            >
+                                Cancel
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                Crop and Upload
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -180,11 +242,19 @@ import VueTimepicker from "vue2-timepicker";
 // CSS
 import "vue2-timepicker/dist/VueTimepicker.css";
 
+// use the component
+import CoolLightBox from "vue-cool-lightbox";
+import "vue-cool-lightbox/dist/vue-cool-lightbox.min.css";
+
+import VueCroppie from "vue-croppie";
+import "croppie/croppie.css"; // import the croppie css manually
+
 export default {
     components: {
         // VueClockPicker,
         VueTimepicker,
-        Multiselect
+        Multiselect,
+        CoolLightBox
     },
     data() {
         return {
@@ -194,7 +264,11 @@ export default {
                 closing_time: this.restaurant.closing_time,
                 cuisines: this.restaurant.cuisines
             },
-            value: []
+            value: [],
+            index: null,
+
+            croppieImage: "",
+            cropped: null
         };
     },
     props: {
@@ -234,20 +308,84 @@ export default {
             });
 
             this.updateRestauramt({ cuisines: _.join(cuisines, ",") });
+        },
+        changeFile() {
+            document.getElementById("changeFile").click();
+        },
+        croppie(e) {
+            var files = e.target.files || e.dataTransfer.files;
+            if (!files.length) return;
+
+            var reader = new FileReader();
+            reader.onload = e => {
+                this.$refs.croppieRef.bind({
+                    url: e.target.result
+                });
+            };
+
+            reader.readAsDataURL(files[0]);
+
+            $("#crop").modal("show");
+        },
+        crop() {
+            // Options can be updated.
+            // Current option will return a base64 version of the uploaded image with a size of 600px X 450px.
+            let options = {
+                type: "base64",
+                size: { width: 640, height: 480 },
+                format: "jpeg"
+            };
+            let data = null;
+            this.$refs.croppieRef.result(options, output => {
+                this.cropped = output;
+
+                const data = new FormData();
+                data.append("image", output);
+
+                this.$store
+                    .dispatch("sellerRestaurant/updateRestaurantImage", data)
+                    .then(() => {
+                        $("#crop").modal("hide");
+
+                        toastr.success("Restaurant image updated", "", {
+                            positionClass: "toast-bottom-center",
+                            timeOut: 1500,
+                            closeButton: true,
+                            debug: false,
+                            progressBar: false,
+                            preventDuplicates: false,
+                            onclick: null,
+                            timeOut: "5000",
+                            extendedTimeOut: "1000",
+                            showEasing: "swing",
+                            hideEasing: "linear",
+                            showMethod: "fadeIn",
+                            hideMethod: "fadeOut",
+                            tapToDismiss: !1
+                        });
+                    })
+                    .catch(error => {
+                        toastr.error("Something went wrong", "", {
+                            positionClass: "toast-bottom-center",
+                            closeButton: true,
+                            debug: false,
+                            newestOnTop: false,
+                            progressBar: false,
+                            preventDuplicates: false,
+                            onclick: null,
+                            timeOut: "5000",
+                            extendedTimeOut: "1000",
+                            showEasing: "swing",
+                            hideEasing: "linear",
+                            showMethod: "fadeIn",
+                            hideMethod: "fadeOut"
+                        });
+                    });
+            });
         }
     }
 };
 </script>
-
-<style lang="scss">
-// .clock-picker__canvas {
-//     display: flex;
-//     justify-content: center;
-// }
-// .clockpicker {
-//     text-align: center;
-// }
-</style>
 
 <style lang="scss" scoped>
 .clockpicker {
@@ -263,5 +401,8 @@ export default {
     .suc_msg {
         position: absolute;
     }
+}
+#changeFile {
+    // display: none;
 }
 </style>

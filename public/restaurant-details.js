@@ -645,6 +645,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -2051,7 +2054,14 @@ var render = function() {
               ]
             ),
         _vm._v(" "),
-        _c("p", [_vm._v(_vm._s(parseFloat(_vm.menu_item.price).toFixed(2)))])
+        _c("p", [
+          _c("i", { staticClass: "fas fa-rupee-sign    " }),
+          _vm._v(
+            "\n                " +
+              _vm._s(parseFloat(_vm.menu_item.price).toFixed(2)) +
+              "\n            "
+          )
+        ])
       ])
     ])
   ])
@@ -2456,7 +2466,7 @@ var render = function() {
                       expression: "submitted"
                     }
                   ],
-                  staticClass: "fa fa-circle-o-notch fa-spin",
+                  staticClass: "fa fa-circle-notch fa-spin",
                   attrs: { role: "status", "aria-hidden": "true" }
                 })
               ]

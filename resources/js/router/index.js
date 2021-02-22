@@ -29,6 +29,35 @@ const routes = [
     },
 
     {
+        name: "reset.password",
+        path: "/reset-password",
+        // @ts-ignore
+        component: () =>
+            import(
+                /* webpackChunkName: "restaurants" */ "@/views/frontend/Restaurants"
+            ),
+        meta: {
+            // @ts-ignore
+            layout: DefaultLayout
+        },
+        children: [
+            {
+                name: "reset.password",
+                path: "",
+                // @ts-ignore
+                component: () =>
+                    import(
+                        /* webpackChunkName: "trending-restaurants" */ "@/views/frontend/components/TrendingRestaurants"
+                    ),
+                meta: {
+                    // @ts-ignore
+                    layout: DefaultLayout
+                }
+            }
+        ]
+    },
+
+    {
         name: "restaurants",
         path: "/restaurants",
         redirect: "/restaurants/trending",
@@ -313,6 +342,23 @@ const routes = [
         component: () =>
             import(
                 /* webpackChunkName: "seller-feedback" */ "@/views/seller/Feedback"
+            ),
+        meta: {
+            // @ts-ignore
+            layout: () =>
+                import(
+                    /* webpackChunkName: "seller-default-layout" */ "@/views/seller/layouts/DefaultLayout"
+                ),
+            middleware: [sellerMiddleware]
+        }
+    },
+    {
+        name: "seller.finance",
+        path: "/seller/finance",
+        // @ts-ignore
+        component: () =>
+            import(
+                /* webpackChunkName: "seller-finance" */ "@/views/seller/Finance"
             ),
         meta: {
             // @ts-ignore

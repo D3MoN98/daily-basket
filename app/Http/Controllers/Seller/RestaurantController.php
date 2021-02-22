@@ -119,7 +119,8 @@ class RestaurantController extends Controller
                         'image' => $path
                     ]);
 
-                    return response()->json(['success' => 'image uploaded successfully']);
+                    return
+                        new ResourcesRestaurant($user->restaurant);
                 }
             }
         } catch (Exception $e) {

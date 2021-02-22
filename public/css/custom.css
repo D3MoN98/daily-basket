@@ -691,7 +691,7 @@ i.kithen_image {
     top: 55%;
     transform: translateY(-50%);
     content: "\f107";
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Pro";
     font-size: 18px;
     color: #203b72;
 }
@@ -1057,7 +1057,7 @@ hdr_del a:focus .hdr_add {
     top: 44%;
     transform: translateY(-50%);
     bottom: 0;
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Pro";
     content: "\f105";
     color: transparent;
     font-size: 15px;
@@ -1418,7 +1418,7 @@ body {
     font-size: 15px;
     color: #6883b9;
 
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Pro";
     font-weight: 500;
     transition: all 0.4s;
 }
@@ -2525,7 +2525,7 @@ input:checked + .sliderr:before {
     content: "";
     top: 50%;
     transform: translateY(-50%);
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Pro";
     content: "\f067";
     position: absolute;
     color: #38b96b;
@@ -2684,7 +2684,7 @@ input:checked + .sliderr:before {
     padding-left: 22px;
 }
 .add_image.after_adding a.animtn::before {
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Pro";
     content: "\f058";
     position: absolute;
     color: #38b96b;

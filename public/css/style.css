@@ -11191,7 +11191,7 @@ input[type="checkbox"]:checked:after {
     height: 1.2rem;
     display: block;
     content: "\f00c";
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Pro";
     color: #fff;
     font-weight: 100;
     text-align: center;
@@ -15235,7 +15235,7 @@ button:focus {
 }
 .tdl-holder input[type="checkbox"]:checked + i::after {
     content: "\f00c";
-    font-family: "fontAwesome";
+    font-family: "Font Awesome 5 Pro";
     display: block;
     left: 1px;
     position: absolute;

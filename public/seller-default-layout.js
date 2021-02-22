@@ -239,6 +239,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
     logout: function logout() {
@@ -258,6 +259,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
 //
 //
 //
@@ -522,6 +527,7 @@ var render = function() {
                             "a",
                             {
                               staticClass: "dropdown-item",
+                              attrs: { href: "#" },
                               on: {
                                 click: function($event) {
                                   $event.preventDefault()
@@ -905,7 +911,27 @@ var render = function() {
           1
         ),
         _vm._v(" "),
-        _vm._m(2),
+        _c(
+          "li",
+          [
+            _c(
+              "router-link",
+              {
+                attrs: {
+                  to: "/seller/finance",
+                  "aria-expanded": "false",
+                  "active-class": "select_link"
+                }
+              },
+              [
+                _c("i", { staticClass: "far fa-chart-bar" }),
+                _vm._v(" "),
+                _c("span", { staticClass: "nav-text" }, [_vm._v("Finance")])
+              ]
+            )
+          ],
+          1
+        ),
         _vm._v(" "),
         _c(
           "li",
@@ -949,22 +975,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("li", [
       _c("a", { attrs: { href: "javascript:void()" } }, [_vm._v("Collections")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c(
-        "a",
-        { attrs: { href: "javascript:void()", "aria-expanded": "false" } },
-        [
-          _c("i", { staticClass: "far fa-chart-bar" }),
-          _vm._v(" "),
-          _c("span", { staticClass: "nav-text" }, [_vm._v("Finance")])
-        ]
-      )
     ])
   }
 ]

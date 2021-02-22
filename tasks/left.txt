@@ -1,10 +1,10 @@
 # features
+    # small cart system
+    # restaurant list based on location
     # subscription daily delivery
     # coupon
     # restaurant filter
-    # restaurant list based on location
     # payment tab on profile?
-    # small cart system
 
     # admin - saturday full
         # customers

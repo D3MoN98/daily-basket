@@ -122,6 +122,7 @@
                                         </router-link>
 
                                         <a
+                                            href="#"
                                             @click.prevent="logout"
                                             class="dropdown-item"
                                         >
