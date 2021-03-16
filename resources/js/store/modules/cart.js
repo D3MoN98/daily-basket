@@ -3,6 +3,7 @@ import axios from "axios";
 const state = {
     cart_items: [],
     restaurant_id: null,
+    restaurant: null,
     subscribe: JSON.parse(localStorage.getItem("subscribe")) || {
         restaurant_id: null,
         applied: false,
@@ -15,6 +16,7 @@ const getters = {
     getCartItems: state => state.cart_items,
     isCartEmpty: state => state.cart_items.length === 0,
     getRestaurantId: state => state.restaurant_id,
+    getRestaurant: state => state.restaurant,
     isSubscribeApplied: state => state.subscribe.applied,
     getSubscribe: state => state.subscribe,
     getSubscribeDateDiff: state => {
@@ -36,6 +38,12 @@ const getters = {
             ? getters.getSubscribeDateDiff
             : 1;
         return subtotal * subscriptionMultiply;
+    },
+    getTotalCartCount: (state, getters) => {
+        if (state.cart_items.length === 0) {
+            return 0;
+        }
+        return state.cart_items.reduce((acc, value) => acc + value.qty, 0);
     }
 };
 
@@ -45,6 +53,9 @@ const mutations = {
     },
     setRestaurantId(state, payload) {
         state.restaurant_id = payload;
+    },
+    setRestaurant(state, payload) {
+        state.restaurant = payload;
     },
     setSubscribe(state, { start, end }) {
         if (state.restaurant_id) {
@@ -75,6 +86,7 @@ const actions = {
             .then(res => {
                 commit("setCartItems", res.data);
                 commit("setRestaurantId", res.restaurant_id);
+                commit("setRestaurant", res.restaurant);
             })
             .catch(err => {
                 console.log(err);
@@ -92,6 +104,7 @@ const actions = {
                 if (!res.error) {
                     commit("setCartItems", res.data);
                     commit("setRestaurantId", res.restaurant_id);
+                    commit("setRestaurant", res.restaurant);
                 } else {
                     Swal.fire({
                         title: "Do you want to refresh the cart?",

@@ -57,12 +57,7 @@
                         aria-expanded="false"
                         active-class="select_link"
                     >
-                        <i class="kithen_image">
-                            <img
-                                :src="'/images/custom_image/kitchen_blue.png'"
-                                alt="Pic-not-found"
-                            />
-                        </i>
+                        <i class="fas fa-hat-chef"></i>
                         <span class="nav-text">Kitchen Staff</span>
                     </router-link>
                 </li>

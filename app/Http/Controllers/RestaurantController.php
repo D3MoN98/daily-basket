@@ -6,6 +6,7 @@ use App\Http\Resources\Restaurant as ResourcesRestaurant;
 use App\MenuItem;
 use App\Restaurant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RestaurantController extends Controller
 {
@@ -54,6 +55,23 @@ class RestaurantController extends Controller
             array_push($results, $array);
         }
 
-        return response()->json(['results' => $results]);
+        return response()->json(['results' => $results, 'res' => $this->scopeIsWithinMaxDistance()]);
+    }
+
+    public function scopeIsWithinMaxDistance($lat = '22.4954988', $long = '88.3709008', $radius = 25)
+    {
+
+        $haversine = "(6371 * acos(cos(radians($lat))
+                     * cos(radians(addresses.latitude))
+                     * cos(radians(addresses.longitude)
+                     - radians($long))
+                     + sin(radians($lat))
+                     * sin(radians(addresses.latitude))))";
+        return DB::table('restaurants')
+            ->join('users', 'users.id', 'restaurants.user_id')
+            ->join('addresses', 'addresses.user_id', 'users.id')
+            ->select() //pick the columns you want here.
+            ->selectRaw("{$haversine} AS distance")
+            ->whereRaw("{$haversine} < ?", [$radius])->get();
     }
 }

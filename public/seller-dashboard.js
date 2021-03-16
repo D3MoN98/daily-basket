@@ -135,7 +135,68 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      count: {
+        total_order: null,
+        in_progress_order: null,
+        delivered_order: null,
+        cancelled_order: null,
+        total_member: null,
+        most_ordered_items: []
+      }
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get("/api/seller/count-overview").then(function (res) {
+      return res.data;
+    }).then(function (res) {
+      _this.count = res.data;
+    })["catch"](function (error) {
+      console.log("something went wrong");
+    });
+  }
+});
 
 /***/ }),
 
@@ -154,213 +215,250 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "content-body" }, [
+    _c("div", { staticClass: "container" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "activity_otr" }, [
+        _c("div", { staticClass: "site_dett" }, [
+          _c("div", { staticClass: "blue_radius ttl_ordr" }, [
+            _c("div", { staticClass: "tpline" }, [
+              _c("div", { staticClass: "count_det" }, [
+                _c("h5", [_vm._v(_vm._s(_vm.count.total_order))])
+              ]),
+              _vm._v(" "),
+              _vm._m(1)
+            ]),
+            _vm._v(" "),
+            _c("h6", [_vm._v("Total Orders")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "blue_radius ordr_prg" }, [
+            _c("div", { staticClass: "tpline" }, [
+              _c("div", { staticClass: "count_det" }, [
+                _c("h5", [_vm._v(_vm._s(_vm.count.in_progress_order))])
+              ]),
+              _vm._v(" "),
+              _vm._m(2)
+            ]),
+            _vm._v(" "),
+            _c("h6", [_vm._v("Order In Progress")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "blue_radius del_ordr" }, [
+            _c("div", { staticClass: "tpline" }, [
+              _c("div", { staticClass: "count_det" }, [
+                _c("h5", [_vm._v(_vm._s(_vm.count.delivered_order))])
+              ]),
+              _vm._v(" "),
+              _vm._m(3)
+            ]),
+            _vm._v(" "),
+            _c("h6", [_vm._v("Delivered Orders")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "blue_radius cnsl_or" }, [
+            _c("div", { staticClass: "tpline" }, [
+              _c("div", { staticClass: "count_det" }, [
+                _c("h5", [_vm._v(_vm._s(_vm.count.cancelled_order))])
+              ]),
+              _vm._v(" "),
+              _vm._m(4)
+            ]),
+            _vm._v(" "),
+            _c("h6", [_vm._v("Cancelled Order")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "blue_radius mbrs" }, [
+            _c("div", { staticClass: "tpline" }, [
+              _c("div", { staticClass: "count_det" }, [
+                _c("h5", [_vm._v(_vm._s(_vm.count.total_member))])
+              ]),
+              _vm._v(" "),
+              _vm._m(5)
+            ]),
+            _vm._v(" "),
+            _c("h6", [_vm._v("New Member")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "act_dwn_arr" }, [
+          _c("div", { staticClass: "row" }, [
+            _vm._m(6),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-6 order_items" }, [
+              _c("div", { staticClass: "col_innrr" }, [
+                _vm._m(7),
+                _vm._v(" "),
+                _c("div", { staticClass: "order_itm_loop" }, [
+                  _vm.count.most_ordered_items.length > 0
+                    ? _c(
+                        "ul",
+                        _vm._l(_vm.count.most_ordered_items, function(item) {
+                          return _c("li", { key: item.data.id }, [
+                            _c("p", [_vm._v(_vm._s(item.data.name))]),
+                            _vm._v(" "),
+                            _c("h6", [_vm._v(_vm._s(item.count))])
+                          ])
+                        }),
+                        0
+                      )
+                    : _vm._e()
+                ])
+              ])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._m(8)
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "content-body" }, [
-      _c("div", { staticClass: "container" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-xl-12" }, [
-            _c("div", { staticClass: "card", attrs: { id: "user-activity" } }, [
+    return _c("div", { staticClass: "dash_hd_cmn" }, [
+      _c("h3", [
+        _vm._v("\n                ABC tiffin service"),
+        _c("span", {}, [_vm._v("Dimond Hourver Road Khanti Park")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "act_imgg" }, [
+      _c("img", { attrs: { src: "images/custom_image/total_order.png" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "act_imgg" }, [
+      _c("img", { attrs: { src: "images/custom_image/oder_prg.png" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "act_imgg " }, [
+      _c("img", { attrs: { src: "images/custom_image/del_ordr.png" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "act_imgg " }, [
+      _c("img", { attrs: { src: "images/custom_image/cncl_ordr.png" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "act_imgg " }, [
+      _c("img", { attrs: { src: "images/custom_image/memberss.png" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-6 order_riview" }, [
+      _c("div", { staticClass: "col_innrr" }, [
+        _c("div", { staticClass: "act_dwn_hd" }, [
+          _c("div", { staticClass: "act_box_hd" }, [
+            _c("h3", [_vm._v("Order Overview")]),
+            _vm._v(" "),
+            _c("p", [_vm._v("May,2020")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "selct_bxx small_slct" }, [
+            _c("div", { staticClass: "select" }, [
               _c(
-                "ul",
-                { staticClass: "nav nav-tabs", attrs: { role: "tablist" } },
+                "select",
+                { staticClass: "select-hidden", attrs: { id: "mounth" } },
                 [
-                  _c("li", { staticClass: "nav-item" }, [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "nav-link active",
-                        attrs: {
-                          "data-toggle": "tab",
-                          href: "#user",
-                          role: "tab",
-                          "aria-controls": "",
-                          "aria-selected": "true"
-                        }
-                      },
-                      [
-                        _c("div", { staticClass: "icon-wrap primary" }, [
-                          _c("i", { staticClass: "mdi mdi-account-group" })
-                        ]),
-                        _vm._v(" "),
-                        _c("h4", [_vm._v("5658")]),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "type-name" }, [
-                          _vm._v("User")
-                        ]),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "text-success" }, [
-                          _vm._v("\n                  7%\n                  "),
-                          _c("i", { staticClass: "mdi mdi-arrow-up-bold" })
-                        ])
-                      ]
-                    )
+                  _c("option", { attrs: { value: "hide" } }, [
+                    _vm._v("-- All --")
                   ]),
                   _vm._v(" "),
-                  _c("li", { staticClass: "nav-item" }, [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "nav-link",
-                        attrs: {
-                          "data-toggle": "tab",
-                          href: "#session",
-                          role: "tab",
-                          "aria-controls": "",
-                          "aria-selected": "false"
-                        }
-                      },
-                      [
-                        _c("div", { staticClass: "icon-wrap success" }, [
-                          _c("i", { staticClass: "mdi mdi-airballoon" })
-                        ]),
-                        _vm._v(" "),
-                        _c("h4", [_vm._v("324")]),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "type-name" }, [
-                          _vm._v("Sessions")
-                        ]),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "text-success" }, [
-                          _vm._v("\n                  17%\n                  "),
-                          _c("i", { staticClass: "mdi mdi-arrow-up-bold" })
-                        ])
-                      ]
-                    )
+                  _c(
+                    "option",
+                    { attrs: { value: "a", rel: "icon-temperature" } },
+                    [_vm._v("Individuals")]
+                  ),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "b" } }, [
+                    _vm._v("Unsubcribes")
                   ]),
                   _vm._v(" "),
-                  _c("li", { staticClass: "nav-item" }, [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "nav-link",
-                        attrs: {
-                          "data-toggle": "tab",
-                          href: "#bounce",
-                          role: "tab",
-                          "aria-controls": "",
-                          "aria-selected": "false"
-                        }
-                      },
-                      [
-                        _c("div", { staticClass: "icon-wrap info" }, [
-                          _c("i", { staticClass: "mdi mdi-trophy" })
-                        ]),
-                        _vm._v(" "),
-                        _c("h4", [_vm._v("24.9%")]),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "type-name" }, [
-                          _vm._v("Bounce Rate")
-                        ]),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "text-danger" }, [
-                          _vm._v("\n                  4%\n                  "),
-                          _c("i", { staticClass: "mdi mdi-arrow-down-bold" })
-                        ])
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("li", { staticClass: "nav-item" }, [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "nav-link",
-                        attrs: {
-                          "data-toggle": "tab",
-                          href: "#session-duration",
-                          role: "tab",
-                          "aria-controls": "",
-                          "aria-selected": "false"
-                        }
-                      },
-                      [
-                        _c("div", { staticClass: "icon-wrap danger" }, [
-                          _c("i", { staticClass: "mdi mdi-clock" })
-                        ]),
-                        _vm._v(" "),
-                        _c("h4", [_vm._v("5m 32s")]),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "type-name" }, [
-                          _vm._v("Session Duration")
-                        ]),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "text-success" }, [
-                          _vm._v("\n                  9%\n                  "),
-                          _c("i", { staticClass: "mdi mdi-arrow-up-bold" })
-                        ])
-                      ]
-                    )
-                  ])
+                  _c("option", { attrs: { value: "c" } }, [_vm._v("subcribes")])
                 ]
               ),
               _vm._v(" "),
-              _c("div", { staticClass: "card-body" }, [
-                _c("h4", { staticClass: "card-title pt-2" }, [
-                  _vm._v("User Activity")
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "tab-content", attrs: { id: "myTabContent" } },
-                  [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "tab-pane fade show active",
-                        attrs: {
-                          id: "user",
-                          role: "tabpanel",
-                          "aria-labelledby": "home-tab"
-                        }
-                      },
-                      [
-                        _c("canvas", {
-                          staticClass: "chartjs",
-                          attrs: { id: "activity" }
-                        })
-                      ]
-                    )
-                  ]
+              _c("div", { staticClass: "select-styled" }, [
+                _vm._v(
+                  "\n                                            -- All --\n                                        "
                 )
               ]),
               _vm._v(" "),
               _c(
-                "div",
+                "ul",
                 {
-                  staticClass:
-                    "card-footer d-flex justify-content-between align-items-center py-3"
+                  staticClass: "select-options",
+                  staticStyle: { display: "none" }
                 },
                 [
-                  _c("div", { staticClass: "date_picker" }, [
-                    _c("span"),
-                    _vm._v(" "),
-                    _c("i", { staticClass: "fa fa-caret-down" })
-                  ]),
+                  _c("li", { attrs: { rel: "hide" } }, [_vm._v("-- All --")]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "more-link" }, [
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v("Audience Overview")
-                    ])
-                  ])
+                  _c("li", { attrs: { rel: "a" } }, [_vm._v("Individuals")]),
+                  _vm._v(" "),
+                  _c("li", { attrs: { rel: "b" } }, [_vm._v("Unsubcribes")]),
+                  _vm._v(" "),
+                  _c("li", { attrs: { rel: "c" } }, [_vm._v("subcribes")])
                 ]
               )
             ])
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "custom_footer" }, [
-          _c("p", [
-            _vm._v("\n        Copyright © Designed & Developed by\n        "),
-            _c("a", { attrs: { href: "", target: "_blank" } }, [
-              _vm._v("Sutanu & Sudipta")
-            ])
-          ])
+        _c("div", { staticClass: "chart_otr" }, [
+          _c("p", [_vm._v("Chart Place...")])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "act_dwn_hd" }, [
+      _c("div", { staticClass: "act_box_hd" }, [
+        _c("h3", [_vm._v("Most Ordered Items")]),
+        _vm._v(" "),
+        _c("p", [_vm._v("May,2020")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "custom_footer" }, [
+      _c("p", [
+        _vm._v(
+          "\n                Copyright © Designed & Developed by\n                "
+        ),
+        _c("a", { attrs: { href: "", target: "_blank" } }, [
+          _vm._v("Sutanu & Sudipta")
         ])
       ])
     ])

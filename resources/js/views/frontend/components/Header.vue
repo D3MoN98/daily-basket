@@ -120,7 +120,111 @@
                                     </div>
                                 </li>
 
-                                <li class="nav-item">
+                                <li class="nav-item carttt">
+                                    <a class="nav-link" href="#" role="button">
+                                        <i class="fas fa-shopping-cart"></i
+                                        ><span class="nav_txt">Cart</span>
+
+                                        <div class="crt_count">
+                                            {{ totalCartCount }}
+                                        </div>
+                                    </a>
+
+                                    <div
+                                        class="crtt_drop normal_style"
+                                        v-if="cart_items.length === 0"
+                                    >
+                                        <h3>Cart Empty</h3>
+                                        <p>
+                                            Good food is always cooking! Go
+                                            ahead, order some yummy items from
+                                            the menu.
+                                        </p>
+                                    </div>
+
+                                    <div
+                                        class="crtt_drop normal_style"
+                                        v-if="cart_items.length > 0"
+                                    >
+                                        <div class="res_det_crt">
+                                            <div class="crt_res_img">
+                                                <img
+                                                    :src="
+                                                        '/storage/' +
+                                                            cartRestaurant.image
+                                                    "
+                                                    alt=""
+                                                />
+                                            </div>
+                                            <div class="crt_res_txt">
+                                                <h3>
+                                                    {{ cartRestaurant.name }}
+                                                </h3>
+                                                <p>{{ cartRestaurant.id }}</p>
+                                                <div class="viw_ct_mnu">
+                                                    <router-link
+                                                        :to="{
+                                                            path:
+                                                                '/restaurant/' +
+                                                                cartRestaurant.slug
+                                                        }"
+                                                        >View All Menu
+                                                    </router-link>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="amount_crtt">
+                                            <ul>
+                                                <li
+                                                    v-for="cart_item in cart_items"
+                                                    :key="cart_item.id"
+                                                >
+                                                    <p>
+                                                        {{ cart_item.name }}
+                                                    </p>
+                                                    <span class="amtt_crttt">
+                                                        <i
+                                                            class="far fa-rupee-sign"
+                                                        ></i
+                                                        >{{ cart_item.price }} X
+                                                        {{
+                                                            cart_item.qty
+                                                        }}</span
+                                                    >
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="sbttl_crtt">
+                                            <div class="sub_ttl_con">
+                                                <h3>Sub total</h3>
+                                                <p>Extra charges may apply</p>
+                                            </div>
+
+                                            <p>
+                                                <i
+                                                    class="far fa-rupee-sign"
+                                                ></i>
+                                                {{ subTotal }}
+                                            </p>
+                                        </div>
+
+                                        <div class="cmn_btn">
+                                            <router-link
+                                                :to="{
+                                                    path:
+                                                        '/restaurant/' +
+                                                        cartRestaurant.slug
+                                                }"
+                                                class="ccmn_btn"
+                                                >Checkout
+                                            </router-link>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <!-- <li class="nav-item">
                                     <div class="dropdown cart-dropdown">
                                         <a
                                             class="nav-link dropdown-toggle"
@@ -142,7 +246,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </li>
+                                </li> -->
                             </ul>
                         </div>
                     </nav>
@@ -158,8 +262,18 @@ import { mapGetters } from "vuex";
 export default {
     computed: {
         ...mapGetters({
-            currentLocation: "auth/currentLocation"
+            currentLocation: "auth/currentLocation",
+            cart_items: "cart/getCartItems",
+            isCartEmpty: "cart/isCartEmpty",
+            subTotal: "cart/getSubTotal",
+            cartRestaurant: "cart/getRestaurant",
+            totalCartCount: "cart/getTotalCartCount"
         })
+    },
+    mounted() {
+        if (this.$store.getters["auth/check"]) {
+            this.$store.dispatch("cart/getCartItems");
+        }
     },
     methods: {
         logout() {

@@ -7,7 +7,7 @@
             <div class="res_pic">
                 <!--Basic Size 231px*146px-->
                 <!-- <img :src="restaurant.image" alt /> -->
-                <img :src="'/images/download.jpeg'" alt />
+                <img :src="restaurant.image" alt />
             </div>
             <div class="res_det">
                 <h3>{{ restaurant.name }}</h3>

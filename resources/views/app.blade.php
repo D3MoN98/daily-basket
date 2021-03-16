@@ -9,7 +9,7 @@
     <title>Daily Basket</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
-    <link href="{{asset('fontawesome/css/all.css')}}" rel="stylesheet">
+    {{-- <link href="{{asset('fontawesome/css/all.min.css')}}" rel="stylesheet"> --}}
     <link href="{{asset('vendor/jqvmap/css/jqvmap.min.css')}}" rel="stylesheet">
     {{-- <link rel="stylesheet" href="{{asset('vendor/bootstrap-daterangepicker/daterangepicker.css')}}"> --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />

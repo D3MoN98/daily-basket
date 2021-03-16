@@ -357,11 +357,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -871,14 +866,7 @@ var render = function() {
                 }
               },
               [
-                _c("i", { staticClass: "kithen_image" }, [
-                  _c("img", {
-                    attrs: {
-                      src: "/images/custom_image/kitchen_blue.png",
-                      alt: "Pic-not-found"
-                    }
-                  })
-                ]),
+                _c("i", { staticClass: "fas fa-hat-chef" }),
                 _vm._v(" "),
                 _c("span", { staticClass: "nav-text" }, [
                   _vm._v("Kitchen Staff")

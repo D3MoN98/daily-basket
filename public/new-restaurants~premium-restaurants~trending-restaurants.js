@@ -155,7 +155,7 @@ var render = function() {
     [
       _c("div", { staticClass: "ech_res_innr" }, [
         _c("div", { staticClass: "res_pic" }, [
-          _c("img", { attrs: { src: "/images/download.jpeg", alt: "" } })
+          _c("img", { attrs: { src: _vm.restaurant.image, alt: "" } })
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "res_det" }, [

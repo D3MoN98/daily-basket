@@ -89,6 +89,8 @@ Route::middleware(['auth:sanctum', 'checkrole:seller'])->namespace('Seller')->pr
     Route::get('feedback', 'FeedbackController@index');
 
     Route::get('customer', 'UserController@index');
+
+    Route::get('count-overview', 'SellerController@countOverview');
 });
 
 

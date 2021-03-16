@@ -3,7 +3,7 @@
         <div class="blue_side_otr">
             <div class="res_image">
                 <!-- <img :src="restaurant.image" /> -->
-                <img :src="'/images/download.jpeg'" />
+                <img :src="restaurant.image" />
             </div>
             <div class="res_details">
                 <h3>{{ restaurant.name }}</h3>

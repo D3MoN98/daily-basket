@@ -1,134 +1,192 @@
 <template>
-  <div class="content-body">
-    <!-- row -->
+    <div class="content-body">
+        <div class="container">
+            <div class="dash_hd_cmn">
+                <h3>
+                    ABC tiffin service<span class=""
+                        >Dimond Hourver Road Khanti Park</span
+                    >
+                </h3>
+            </div>
+            <div class="activity_otr">
+                <div class="site_dett">
+                    <div class="blue_radius ttl_ordr">
+                        <div class="tpline">
+                            <div class="count_det">
+                                <h5>{{ count.total_order }}</h5>
+                            </div>
+                            <div class="act_imgg">
+                                <img
+                                    src="images/custom_image/total_order.png"
+                                />
+                            </div>
+                        </div>
+                        <h6>Total Orders</h6>
+                    </div>
 
-    <div class="container">
-      <div class="row">
-        <div class="col-xl-12">
-          <div class="card" id="user-activity">
-            <ul class="nav nav-tabs" role="tablist">
-              <li class="nav-item">
-                <a
-                  class="nav-link active"
-                  data-toggle="tab"
-                  href="#user"
-                  role="tab"
-                  aria-controls
-                  aria-selected="true"
-                >
-                  <div class="icon-wrap primary">
-                    <i class="mdi mdi-account-group"></i>
-                  </div>
-                  <h4>5658</h4>
-                  <span class="type-name">User</span>
-                  <span class="text-success">
-                    7%
-                    <i class="mdi mdi-arrow-up-bold"></i>
-                  </span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  data-toggle="tab"
-                  href="#session"
-                  role="tab"
-                  aria-controls
-                  aria-selected="false"
-                >
-                  <div class="icon-wrap success">
-                    <i class="mdi mdi-airballoon"></i>
-                  </div>
-                  <h4>324</h4>
-                  <span class="type-name">Sessions</span>
-                  <span class="text-success">
-                    17%
-                    <i class="mdi mdi-arrow-up-bold"></i>
-                  </span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  data-toggle="tab"
-                  href="#bounce"
-                  role="tab"
-                  aria-controls
-                  aria-selected="false"
-                >
-                  <div class="icon-wrap info">
-                    <i class="mdi mdi-trophy"></i>
-                  </div>
-                  <h4>24.9%</h4>
-                  <span class="type-name">Bounce Rate</span>
-                  <span class="text-danger">
-                    4%
-                    <i class="mdi mdi-arrow-down-bold"></i>
-                  </span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  data-toggle="tab"
-                  href="#session-duration"
-                  role="tab"
-                  aria-controls
-                  aria-selected="false"
-                >
-                  <div class="icon-wrap danger">
-                    <i class="mdi mdi-clock"></i>
-                  </div>
-                  <h4>5m 32s</h4>
-                  <span class="type-name">Session Duration</span>
-                  <span class="text-success">
-                    9%
-                    <i class="mdi mdi-arrow-up-bold"></i>
-                  </span>
-                </a>
-              </li>
-            </ul>
-            <div class="card-body">
-              <h4 class="card-title pt-2">User Activity</h4>
-              <div class="tab-content" id="myTabContent">
-                <div
-                  class="tab-pane fade show active"
-                  id="user"
-                  role="tabpanel"
-                  aria-labelledby="home-tab"
-                >
-                  <canvas id="activity" class="chartjs"></canvas>
+                    <div class="blue_radius ordr_prg">
+                        <div class="tpline">
+                            <div class="count_det">
+                                <h5>{{ count.in_progress_order }}</h5>
+                            </div>
+                            <div class="act_imgg">
+                                <img src="images/custom_image/oder_prg.png" />
+                            </div>
+                        </div>
+                        <h6>Order In Progress</h6>
+                    </div>
+
+                    <div class="blue_radius del_ordr">
+                        <div class="tpline">
+                            <div class="count_det">
+                                <h5>{{ count.delivered_order }}</h5>
+                            </div>
+                            <div class="act_imgg ">
+                                <img src="images/custom_image/del_ordr.png" />
+                            </div>
+                        </div>
+                        <h6>Delivered Orders</h6>
+                    </div>
+
+                    <div class="blue_radius cnsl_or">
+                        <div class="tpline">
+                            <div class="count_det">
+                                <h5>{{ count.cancelled_order }}</h5>
+                            </div>
+                            <div class="act_imgg ">
+                                <img src="images/custom_image/cncl_ordr.png" />
+                            </div>
+                        </div>
+                        <h6>Cancelled Order</h6>
+                    </div>
+
+                    <div class="blue_radius mbrs">
+                        <div class="tpline">
+                            <div class="count_det">
+                                <h5>{{ count.total_member }}</h5>
+                            </div>
+                            <div class="act_imgg ">
+                                <img src="images/custom_image/memberss.png" />
+                            </div>
+                        </div>
+                        <h6>New Member</h6>
+                    </div>
                 </div>
-              </div>
-            </div>
-            <div class="card-footer d-flex justify-content-between align-items-center py-3">
-              <div class="date_picker">
-                <span></span>
-                <i class="fa fa-caret-down"></i>
-              </div>
-              <div class="more-link">
-                <a href="#">Audience Overview</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="custom_footer">
-        <p>
-          Copyright © Designed &amp; Developed by
-          <a href target="_blank">Sutanu & Sudipta</a>
-        </p>
-      </div>
+                <div class="act_dwn_arr">
+                    <div class="row">
+                        <div class="col-6 order_riview">
+                            <div class="col_innrr">
+                                <div class="act_dwn_hd">
+                                    <div class="act_box_hd">
+                                        <h3>Order Overview</h3>
+                                        <p>May,2020</p>
+                                    </div>
+                                    <div class="selct_bxx small_slct">
+                                        <div class="select">
+                                            <select
+                                                id="mounth"
+                                                class="select-hidden"
+                                            >
+                                                <option value="hide"
+                                                    >-- All --</option
+                                                >
+                                                <option
+                                                    value="a"
+                                                    rel="icon-temperature"
+                                                    >Individuals</option
+                                                >
+                                                <option value="b"
+                                                    >Unsubcribes</option
+                                                >
+                                                <option value="c"
+                                                    >subcribes</option
+                                                >
+                                            </select>
+                                            <div class="select-styled">
+                                                -- All --
+                                            </div>
+                                            <ul
+                                                class="select-options"
+                                                style="display: none;"
+                                            >
+                                                <li rel="hide">-- All --</li>
+                                                <li rel="a">Individuals</li>
+                                                <li rel="b">Unsubcribes</li>
+                                                <li rel="c">subcribes</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="chart_otr">
+                                    <p>Chart Place...</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 order_items">
+                            <div class="col_innrr">
+                                <div class="act_dwn_hd">
+                                    <div class="act_box_hd">
+                                        <h3>Most Ordered Items</h3>
+                                        <p>May,2020</p>
+                                    </div>
+                                </div>
+                                <div class="order_itm_loop">
+                                    <ul
+                                        v-if="
+                                            count.most_ordered_items.length > 0
+                                        "
+                                    >
+                                        <li
+                                            v-for="item in count.most_ordered_items"
+                                            :key="item.data.id"
+                                        >
+                                            <p>{{ item.data.name }}</p>
+                                            <h6>{{ item.count }}</h6>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="custom_footer">
+                <p>
+                    Copyright © Designed &amp; Developed by
+                    <a href="" target="_blank">Sutanu &amp; Sudipta</a>
+                </p>
+            </div>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
 export default {
-
+    data() {
+        return {
+            count: {
+                total_order: null,
+                in_progress_order: null,
+                delivered_order: null,
+                cancelled_order: null,
+                total_member: null,
+                most_ordered_items: []
+            }
+        };
+    },
+    mounted() {
+        axios
+            .get("/api/seller/count-overview")
+            .then(res => res.data)
+            .then(res => {
+                this.count = res.data;
+            })
+            .catch(error => {
+                console.log("something went wrong");
+            });
+    }
 };
 </script>
 
-<style>
-</style>
+<style></style>

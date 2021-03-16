@@ -4165,3 +4165,174 @@ table.dataTable thead .sorting {
     color: #00b1bb;
     font-family: "Averta-Semibold";
 }
+
+/* sutanu 28 feb */
+.carttt {
+    position: relative;
+}
+.crtt_drop {
+    position: absolute;
+    background-color: #203b72;
+    min-width: 250px;
+    padding: 30px 25px 25px 25px;
+    top: 105%;
+    right: 0;
+    box-shadow: 0 2px 10px 0px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transition: all 0.4s;
+}
+.normal_style h3 {
+    font-size: 18px;
+    line-height: 1;
+    color: #030303;
+    font-family: "Averta_Semibold";
+    margin-bottom: 10px;
+}
+.normal_style p {
+    font-size: 14px;
+    line-height: 1.2;
+    color: #a0a2a7;
+    font-family: "Averta";
+}
+
+.carttt:hover .crtt_drop {
+    opacity: 1;
+    top: 100%;
+}
+.crtt_drop h3,
+.crtt_drop p {
+    color: #fff;
+}
+
+.carttt a {
+    position: relative;
+}
+.crt_count {
+    position: absolute;
+    top: 0;
+    right: -15px;
+    background-color: #203b72;
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    padding: 1px;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.res_det_crt {
+    display: flex;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #fff;
+}
+.crt_res_img {
+    width: 70px;
+    height: 65px;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: all 0.4s;
+    border: 1px solid transparent;
+}
+.crt_res_txt h3,
+.sub_ttl_con h3 {
+    font-size: 14px;
+    margin-bottom: 4px;
+    line-height: 1;
+}
+.crt_res_txt p {
+    font-size: 11px;
+    line-height: 1;
+}
+
+.crt_res_txt {
+    width: calc(100% - 60px);
+    padding-left: 12px;
+}
+.crtt_drop {
+    min-width: 350px;
+    padding: 19px 20px 20px 20px;
+}
+.viw_ct_mnu a {
+    font-size: 11px;
+    line-height: 1;
+    margin-top: 15px;
+    color: #fff;
+    display: block;
+}
+.viw_ct_mnu a:hover {
+    color: #48c479;
+}
+.amount_crtt {
+    padding: 15px 5px;
+    border-bottom: 1px solid #fff;
+}
+.amount_crtt li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+.amount_crtt li:last-child {
+    margin-bottom: 0;
+}
+.amount_crtt li p,
+.amount_crtt li span {
+    font-size: 12px;
+    line-height: 1;
+    color: #fff;
+    font-family: "Averta";
+}
+.sbttl_crtt {
+    padding: 15px 5px 8px 5px;
+}
+.sub_ttl_con p {
+    font-size: 11px;
+    line-height: 1;
+    color: #fff;
+    font-family: "Averta";
+}
+.sbttl_crtt {
+    display: flex;
+    justify-content: space-between;
+}
+.sbttl_crtt > p {
+    font-size: 15px;
+    line-height: 1;
+    color: #fff;
+    font-family: "Averta";
+}
+.cmn_btn {
+    margin-top: 15px;
+}
+.ccmn_btn {
+    min-width: 120px;
+    padding: 12px 8px;
+    color: #fff;
+    background-color: #00b1bb;
+    border: 1px solid transparent;
+    display: inline-block;
+    text-align: center;
+    font-size: 14px;
+    font-family: "Averta-Semibold";
+}
+.ccmn_btn:hover {
+    background-color: transparent;
+    border-color: #00b1bb;
+    color: #00b1bb;
+}
+
+.crtt_drop .ccmn_btn {
+    width: 100%;
+    min-width: 100%;
+    padding: 10px 5px;
+    background-color: #48c479;
+    text-transform: uppercase;
+}
+.crtt_drop .ccmn_btn:hover {
+    background-color: transparent;
+    border-color: #48c479;
+    color: #48c479;
+}

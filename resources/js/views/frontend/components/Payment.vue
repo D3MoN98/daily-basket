@@ -1,5 +1,5 @@
 <template>
-    <div class="pay_area">
+    <div class="pay_area" id="checkout">
         <h4>Pay Now</h4>
         <form id="paymentForm" @submit.prevent="payAndOrder">
             <div class="modal_chkbox">

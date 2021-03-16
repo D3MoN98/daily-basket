@@ -1,7 +1,7 @@
 <template>
     <li>
         <div class="food_image">
-            <img :src="'/images/download.jpeg'" alt />
+            <img :src="'/storage/' + menu_item.image" alt />
         </div>
         <div class="food_details">
             <div class="food_desp">

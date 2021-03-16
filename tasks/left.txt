@@ -6,7 +6,7 @@
     # restaurant filter
     # payment tab on profile?
 
-    # admin - saturday full
+    # admin
         # customers
         # restaurants
         # monthly revinue

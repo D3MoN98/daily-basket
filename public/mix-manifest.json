@@ -27,6 +27,7 @@
     "/seller-default-layout.js": "/seller-default-layout.js",
     "/seller-deleveries.js": "/seller-deleveries.js",
     "/seller-feedback.js": "/seller-feedback.js",
+    "/seller-finance.js": "/seller-finance.js",
     "/seller-kitchen.js": "/seller-kitchen.js",
     "/seller-menu.js": "/seller-menu.js",
     "/seller-orders.js": "/seller-orders.js",
@@ -36,6 +37,5 @@
     "/vendors~restaurant-details.js": "/vendors~restaurant-details.js",
     "/vendors~seller-deleveries~seller-menu.js": "/vendors~seller-deleveries~seller-menu.js",
     "/vendors~seller-menu.js": "/vendors~seller-menu.js",
-    "/vendors~seller-menu~seller-profile.js": "/vendors~seller-menu~seller-profile.js",
-    "/seller-finance.js": "/seller-finance.js"
+    "/vendors~seller-menu~seller-profile.js": "/vendors~seller-menu~seller-profile.js"
 }

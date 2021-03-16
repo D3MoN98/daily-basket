@@ -83,6 +83,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -104,57 +115,50 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     RestaurantDetailsSidebar: _views_frontend_components_RestaurantDetailsSidebar__WEBPACK_IMPORTED_MODULE_0__["default"],
     RestaurantDetailsSidebarPlaceholder: _views_frontend_components_RestaurantDetailsSidebarPlaceholder__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
+  watch: {
+    $route: function $route(to, from) {
+      this.loadRestaurant();
+    }
+  },
   mounted: function mounted() {
-    $('#food_tab').easyResponsiveTabs({
-      type: 'default',
-      width: 'auto',
+    $("#food_tab").easyResponsiveTabs({
+      type: "default",
+      width: "auto",
       fit: true,
-      closed: 'accordion',
+      closed: "accordion",
       activate: function activate() {
         var $tab = $(this);
-        var $info = $('#tabInfo');
-        var $name = $('span', $info);
+        var $info = $("#tabInfo");
+        var $name = $("span", $info);
         $name.text($tab.text());
         $info.show();
       }
     });
   },
   created: function created() {
-    var _this = this;
-
-    this.$store.dispatch('restaurant/restaurant', this.$route.params.slug).then(function () {
-      _this.$store.dispatch('restaurant/menu', _this.restaurant.id).then(function () {
-        _this.isMenuItemLoaded = true;
-      });
-
-      _this.$store.dispatch('restaurant/recommendedMenu', _this.restaurant.id).then(function () {
-        _this.isRecommendedMenuItemLoaded = true;
-      });
-
-      _this.isLoaded = true;
-    });
+    this.loadRestaurant();
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_5__["mapGetters"])({
-    restaurant: 'restaurant/getRestaurant',
-    menu_items: 'restaurant/getMenuItems',
-    recommended_menu_items: 'restaurant/getRecommendedMenuItems'
+    restaurant: "restaurant/getRestaurant",
+    menu_items: "restaurant/getMenuItems",
+    recommended_menu_items: "restaurant/getRecommendedMenuItems"
   })),
   methods: {
     onlyVeg: function onlyVeg($e) {
-      var _this2 = this;
+      var _this = this;
 
       this.isMenuItemLoaded = false;
       this.isRecommendedMenuItemLoaded = false;
 
       if ($e.target.checked) {
-        this.$store.dispatch('restaurant/vegMenuItems', this.restaurant.id).then(function () {
-          _this2.isMenuItemLoaded = true;
+        this.$store.dispatch("restaurant/vegMenuItems", this.restaurant.id).then(function () {
+          _this.isMenuItemLoaded = true;
         });
-        this.$store.dispatch('restaurant/vegRecommendeMenuItems', this.restaurant.id).then(function () {
-          _this2.isRecommendedMenuItemLoaded = true;
+        this.$store.dispatch("restaurant/vegRecommendeMenuItems", this.restaurant.id).then(function () {
+          _this.isRecommendedMenuItemLoaded = true;
         });
-        toastr.success('Menu item set to veg', '', {
-          positionClass: 'toast-bottom-center',
+        toastr.success("Menu item set to veg", "", {
+          positionClass: "toast-bottom-center",
           timeOut: 1500,
           closeButton: !0,
           debug: !1,
@@ -162,23 +166,38 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           progressBar: !0,
           preventDuplicates: !0,
           onclick: null,
-          showDuration: '300',
-          hideDuration: '1000',
-          extendedTimeOut: '1000',
-          showEasing: 'swing',
-          hideEasing: 'linear',
-          showMethod: 'fadeIn',
-          hideMethod: 'fadeOut',
+          showDuration: "300",
+          hideDuration: "1000",
+          extendedTimeOut: "1000",
+          showEasing: "swing",
+          hideEasing: "linear",
+          showMethod: "fadeIn",
+          hideMethod: "fadeOut",
           tapToDismiss: !1
         });
       } else {
-        this.$store.dispatch('restaurant/menu', this.restaurant.id).then(function () {
-          _this2.isMenuItemLoaded = true;
+        this.$store.dispatch("restaurant/menu", this.restaurant.id).then(function () {
+          _this.isMenuItemLoaded = true;
         });
-        this.$store.dispatch('restaurant/recommendedMenu', this.restaurant.id).then(function () {
-          _this2.isRecommendedMenuItemLoaded = true;
+        this.$store.dispatch("restaurant/recommendedMenu", this.restaurant.id).then(function () {
+          _this.isRecommendedMenuItemLoaded = true;
         });
       }
+    },
+    loadRestaurant: function loadRestaurant() {
+      var _this2 = this;
+
+      this.$store.dispatch("restaurant/restaurant", this.$route.params.slug).then(function () {
+        _this2.$store.dispatch("restaurant/menu", _this2.restaurant.id).then(function () {
+          _this2.isMenuItemLoaded = true;
+        });
+
+        _this2.$store.dispatch("restaurant/recommendedMenu", _this2.restaurant.id).then(function () {
+          _this2.isRecommendedMenuItemLoaded = true;
+        });
+
+        _this2.isLoaded = true;
+      });
     }
   }
 });
@@ -505,6 +524,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     cart_item: null
@@ -513,16 +540,16 @@ __webpack_require__.r(__webpack_exports__);
     addToCart: function addToCart(id, qty) {
       var rowId = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 
-      if (!this.$store.getters['auth/check']) {
-        $('#log_in_modal').modal('show');
+      if (!this.$store.getters["auth/check"]) {
+        $("#log_in_modal").modal("show");
       }
 
       var newQty = this.cart_item.qty !== undefined ? this.cart_item.qty + qty : qty;
 
       if (newQty <= 0) {
-        this.$store.dispatch('cart/removeFormCart', rowId);
+        this.$store.dispatch("cart/removeFormCart", rowId);
       } else if (newQty > 0) {
-        this.$store.dispatch('cart/addToCart', {
+        this.$store.dispatch("cart/addToCart", {
           id: id,
           qty: qty,
           rowId: rowId
@@ -1454,7 +1481,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "custom_footer" }, [
       _c("p", [
         _vm._v(
-          "\n            Copyright © Designed & Developed by\n            "
+          "\n                        Copyright © Designed & Developed by\n                        "
         ),
         _c("a", { attrs: { href: "", target: "_blank" } }, [
           _vm._v("Sutanu & Sudipta")
@@ -1983,7 +2010,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("li", [
     _c("div", { staticClass: "food_image" }, [
-      _c("img", { attrs: { src: "/images/download.jpeg", alt: "" } })
+      _c("img", { attrs: { src: "/storage/" + _vm.menu_item.image, alt: "" } })
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "food_details" }, [
@@ -2286,7 +2313,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "pay_area" }, [
+  return _c("div", { staticClass: "pay_area", attrs: { id: "checkout" } }, [
     _c("h4", [_vm._v("Pay Now")]),
     _vm._v(" "),
     _c(
@@ -2633,7 +2660,7 @@ var render = function() {
   return _c("div", { staticClass: "side_bar_blue" }, [
     _c("div", { staticClass: "blue_side_otr" }, [
       _c("div", { staticClass: "res_image" }, [
-        _c("img", { attrs: { src: "/images/download.jpeg" } })
+        _c("img", { attrs: { src: _vm.restaurant.image } })
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "res_details" }, [

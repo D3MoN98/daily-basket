@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\MenuItem;
 use App\Http\Resources\MenuItem as ResourcesMenuItem;
+use App\Restaurant;
 use Illuminate\Http\Request;
 use Cart;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +21,7 @@ class CartController extends Controller
         $user = Auth::user();
         $restaurant_id = $this->getRestaurntID();
         Cart::restore($user->id);
-        return response()->json(['data' => $this->toArray(Cart::content()), 'restaurant_id' => $restaurant_id]);
+        return response()->json(['data' => $this->toArray(Cart::content()), 'restaurant_id' => $restaurant_id, 'restaurant' => Restaurant::find($restaurant_id)]);
     }
 
     /**
@@ -63,7 +64,7 @@ class CartController extends Controller
         Cart::add($menu_item, $request->qty ?? 1);
         Cart::store($user->id);
 
-        return response()->json(['data' => $this->toArray(Cart::content()), 'restaurant_id' => $restaurant_id]);
+        return response()->json(['data' => $this->toArray(Cart::content()), 'restaurant_id' => $restaurant_id, 'restaurant' => Restaurant::find($restaurant_id)]);
     }
 
     /**
