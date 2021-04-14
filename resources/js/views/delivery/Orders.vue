@@ -69,6 +69,9 @@
                                         <div class="dal_btn_innr">
                                             <a
                                                 href="#"
+                                                @click.prevent="
+                                                    openDeliveryAddress()
+                                                "
                                                 class="cmnn_btnn del_enable_btn"
                                                 role="button"
                                                 >Check On Map</a
@@ -176,6 +179,13 @@ export default {
                         });
                 }
             });
+        },
+        openDeliveryAddress() {
+            document.getElementById("delivery_address").style.width = "37%";
+
+            const mn_wrapper = document.getElementById("main-wrapper");
+            mn_wrapper.classList.add("full_body_opacity");
+            mn_wrapper.parentElement.classList.add("no_scroll");
         }
     }
 };

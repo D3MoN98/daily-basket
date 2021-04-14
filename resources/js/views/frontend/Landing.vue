@@ -43,7 +43,7 @@
                         </template>
                     </gmap-autocomplete>
                     <span
-                        class="text-danger"
+                        class="invalid-feedback text-left d-block"
                         v-if="formError && !$v.position.isEmpty.required"
                         >Location rquired
                     </span>
@@ -62,7 +62,7 @@
                             >Order Food {{ $v.position.isEmpty.required }}</span
                         >
                     </button>
-                    <span
+                    <span class="locate-me"
                         ><a href="" @click.prevent="locateMe"
                             >Locates Me
                         </a></span

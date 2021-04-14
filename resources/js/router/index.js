@@ -8,10 +8,10 @@ import adminMiddleware from "./middleware/adminMiddleware";
 import authMiddleware from "./middleware/authMiddleware";
 import deliveryboyMiddleware from "./middleware/deliveryboyMiddleware";
 import kitchenstaffMiddleware from "./middleware/kitchenstaffMiddleware";
+import locationNullMiddleware from "./middleware/locationNullMiddleware";
 import locationSetMidddleware from "./middleware/locationSetMidddleware";
 import sellerMiddleware from "./middleware/sellerMiddleware";
 import middlewarePipeline from "./middlewarePipeline";
-
 Vue.use(VueRouter);
 
 const routes = [
@@ -81,7 +81,9 @@ const routes = [
                     ),
                 meta: {
                     // @ts-ignore
-                    layout: DefaultLayout
+                    layout: DefaultLayout,
+
+                    middleware: [locationNullMiddleware]
                 }
             },
             {
@@ -94,7 +96,9 @@ const routes = [
                     ),
                 meta: {
                     // @ts-ignore
-                    layout: DefaultLayout
+                    layout: DefaultLayout,
+
+                    middleware: [locationNullMiddleware]
                 }
             },
             {
@@ -107,7 +111,9 @@ const routes = [
                     ),
                 meta: {
                     // @ts-ignore
-                    layout: DefaultLayout
+                    layout: DefaultLayout,
+
+                    middleware: [locationNullMiddleware]
                 }
             }
         ]

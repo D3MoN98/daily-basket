@@ -68,7 +68,7 @@ Vue.use(Vuelidate);
 Vue.use(VueGoogleMaps, {
     load: {
         key: "AIzaSyCQ50fCTWgDOCjgUmkxARbJCFpIrqq-Uok",
-        libraries: "places" // This is required if you use the Autocomplete plugin
+        libraries: "places,drawing,visualization" // This is required if you use the Autocomplete plugin
         // OR: libraries: 'places,drawing'
         // OR: libraries: 'places,drawing,visualization'
         // (as you require)

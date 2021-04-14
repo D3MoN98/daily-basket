@@ -4145,6 +4145,7 @@ table.dataTable thead .sorting {
 .cntr_conn button[type="submit"] {
     position: absolute;
     right: 0;
+    top: 0;
     height: 58px;
     font-size: 15px;
     background-color: #02b0b9;
@@ -4153,7 +4154,7 @@ table.dataTable thead .sorting {
     width: 120px;
     padding: 0;
 }
-.cntr_conn form > span:not(.fa) {
+.cntr_conn form > span.locate-me {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -4335,4 +4336,37 @@ table.dataTable thead .sorting {
     background-color: transparent;
     border-color: #48c479;
     color: #48c479;
+}
+
+/* 16 march */
+.cntr_conn form span.invalid-feedback{
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+}
+.crtt_drop{
+    opacity: 1;
+    display:none;
+}
+.carttt:hover .crtt_drop {
+    display:block;
+}
+.crt_res_img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.food_desp {
+	width: calc(100% - 78px);
+}
+.food_qty {
+	width: 78px;
+}
+.food_qty .btn {
+	width: 100%;
+}
+.main_wrapper_class {
+	min-height: 100vh;
 }

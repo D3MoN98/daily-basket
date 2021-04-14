@@ -1,4 +1,4 @@
-export default function sellerMiddleware({ next, store }) {
+export default function kitchenstaffMiddleware({ next, store }) {
     if (!store.getters["auth/isLoggedIn"]) {
         return next({
             name: "home"

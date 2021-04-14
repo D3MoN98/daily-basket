@@ -269,9 +269,11 @@ var render = function() {
               }),
               _vm._v(" "),
               _vm.formError && !_vm.$v.position.isEmpty.required
-                ? _c("span", { staticClass: "text-danger" }, [
-                    _vm._v("Location rquired\n                ")
-                  ])
+                ? _c(
+                    "span",
+                    { staticClass: "invalid-feedback text-left d-block" },
+                    [_vm._v("Location rquired\n                ")]
+                  )
                 : _vm._e(),
               _vm._v(" "),
               _c("button", { staticClass: "btn", attrs: { type: "submit" } }, [
@@ -308,7 +310,7 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _c("span", [
+              _c("span", { staticClass: "locate-me" }, [
                 _c(
                   "a",
                   {

@@ -4,6 +4,8 @@
 
         <Sidebar />
 
+        <DeliveryAddress v-if="this.$store.getters['auth/check']" />
+
         <transition name="fade" mode="out-in">
             <router-view />
         </transition>
@@ -13,11 +15,13 @@
 <script>
 import Header from "@/views/delivery/components/Header";
 import Sidebar from "@/views/delivery/components/Sidebar";
+import DeliveryAddress from "@/views/delivery/components/DeliveryAddress";
 
 export default {
     components: {
         Header,
-        Sidebar
+        Sidebar,
+        DeliveryAddress
     },
 
     data() {
